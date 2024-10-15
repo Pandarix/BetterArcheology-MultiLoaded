@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+issueTrackerURL = "https://github.com/Pandarix/BetterArcheologyMultiLoaded/issues"
+license = "MIT"
+
+[[mods]]
+modId = "betterarcheology"
+version = "${version}"
+displayName = "${displayName}"
+authors = "${authors}"
+description = "${modDescription}"
+logoFile = "icon.png"
+
+[[dependencies.betterarcheology]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.betterarcheology]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.betterarcheology]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "betterarcheology.mixins.json"

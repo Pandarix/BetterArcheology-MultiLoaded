@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 7,
+  "description": {
+    "translate": "enchantment.betterarcheology.penetrating_strike"
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 15
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/weapon",
+  "weight": 2
+}

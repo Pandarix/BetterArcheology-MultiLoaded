@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:archaeology/desert_pyramid",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "betterarcheology:artifact_shards"
+        }
+      ]
+    }
+  ]
+}

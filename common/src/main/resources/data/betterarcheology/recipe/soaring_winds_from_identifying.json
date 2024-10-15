@@ -1,0 +1,15 @@
+{
+  "type": "betterarcheology:identifying",
+  "input": {
+    "item": "betterarcheology:unidentified_artifact"
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "Count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "betterarcheology:soaring_winds": 1
+      }
+    }
+  }
+}

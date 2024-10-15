@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "betterarcheology:fossil_found": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "betterarcheology:villager_fossil_head",
+              "betterarcheology:villager_fossil_body",
+              "betterarcheology:ocelot_fossil_head",
+              "betterarcheology:ocelot_fossil_body",
+              "betterarcheology:sheep_fossil_head",
+              "betterarcheology:sheep_fossil_body",
+              "betterarcheology:chicken_fossil_head",
+              "betterarcheology:chicken_fossil_body",
+              "betterarcheology:creeper_fossil_head",
+              "betterarcheology:creeper_fossil_body",
+              "betterarcheology:wolf_fossil_head",
+              "betterarcheology:wolf_fossil_body",
+              "betterarcheology:guardian_fossil_head",
+              "betterarcheology:guardian_fossil_body"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "betterarcheology:villager_fossil_head"
+    },
+    "title": {
+      "translate": "advancements.fossil_found"
+    },
+    "description": {
+      "translate": "advancements.fossil_found.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "betterarcheology:fossil_found"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
