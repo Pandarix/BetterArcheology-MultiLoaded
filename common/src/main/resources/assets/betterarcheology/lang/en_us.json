@@ -142,6 +142,7 @@
   "config.betterarcheology.torrentTotemEnabled": "Torrent Totem Effect",
   "config.betterarcheology.torrentTotemBoost": "Torrent Totem - Boostfactor",
   "config.betterarcheology.torrentTotemUpwardsBoost": "Torrent Totem - Upward Boostfactor",
+  "config.betterarcheology.soulTotemEnabled": "Totem of Souls Effect",
   "config.betterarcheology.growthTotemEnabled": "Growth Totem Effect",
   "config.betterarcheology.growthTotemGrowRadius": "Growth Totem - Radius",
   "config.betterarcheology.growthTotemGrowChance": "Growth Totem - Chance",

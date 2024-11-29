@@ -79,6 +79,9 @@ public final class BAConfig
     @ConfigEntry(id = "torrentTotemUpwardsBoost", type = EntryType.BOOLEAN, translation = "config.betterarcheology.torrentTotemUpwardsBoost")
     public static boolean torrentTotemUpwardsBoost = false;
 
+    @ConfigEntry(id = "soulTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.soulTotemEnabled")
+    public static boolean soulTotemEnabled = true;
+
     @ConfigEntry(id = "growthTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.growthTotemEnabled")
     public static boolean growthTotemEnabled = true;
 

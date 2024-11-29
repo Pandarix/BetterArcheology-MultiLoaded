@@ -1,5 +1,6 @@
 package net.Pandarix.item;
 
+import net.Pandarix.config.BAConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -48,6 +49,16 @@ public class SoulTotemItem extends Item
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand)
     {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        // if feature is disabled, notify the user and skip
+        if (!BAConfig.soulTotemEnabled || !BAConfig.totemsEnabled)
+        {
+            if (pLevel.isClientSide())
+            {
+                pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
+            }
+            return InteractionResultHolder.pass(itemstack);
+        }
+
         pPlayer.startUsingItem(pHand);
         return InteractionResultHolder.consume(itemstack);
     }
