@@ -4,10 +4,13 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
+import net.Pandarix.enchantment.ModEnchantments;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class ModItemGroup
 {
@@ -82,7 +85,7 @@ public class ModItemGroup
                                 output.accept(ModBlocks.VASE_GREEN.get());
                                 output.accept(ModBlocks.EVOKER_TRAP.get());
 
-/*                                //enchantments
+                                //enchantments
                                 try
                                 {
                                     HolderGetter<Enchantment> getter = parameters.holders().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT);
@@ -93,7 +96,7 @@ public class ModItemGroup
                                 } catch (Exception e)
                                 {
                                     BACommon.LOGGER.error("Could not add Enchanted Book to creative tab!", e);
-                                }*/
+                                }
                             }
                     ).build());
 

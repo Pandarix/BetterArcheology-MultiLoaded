@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chicken_fossil_body": {
+      "conditions": {
+        "items": [
+          {
+            "items": "betterarcheology:chicken_fossil_body"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_chicken_fossil_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": "betterarcheology:chicken_fossil_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "betterarcheology:chicken_fossil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chicken_fossil_body",
+      "has_chicken_fossil_head"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "betterarcheology:chicken_fossil"
+    ]
+  }
+}

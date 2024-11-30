@@ -5,3 +5,4 @@ accessible method net/minecraft/world/item/BrushItem spawnDustParticles (Lnet/mi
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/inventory/AbstractContainerMenu addSlot (Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;
+accessible class net/minecraft/world/entity/npc/VillagerTrades$TreasureMapForEmeralds

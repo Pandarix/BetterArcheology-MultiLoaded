@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "ba_fossils",
+  "ingredients": [
+    {
+      "item": "betterarcheology:wolf_fossil_head"
+    },
+    {
+      "item": "betterarcheology:wolf_fossil_body"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "betterarcheology:wolf_fossil"
+  }
+}

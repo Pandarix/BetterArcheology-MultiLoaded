@@ -107,7 +107,7 @@
   "block.betterarcheology.radiance_totem_message_2": "동물 표시",
   "block.betterarcheology.radiance_totem_message_3": "플레이어 표시",
 
-  "entity.minecraft.villager.betterarcheology.archeologist": "고고학자",
+  "entity.minecraft.villager.archeologist": "고고학자",
 
   "enchantment.betterarcheology.penetrating_strike": "관통 타격",
   "enchantment.betterarcheology.penetrating_strike.desc": "보호 인챈트의 효과를 부분적으로 무시합니다.",

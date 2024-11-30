@@ -7,15 +7,20 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.entity.ModBlockEntities;
+import net.Pandarix.compat.jei.recipe.ModRecipes;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.item.ModItemGroup;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.screen.ModMenuTypes;
+import net.Pandarix.util.ModTags;
+import net.Pandarix.villager.ModTrades;
+import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
 
@@ -24,7 +29,7 @@ public final class BACommon
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "betterarcheology";
     // Directly reference a slf4j logger
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final Configurator CONFIGURATOR = new Configurator(MOD_ID);
     public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(BACommon.MOD_ID));
 
@@ -36,8 +41,11 @@ public final class BACommon
         ModItemGroup.register();
         ModItems.register();
         ModBlocks.register();
+        ModTags.register();
         ModBlockEntities.register();
         ModMenuTypes.register();
+        ModRecipes.register();
+        ModVillagers.register();
     }
 
     public static ResourceLocation createResource(String path)

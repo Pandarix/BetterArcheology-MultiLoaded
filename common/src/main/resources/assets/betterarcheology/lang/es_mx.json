@@ -107,7 +107,7 @@
   "block.betterarcheology.radiance_totem_message_2": "Mostrando Animales",
   "block.betterarcheology.radiance_totem_message_3": "Monstrando Jugadores",
 
-  "entity.minecraft.villager.betterarcheology.archeologist": "Arqueólogo",
+  "entity.minecraft.villager.archeologist": "Arqueólogo",
 
   "enchantment.betterarcheology.penetrating_strike": "Golpe Penetrante",
   "enchantment.betterarcheology.penetrating_strike.desc": "Ignora parcialmente efectos de Encantamientos de Protección",

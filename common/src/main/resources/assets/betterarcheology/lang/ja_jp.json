@@ -107,7 +107,7 @@
     "block.betterarcheology.radiance_totem_message_2": "動物のみを表示",
     "block.betterarcheology.radiance_totem_message_3": "プレイヤーのみを表示",
 
-    "entity.minecraft.villager.betterarcheology.archeologist": "考古学者",
+    "entity.minecraft.villager.archeologist": "考古学者",
 
     "enchantment.betterarcheology.penetrating_strike": "会心の一撃",
     "enchantment.betterarcheology.penetrating_strike.desc": "ダメージ軽減の効果を一部貫通します。",

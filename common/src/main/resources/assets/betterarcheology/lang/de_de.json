@@ -110,7 +110,7 @@
   "block.betterarcheology.radiance_totem_message_2": "Erleuchtet Tiere",
   "block.betterarcheology.radiance_totem_message_3": "Erleuchtet Spieler",
 
-  "entity.minecraft.villager.betterarcheology.archeologist": "Archäologe",
+  "entity.minecraft.villager.archeologist": "Archäologe",
 
   "enchantment.betterarcheology.penetrating_strike": "Durchdringender Hieb",
   "enchantment.betterarcheology.penetrating_strike.desc": "Ignoriert die Effekte von Schutz-Verzauberungen teilweise",
@@ -124,31 +124,5 @@
   "filled_map.catacombs": "Katakomben-Entdeckerkarte",
   "filled_map.light": "Lichttempel-Entdeckerkarte",
 
-  "config.notify.disabled": "Diese Funktion wurde in der Konfiguration deaktiviert!",
-
-  "config.betterarcheology.artifactsEnabled": "All Artifact Effects",
-  "config.betterarcheology.penetratingStrikeEnabled": "Penetrating Strike Effect",
-  "config.betterarcheology.penetratingStrikeIgnorance": "Penetrating Strike - Prot. Ignorance",
-  "config.betterarcheology.soaringWindsEnabled": "Soaring Winds Effect",
-  "config.betterarcheology.soaringWindsBoost": "Soaring Winds - Boostfactor",
-  "config.betterarcheology.tunnelingEnabled": "Tunneling Effect",
-  "config.betterarcheology.tunnelingAxeEnabled": "Tunneling for Axe",
-  "config.betterarcheology.totemsEnabled": "All Totem Effects",
-  "config.betterarcheology.radianceTotemEnabled": "Radiance Totem Effect",
-  "config.betterarcheology.radianceTotemDamageEnabled": "Radiance Totem - Damage",
-  "config.betterarcheology.radianceTotemDamage": "Radiance Totem - Damage Value",
-  "config.betterarcheology.radianceTotemDamageTickAverage": "Radiance Totem - Average Tick Time",
-  "config.betterarcheology.radianceTotemRadius": "Radiance Totem - Radius",
-  "config.betterarcheology.torrentTotemEnabled": "Torrent Totem Effect",
-  "config.betterarcheology.torrentTotemBoost": "Torrent Totem - Boostfactor",
-  "config.betterarcheology.torrentTotemUpwardsBoost": "Torrent Totem - Upward Boostfactor",
-  "config.betterarcheology.growthTotemEnabled": "Growth Totem Effect",
-  "config.betterarcheology.growthTotemGrowRadius": "Growth Totem - Radius",
-  "config.betterarcheology.growthTotemGrowChance": "Growth Totem - Chance",
-  "config.betterarcheology.fossilEffectsEnabled": "Fossils Effects",
-  "config.betterarcheology.fossilFleeRange": "Fossil Flee Range",
-  "config.betterarcheology.chickenFossilEffectsEnabled": "Chicken Fossil Effects",
-  "config.betterarcheology.ocelotFossilEffectsEnabled": "Ocelot Fossil Effects",
-  "config.betterarcheology.wolfFossilEffectsEnabled": "Wolf Fossil Effects",
-  "config.betterarcheology.guardianFossilEffectsEnabled": "Guardian Fossil Effects"
+  "config.notify.disabled": "Diese Funktion wurde in der Konfiguration deaktiviert!"
 }

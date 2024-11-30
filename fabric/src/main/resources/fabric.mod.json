@@ -19,6 +19,9 @@
     ],
     "client": [
       "net.Pandarix.fabric.client.BAFabricClient"
+    ],
+    "fabric-datagen": [
+      "net.Pandarix.fabric.datagen.ModDataGenerators"
     ]
   },
   "mixins": [

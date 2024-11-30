@@ -110,7 +110,7 @@
   "block.betterarcheology.radiance_totem_message_2": "Displaying Animals",
   "block.betterarcheology.radiance_totem_message_3": "Displaying Players",
 
-  "entity.minecraft.villager.betterarcheology.archeologist": "Archeologist",
+  "entity.minecraft.villager.archeologist": "Archeologist",
 
   "enchantment.betterarcheology.penetrating_strike": "Penetrating Strike",
   "enchantment.betterarcheology.penetrating_strike.desc": "Partially ignores effects of Protection Enchantments",
@@ -124,32 +124,5 @@
   "filled_map.catacombs": "Catacombs Explorer Map",
   "filled_map.light": "Light Temple Explorer Map",
 
-  "config.notify.disabled": "This feature has been disabled in the config!",
-
-  "config.betterarcheology.artifactsEnabled": "All Artifact Effects",
-  "config.betterarcheology.penetratingStrikeEnabled": "Penetrating Strike Effect",
-  "config.betterarcheology.penetratingStrikeIgnorance": "Penetrating Strike - Prot. Ignorance",
-  "config.betterarcheology.soaringWindsEnabled": "Soaring Winds Effect",
-  "config.betterarcheology.soaringWindsBoost": "Soaring Winds - Boostfactor",
-  "config.betterarcheology.tunnelingEnabled": "Tunneling Effect",
-  "config.betterarcheology.tunnelingAxeEnabled": "Tunneling for Axe",
-  "config.betterarcheology.totemsEnabled": "All Totem Effects",
-  "config.betterarcheology.radianceTotemEnabled": "Radiance Totem Effect",
-  "config.betterarcheology.radianceTotemDamageEnabled": "Radiance Totem - Damage",
-  "config.betterarcheology.radianceTotemDamage": "Radiance Totem - Damage Value",
-  "config.betterarcheology.radianceTotemDamageTickAverage": "Radiance Totem - Average Tick Time",
-  "config.betterarcheology.radianceTotemRadius": "Radiance Totem - Radius",
-  "config.betterarcheology.torrentTotemEnabled": "Torrent Totem Effect",
-  "config.betterarcheology.torrentTotemBoost": "Torrent Totem - Boostfactor",
-  "config.betterarcheology.torrentTotemUpwardsBoost": "Torrent Totem - Upward Boostfactor",
-  "config.betterarcheology.soulTotemEnabled": "Totem of Souls Effect",
-  "config.betterarcheology.growthTotemEnabled": "Growth Totem Effect",
-  "config.betterarcheology.growthTotemGrowRadius": "Growth Totem - Radius",
-  "config.betterarcheology.growthTotemGrowChance": "Growth Totem - Chance",
-  "config.betterarcheology.fossilEffectsEnabled": "Fossils Effects",
-  "config.betterarcheology.fossilFleeRange": "Fossil Flee Range",
-  "config.betterarcheology.chickenFossilEffectsEnabled": "Chicken Fossil Effects",
-  "config.betterarcheology.ocelotFossilEffectsEnabled": "Ocelot Fossil Effects",
-  "config.betterarcheology.wolfFossilEffectsEnabled": "Wolf Fossil Effects",
-  "config.betterarcheology.guardianFossilEffectsEnabled": "Guardian Fossil Effects"
+  "config.notify.disabled": "This feature has been disabled in the config!"
 }

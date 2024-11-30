@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "III",
+    "IGI",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "betterarcheology:bomb"
+  }
+}

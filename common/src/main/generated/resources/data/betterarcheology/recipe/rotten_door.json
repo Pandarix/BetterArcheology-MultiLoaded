@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_door",
+  "key": {
+    "P": {
+      "item": "betterarcheology:rotten_planks"
+    }
+  },
+  "pattern": [
+    "PP",
+    "PP",
+    "PP"
+  ],
+  "result": {
+    "count": 3,
+    "id": "betterarcheology:rotten_door"
+  }
+}

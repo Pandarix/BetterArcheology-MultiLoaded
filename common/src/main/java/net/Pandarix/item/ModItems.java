@@ -29,15 +29,6 @@ public class ModItems
     public static final RegistrySupplier<Item> TORRENT_TOTEM = registerItem("torrent_totem", () -> new TorrentTotemItem(propertiesWithTab().rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
     public static final RegistrySupplier<Item> SOUL_TOTEM = registerItem("soul_totem", () -> new SoulTotemItem(propertiesWithTab().rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
 
-    /*
-    public static boolean isFossil(Block block)
-    {
-        return block instanceof FossilBaseBodyBlock
-                || block instanceof FossilBaseWithEntityBlock
-                || block instanceof FossilBaseHeadBlock
-                || block instanceof FossilBaseBlock;
-    }*/
-
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     private static Item.Properties propertiesWithTab()
     {

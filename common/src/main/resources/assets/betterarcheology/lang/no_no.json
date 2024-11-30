@@ -107,7 +107,7 @@
   "block.betterarcheology.radiance_totem_message_2": "Viser dyr",
   "block.betterarcheology.radiance_totem_message_3": "Viser spillere",
 
-  "entity.minecraft.villager.betterarcheology.archeologist": "Arkeolog",
+  "entity.minecraft.villager.archeologist": "Arkeolog",
 
   "enchantment.betterarcheology.penetrating_strike": "Gjennomtrengende slag",
   "enchantment.betterarcheology.penetrating_strike.desc": "Ignorerer delvis effekten av beskyttelsesfortryllelser",

@@ -4,7 +4,10 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+
+import java.util.function.Supplier;
 
 public class ModRecipes
 {
@@ -13,4 +16,10 @@ public class ModRecipes
 
     public static final RegistrySupplier<RecipeSerializer<IdentifyingRecipe>> IDENTIFYING_SERIALIZER =
             SERIALIZERS.register(BACommon.createResource("identifying"), () -> IdentifyingRecipe.Serializer.INSTANCE);
+
+    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    public static void register()
+    {
+        BACommon.logRegistryEvent(SERIALIZERS);
+    }
 }

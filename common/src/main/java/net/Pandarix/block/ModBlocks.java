@@ -144,6 +144,14 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem", () -> new RadianceTotemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
+    public static boolean isFossil(Block block)
+    {
+        return block instanceof FossilBaseBodyBlock
+                || block instanceof FossilBaseWithEntityBlock
+                || block instanceof FossilBaseHeadBlock
+                || block instanceof FossilBaseBlock;
+    }
+
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block) {
         return registerBlock(name, block, null);

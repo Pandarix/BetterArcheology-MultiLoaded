@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rotten_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "betterarcheology:rotten_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "betterarcheology:rotten_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rotten_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "betterarcheology:rotten_pressure_plate"
+    ]
+  }
+}

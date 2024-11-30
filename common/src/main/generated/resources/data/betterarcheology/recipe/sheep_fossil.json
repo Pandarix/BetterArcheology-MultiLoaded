@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "ba_fossils",
+  "ingredients": [
+    {
+      "item": "betterarcheology:sheep_fossil_head"
+    },
+    {
+      "item": "betterarcheology:sheep_fossil_body"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "betterarcheology:sheep_fossil"
+  }
+}
