@@ -1,13 +1,13 @@
 package net.Pandarix.block.custom;
 
 import com.google.common.collect.ImmutableMap;
-import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -73,9 +71,9 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
         if (pState.getBlock() != pNewState.getBlock())
         {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof VillagerFossilBlockEntity)
+            if (blockEntity instanceof VillagerFossilBlockEntity villagerFossilBlockEntity)
             {
-                ((VillagerFossilBlockEntity) blockEntity).drops();
+                Containers.dropContents(pLevel, pPos, villagerFossilBlockEntity);
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
             }
         }
@@ -101,15 +99,6 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state)
     {
         return new VillagerFossilBlockEntity(pos, state);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
-                                                                  BlockEntityType<T> type)
-    {
-        return createTickerHelper(type, ModBlockEntities.VILLAGER_FOSSIL.get(),
-                VillagerFossilBlockEntity::tick);
     }
 
     @Override

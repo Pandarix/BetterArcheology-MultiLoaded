@@ -2,7 +2,7 @@ package net.Pandarix.block.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.Pandarix.betterarcheology.block.entity.SusBlockEntity;
+import net.Pandarix.block.entity.SusBlockEntity;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

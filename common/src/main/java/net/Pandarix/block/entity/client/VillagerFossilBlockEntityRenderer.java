@@ -1,8 +1,8 @@
 package net.Pandarix.block.entity.client;
 
 import com.mojang.math.Axis;
-import net.Pandarix.betterarcheology.block.custom.FossilBaseWithEntityBlock;
-import net.Pandarix.betterarcheology.block.entity.VillagerFossilBlockEntity;
+import net.Pandarix.block.custom.FossilBaseWithEntityBlock;
+import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,6 +29,11 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
     public void render(VillagerFossilBlockEntity pBlockEntity, float pPartialTick, com.mojang.blaze3d.vertex.PoseStack pPoseStack,
                        MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay)
     {
+        if (pBlockEntity.getLevel() == null)
+        {
+            return;
+        }
+
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         pPoseStack.pushPose();
@@ -54,7 +59,6 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
             {
                 pPoseStack.translate(0.5f, 0.95f, 0.75f);
                 pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
-                ;
             }
             default -> pPoseStack.mulPose(Axis.YP.rotationDegrees(-90));
         }
@@ -63,7 +67,7 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
         pPoseStack.scale(0.5f, 0.5f, 0.5f);
 
         //render item in inventory to hand position with lightlevel at blockpos
-        itemRenderer.renderStatic(pBlockEntity.getInventoryContents(), ItemDisplayContext.FIXED, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
+        itemRenderer.renderStatic(pBlockEntity.getHeldItem(), ItemDisplayContext.FIXED, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
 
         pPoseStack.popPose();
     }

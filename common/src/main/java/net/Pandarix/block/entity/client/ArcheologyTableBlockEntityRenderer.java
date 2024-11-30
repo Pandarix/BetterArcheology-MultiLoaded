@@ -2,7 +2,7 @@ package net.Pandarix.block.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.Pandarix.betterarcheology.block.entity.ArcheologyTableBlockEntity;
+import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,7 +31,7 @@ public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<A
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         //gets List of all Items in inventory and stores corresponding indexes
-        List<ItemStack> inventoryContents = pBlockEntity.getInventoryContents();
+        List<ItemStack> inventoryContents = pBlockEntity.getItems();
         ItemStack brush = inventoryContents.get(0);
         ItemStack unidentified = inventoryContents.get(1);
         ItemStack identified = inventoryContents.get(2);

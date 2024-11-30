@@ -288,14 +288,16 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @NotNull
-    protected NonNullList<ItemStack> getItems()
+    public NonNullList<ItemStack> getItems()
     {
         return this.items;
     }
 
     protected void setItems(NonNullList<ItemStack> nonNullList)
     {
-        this.items = nonNullList;
+        for(int i = 0; i < this.items.size(); i++) {
+            this.items.set(i, nonNullList.get(i));
+        }
     }
 
     public void setItem(int i, ItemStack itemStack)
