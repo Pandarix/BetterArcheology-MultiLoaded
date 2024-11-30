@@ -41,7 +41,7 @@ public class ModItems
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     private static Item.Properties propertiesWithTab()
     {
-        return new Item.Properties().arch$tab(ModItemGroup.BETTER_ARCHEOLOGY_ITEMGROUP);
+        return new Item.Properties();
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> supplier)
