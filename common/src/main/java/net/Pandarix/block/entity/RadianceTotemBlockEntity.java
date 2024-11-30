@@ -1,7 +1,7 @@
 package net.Pandarix.block.entity;
 
-import net.Pandarix.betterarcheology.BetterArcheologyConfig;
-import net.Pandarix.betterarcheology.block.custom.RadianceTotemBlock;
+import net.Pandarix.block.custom.RadianceTotemBlock;
+import net.Pandarix.config.BAConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +27,7 @@ public class RadianceTotemBlockEntity extends BlockEntity
 
     public static void tick(Level world, BlockPos pos, BlockState state, RadianceTotemBlockEntity blockEntity)
     {
-        if (!BetterArcheologyConfig.radianceTotemEnabled.get() || !BetterArcheologyConfig.totemsEnabled.get())
+        if (!BAConfig.radianceTotemEnabled || !BAConfig.totemsEnabled)
         {
             return;
         }
@@ -35,19 +35,19 @@ public class RadianceTotemBlockEntity extends BlockEntity
         if (world.getRandom().nextIntBetweenInclusive(1, 10) == 1)
         {
             //get all entities in a 10 block radius
-            int totemRadius = BetterArcheologyConfig.radianceTotemRadius.get() * 2;
+            int totemRadius = BAConfig.radianceTotemRadius * 2;
             List<LivingEntity> livingEntities = world.getEntitiesOfClass(LivingEntity.class, AABB.ofSize(pos.getCenter(), totemRadius, totemRadius, totemRadius));
             applyGlowingEffect(livingEntities, state);
 
             //damages every hostile monster with a chance of 1/(configValue*2), resulting in an average damage tick every configValue seconds
-            if (BetterArcheologyConfig.radianceTotemDamageEnabled.get() &&
-                    world.getRandom().nextIntBetweenInclusive(1, BetterArcheologyConfig.radianceTotemDamageTickAverage.get() * 2) == 1)
+            if (BAConfig.radianceTotemDamageEnabled &&
+                    world.getRandom().nextIntBetweenInclusive(1, BAConfig.radianceTotemDamageTickAverage * 2) == 1)
             {
                 for (LivingEntity livingEntity : livingEntities)
                 {
                     if (livingEntity instanceof Monster monster)
                     {
-                        monster.hurt(monster.damageSources().magic(), BetterArcheologyConfig.radianceTotemDamage.get());
+                        monster.hurt(monster.damageSources().magic(), BAConfig.radianceTotemDamage);
                         world.playSound(null, monster.position().x(), monster.position().y(), monster.position().z(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.HOSTILE, 0.5f, 0.5f);
                     }
                 }

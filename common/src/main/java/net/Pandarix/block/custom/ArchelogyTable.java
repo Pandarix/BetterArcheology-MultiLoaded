@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -88,7 +87,7 @@ public class ArchelogyTable extends BaseEntityBlock
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if (entity instanceof ArcheologyTableBlockEntity)
             {
-                ServerPlayerHelper.tryOpenScreen(pPlayer, (ArcheologyTableBlockEntity) entity, pPos);
+                ServerPlayerHelper.tryOpenScreen(pPlayer, (ArcheologyTableBlockEntity) entity);
             } else
             {
                 throw new IllegalStateException("Container Provider Missing!");
@@ -109,7 +108,7 @@ public class ArchelogyTable extends BaseEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType)
     {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.ARCHEOLOGY_TABLE, ArcheologyTableBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.ARCHEOLOGY_TABLE.get(), ArcheologyTableBlockEntity::tick);
     }
 
     @Override

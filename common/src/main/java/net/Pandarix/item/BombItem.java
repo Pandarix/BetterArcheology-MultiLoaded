@@ -2,9 +2,9 @@ package net.Pandarix.item;
 
 import net.Pandarix.BACommon;
 import net.Pandarix.entity.BombEntity;
+import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -34,7 +34,7 @@ public class BombItem extends Item
         ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
 
         //plays sound for throwing the bomb
-        pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
+        pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
 
         BombEntity bombEntity = new BombEntity(pLevel, pPlayer);
 
@@ -51,7 +51,8 @@ public class BombItem extends Item
             AdvancementHolder advancement = Objects.requireNonNull(pLevel.getServer()).getAdvancements().get(ADVANCEMENT_ID);
             if (advancement != null)
             {
-                ((ServerPlayer) pPlayer).getAdvancements().award(advancement, "criteria");
+                ServerPlayerHelper.getServerPlayer(pPlayer)
+                        .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
             }
         }
 

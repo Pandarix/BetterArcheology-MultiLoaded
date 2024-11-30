@@ -108,7 +108,7 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
                                                                   BlockEntityType<T> type)
     {
-        return createTickerHelper(type, ModBlockEntities.VILLAGER_FOSSIL,
+        return createTickerHelper(type, ModBlockEntities.VILLAGER_FOSSIL.get(),
                 VillagerFossilBlockEntity::tick);
     }
 
@@ -128,7 +128,7 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if (entity instanceof VillagerFossilBlockEntity)
             {
-                ServerPlayerHelper.tryOpenScreen(pPlayer, (VillagerFossilBlockEntity) entity, pPos);
+                ServerPlayerHelper.tryOpenScreen(pPlayer, (VillagerFossilBlockEntity) entity);
             } else
             {
                 throw new IllegalStateException("VillagerFossilBlockEntity Container provider is missing!");

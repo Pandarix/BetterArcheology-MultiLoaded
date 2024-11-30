@@ -1,8 +1,10 @@
 package net.Pandarix.block.entity;
 
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.ArchelogyTable;
+import net.Pandarix.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -18,9 +20,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.*;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
@@ -28,6 +31,7 @@ import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -39,45 +43,33 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.Arrays;
-import java.util.List;
 
 public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible
 {
+    // INVENTORY ──────────────────────────────────────────────────────────────────────────
     //default inventory size of the archeology table,
     public static final int INV_SIZE = 3;
     //default number of Properties of ArcheologyTableBlockEntity
-    public static final int PROPERTY_DELEGATES = 2;
-
+    public static final int NO_PROP_DELEGATES = 2;
     protected NonNullList<ItemStack> items;
+    private static final int[] SLOTS_FOR_UP = new int[]{0};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2};
+    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+    //loottable for crafting results
+    protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("identifying_loot"));
+    private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
 
-/*    //count of custom slots inside the table
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3)
-    {
-        @Override
-        protected void onContentsChanged(int slot)
-        {
-            setChanged();
-        }
-    };
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();*/
-
-    private final String translationKey = "archeology_table";   //used in getDisplayName using getTranslationKey
-
+    // PROGRESS ──────────────────────────────────────────────────────────────────────────
     //synchronises Ints between server and client
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 72;
 
-    //loottable for crafting results
-    protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("identifying_loot"));
-
     public ArcheologyTableBlockEntity(BlockPos pos, BlockState state)
     {
         super(ModBlockEntities.ARCHEOLOGY_TABLE.get(), pos, state);
-        this.items = NonNullList.withSize(3, ItemStack.EMPTY);
-
+        this.items = NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
+        this.recipesUsed = new Object2IntOpenHashMap<>();
         //getter und setter für PropertyDelegate based on index (progress, maxProgress)
         this.data = new ContainerData()
         {
@@ -105,63 +97,15 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
             @Override
             public int getCount()
             {
-                return 2;
+                return NO_PROP_DELEGATES;
             }
         };
     }
 
+    // CRAFTING-RELATED ──────────────────────────────────────────────────────────────────────────
     @Override
     @NotNull
-    public Component getDisplayName()
-    {
-        return Component.translatable(ResourceLocation.fromNamespaceAndPath("block." + BetterArcheology.MOD_ID, translationKey).toLanguageKey());
-    }
-
-    protected NonNullList<ItemStack> getItems() {
-        return this.items;
-    }
-
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
-        this.items = nonNullList;
-    }
-
-    public void setItem(int i, ItemStack itemStack) {
-        ItemStack itemStack2 = (ItemStack)this.items.get(i);
-        boolean isValid = !itemStack.isEmpty() && ItemStack.isSameItemSameComponents(itemStack2, itemStack);
-        this.items.set(i, itemStack);
-        itemStack.limitSize(this.getMaxStackSize(itemStack));
-        if (i == 0 && !isValid) {
-            this.setChanged();
-        }
-
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider pRegistries)
-    {
-        ContainerHelper.saveAllItems(nbt, this.items, pRegistries);
-        nbt.putInt("archeology_table.progress", progress);
-        super.saveAdditional(nbt, pRegistries);
-    }
-
-    @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
-    {
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
-
-        super.loadAdditional(pTag, pRegistries);
-        progress = pTag.getInt("archeology_table");
-        setChanged();
-    }
-
-    public int getContainerSize() {
-        return this.items.size();
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
+    protected AbstractContainerMenu createMenu(int id, Inventory inventory)
     {
         return new IdentifyingMenu(id, inventory, this, this.data);
     }
@@ -205,30 +149,40 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         }
     }
 
+    @Override
+    public void setRecipeUsed(@Nullable RecipeHolder<?> recipeHolder)
+    {
+        if (recipeHolder != null) {
+            ResourceLocation resourceLocation = recipeHolder.id();
+            this.recipesUsed.addTo(resourceLocation, 1);
+        }
+    }
+
+    @Nullable
+    @Override
+    public RecipeHolder<?> getRecipeUsed()
+    {
+        return null;
+    }
+
     private void craftItem()
     {
-        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-        for (int i = 0; i < this.itemHandler.getSlots(); i++)
-        {
-            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
-        }
-
         //if there is an unidentified artifact in the input slot and the output slot is empty:
-        if (hasRecipe(this) && this.itemHandler.getStackInSlot(2).isEmpty())
+        if (hasRecipe(this) && this.items.get(2).isEmpty())
         {
             //remove input from slot
-            ItemStack stack = this.itemHandler.getStackInSlot(1);
+            ItemStack stack = this.items.get(1);
             stack.shrink(1);
-            this.itemHandler.setStackInSlot(1, stack);
-            ItemStack brush = this.itemHandler.getStackInSlot(0);
+            this.items.set(1, stack);
+            ItemStack brush = this.items.get(0);
             int newDamage = brush.getDamageValue() + 1; //calculate new Damage Value the item would have
 
             //if the item is supposed to break or the durability is smaller than zero
             if (newDamage > brush.getMaxDamage())
             {
-                ItemStack brushStack = this.itemHandler.getStackInSlot(0);
+                ItemStack brushStack = this.items.get(0);
                 brushStack.shrink(1);
-                this.itemHandler.setStackInSlot(0, brushStack);   //remove the Item
+                this.items.set(0, brushStack);   //remove the Item
                 assert this.level != null;
                 if (!this.level.isClientSide())
                 {
@@ -247,7 +201,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
                 //play sound after crafting
                 this.level.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
             }
-            this.itemHandler.setStackInSlot(2, generateCraftingLoot(this, this.level)); //set crafted output in the output slot
+            this.items.set(2, generateCraftingLoot(this, this.level)); //set crafted output in the output slot
             this.resetProgress(); //resets crafting progress
             this.setChanged();
         }
@@ -281,57 +235,94 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
     private static boolean hasRecipe(ArcheologyTableBlockEntity entity)
     {
-        //recipe type can be configured here
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++)
-        {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-
-        boolean hasShardInFirstSlot = entity.itemHandler.getStackInSlot(1).is(ModItems.UNIDENTIFIED_ARTIFACT.get());                     //Input
-        Item itemInSlot0 = entity.itemHandler.getStackInSlot(0).getItem();
+        boolean hasShardInFirstSlot = entity.items.get(1).is(ModItems.UNIDENTIFIED_ARTIFACT.get());                     //Input
+        Item itemInSlot0 = entity.items.get(0).getItem();
         boolean hasBrushInSlot = itemInSlot0 instanceof BrushItem;
-        return hasShardInFirstSlot && hasBrushInSlot && canInsertAmountIntoOutputSlot(entity.itemHandler) && canInsertItemIntoOutputSlot(entity.itemHandler, entity.itemHandler.getStackInSlot(2).getItem());
+        return hasShardInFirstSlot && hasBrushInSlot && canInsertAmountIntoOutputSlot(entity.items) && canInsertItemIntoOutputSlot(entity.items, entity.items.get(2).getItem());
     }
 
-    public boolean canExtract(int slot, ItemStack stack, Direction side)
+    // INVENTORY HANDLING ──────────────────────────────────────────────────────────────────────────
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction direction)
     {
-        //only extract on the bottom
-        return side == Direction.DOWN && slot == 2;
+        return switch (direction)
+        {
+            case DOWN -> SLOTS_FOR_DOWN;
+            case UP -> SLOTS_FOR_UP;
+            default -> SLOTS_FOR_SIDES;
+        };
     }
 
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side)
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction)
     {
         //no insertion into the output slot
-        if (side == Direction.DOWN)
+        if (direction == Direction.DOWN)
         {
             return false;
         }
         //if the top is targeted and the item is a Brush, insert
-        if (side == Direction.UP)
+        if (direction == Direction.UP)
         {
-            return slot == 0 && stack.getItem() instanceof BrushItem;
+            return slot == 0 && itemStack.getItem() instanceof BrushItem;
         }
         //for the sides: if it is an unidentified artifact
-        return slot == 1 && stack.is(ModItems.UNIDENTIFIED_ARTIFACT.get());
+        return slot == 1 && itemStack.is(ModItems.UNIDENTIFIED_ARTIFACT.get());
     }
 
-    private static boolean canInsertItemIntoOutputSlot(ItemStackHandler handler, Item output)
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction)
     {
-        return handler.getStackInSlot(2).getItem() == output || handler.getStackInSlot(2).isEmpty();
+        //only extract on the bottom
+        return direction == Direction.DOWN && slot == 2;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(ItemStackHandler handler)
+    private static boolean canInsertItemIntoOutputSlot(NonNullList<ItemStack> handler, Item output)
     {
-        return handler.getStackInSlot(2).getMaxStackSize() > handler.getStackInSlot(2).getCount();
+        return handler.get(2).getItem() == output || handler.get(2).isEmpty();
     }
 
-    public List<ItemStack> getInventoryContents()
+    private static boolean canInsertAmountIntoOutputSlot(NonNullList<ItemStack> items)
     {
-        return Arrays.asList(itemHandler.getStackInSlot(0), itemHandler.getStackInSlot(1), itemHandler.getStackInSlot(2));
+        return items.get(2).getMaxStackSize() > items.get(2).getCount();
     }
 
+    @NotNull
+    protected NonNullList<ItemStack> getItems()
+    {
+        return this.items;
+    }
+
+    protected void setItems(NonNullList<ItemStack> nonNullList)
+    {
+        this.items = nonNullList;
+    }
+
+    public void setItem(int i, ItemStack itemStack)
+    {
+        ItemStack itemStack2 = this.items.get(i);
+        boolean isValid = !itemStack.isEmpty() && ItemStack.isSameItemSameComponents(itemStack2, itemStack);
+        this.items.set(i, itemStack);
+        itemStack.limitSize(this.getMaxStackSize(itemStack));
+        if (i == 0 && !isValid)
+        {
+            this.setChanged();
+        }
+
+    }
+
+    public int getContainerSize()
+    {
+        return this.items.size();
+    }
+
+    @Override
+    public void fillStackedContents(StackedContents stackedContents)
+    {
+        this.items.forEach(stackedContents::accountStack);
+    }
+
+    // NETWORKING ──────────────────────────────────────────────────────────────────────────
     @Override
     public void setChanged()
     {
@@ -342,7 +333,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         super.setChanged();
     }
 
-    /*Synchronization to the client*/
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket()
@@ -352,11 +342,57 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     @NotNull
-    @ParametersAreNonnullByDefault
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries)
     {
         CompoundTag nbt = super.getUpdateTag(pRegistries);
         this.saveAdditional(nbt, pRegistries);
         return nbt;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
+    {
+        super.saveAdditional(pTag, pRegistries);
+
+        ContainerHelper.saveAllItems(pTag, this.items, pRegistries);
+
+        pTag.putInt("archeology_table.progress", progress);
+
+        CompoundTag recipesUsed = new CompoundTag();
+        this.recipesUsed.forEach((resourceLocation, integer) ->
+                recipesUsed.putInt(resourceLocation.toString(), integer));
+        pTag.put("RecipesUsed", recipesUsed);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
+    {
+        super.loadAdditional(pTag, pRegistries);
+
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
+
+        progress = pTag.getInt("archeology_table");
+
+        CompoundTag recipesUsed = pTag.getCompound("RecipesUsed");
+        recipesUsed.getAllKeys().forEach(string ->
+                this.recipesUsed.put(ResourceLocation.parse(string), recipesUsed.getInt(string)));
+
+        setChanged();
+    }
+
+    // MISC ──────────────────────────────────────────────────────────────────────────
+    @Override
+    @NotNull
+    public Component getDisplayName()
+    {
+        return Component.translatable(BACommon.createResource("archeology_table").toLanguageKey());
+    }
+
+    @Override
+    @NotNull
+    protected Component getDefaultName()
+    {
+        return getDisplayName();
     }
 }

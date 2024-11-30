@@ -3,9 +3,8 @@ package net.Pandarix.block;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
-import net.Pandarix.betterarcheology.BetterArcheology;
-import net.Pandarix.betterarcheology.block.custom.*;
-import net.Pandarix.betterarcheology.item.ModItems;
+import net.Pandarix.block.custom.*;
+import net.Pandarix.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
@@ -19,12 +18,10 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistrySupplier;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class ModBlocks
 {
     // REGISTRY ────────────────────────────────────────────────────────────────────────
@@ -147,26 +144,29 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem", () -> new RadianceTotemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
-    //REGISTERING--------------------------------------------------------------------------//
-    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block)
-    {
-        RegistrySupplier<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, null);
+    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block) {
+        return registerBlock(name, block, null);
+    }
+
+    private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block) {
+        return registerBlock(name, block, Rarity.UNCOMMON);
+    }
+
+    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, Rarity rarity) {
+        RegistrySupplier<T> toReturn = BLOCKS.register(BACommon.createResource(name), block);
+        registerBlockItem(name, toReturn, rarity);
         return toReturn;
     }
 
-    private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block)
+    private static <T extends Block> void registerBlockItem(String name, RegistrySupplier<T> block, Rarity rarity)
     {
-        RegistrySupplier<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, Rarity.UNCOMMON);
-        return toReturn;
-    }
-
-    private static <T extends Block> RegistrySupplier<Item> registerBlockItem(String name, RegistrySupplier<T> block, Rarity rarity)
-    {
-        return rarity != null ?
-                ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().rarity(rarity))) :
-                ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        ModItems.ITEMS.register(
+                BACommon.createResource(name),
+                () -> new BlockItem(block.get(), rarity != null ?
+                        new Item.Properties().rarity(rarity) :
+                        new Item.Properties())
+        );
     }
 
     private static WoodType registerWoodType(String id)
@@ -179,7 +179,7 @@ public class ModBlocks
         return BlockSetType.register(new BlockSetType(id));
     }
 
-    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    // LOAD THIS REGISTRY ─────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(BLOCKS);

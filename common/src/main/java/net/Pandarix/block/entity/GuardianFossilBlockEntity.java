@@ -1,6 +1,6 @@
 package net.Pandarix.block.entity;
 
-import net.Pandarix.betterarcheology.BetterArcheologyConfig;
+import net.Pandarix.config.BAConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,7 +21,7 @@ public class GuardianFossilBlockEntity extends BlockEntity
 
     public static void tick(Level world, BlockPos pos, BlockState state, GuardianFossilBlockEntity blockEntity)
     {
-        if (!BetterArcheologyConfig.fossilEffectsEnabled.get() || !BetterArcheologyConfig.guardianFossilEffectsEnabled.get())
+        if (!BAConfig.fossilEffectsEnabled || !BAConfig.guardianFossilEffectsEnabled)
         {
             return;
         }

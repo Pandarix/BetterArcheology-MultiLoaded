@@ -64,7 +64,7 @@ public class RadianceTotemBlock extends FossilBaseWithEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return createTickerHelper(type, ModBlockEntities.RADIANCE_TOTEM, RadianceTotemBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.RADIANCE_TOTEM.get(), RadianceTotemBlockEntity::tick);
     }
 
     @Override
@@ -170,10 +170,10 @@ public class RadianceTotemBlock extends FossilBaseWithEntityBlock
         {
             if (direction.getAxis() == Direction.Axis.Y)
             {
-                BlockState blockstate = this.defaultBlockState().setValue(HANGING, Boolean.valueOf(direction == Direction.UP));
+                BlockState blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
                 if (blockstate.canSurvive(pContext.getLevel(), pContext.getClickedPos()))
                 {
-                    return blockstate.setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
+                    return blockstate.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
                 }
             }
         }

@@ -1,18 +1,25 @@
 package net.Pandarix.util;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.Optional;
+
 public class ServerPlayerHelper
 {
-    public static void tryOpenScreen(Player pPlayer, MenuProvider pMenuProvider, BlockPos pPos)
+    public static Optional<ServerPlayer> getServerPlayer(Player player)
     {
-        ServerPlayer serverPlayer = getServerPlayer(pPlayer);
-        if (serverPlayer != null)
+        if (player instanceof ServerPlayer serverPlayer)
         {
-            serverPlayer.openMenu(pMenuProvider, pPos);
+            return Optional.of(serverPlayer);
         }
+        return Optional.empty();
+    }
+
+    public static void tryOpenScreen(Player pPlayer, MenuProvider pMenuProvider)
+    {
+        getServerPlayer(pPlayer)
+                .ifPresent(serverPlayer -> serverPlayer.openMenu(pMenuProvider));
     }
 }

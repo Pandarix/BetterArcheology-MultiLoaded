@@ -41,7 +41,7 @@ public class ChickenFossilBlock extends FossilBaseWithEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return createTickerHelper(type, ModBlockEntities.CHICKEN_FOSSIL, ChickenFossilBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.CHICKEN_FOSSIL.get(), ChickenFossilBlockEntity::tick);
     }
 
     @Override

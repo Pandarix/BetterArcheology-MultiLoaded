@@ -1,12 +1,12 @@
 package net.Pandarix.block.custom;
 
 import net.Pandarix.BACommon;
+import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -61,10 +61,14 @@ public class LootVaseBlock extends Block
                 //gets the AdvancementLoader of the ServerPlayer and grants him the
                 // custom criteria called "criteria"
                 // will not get executed when advancement is already granted
-                AdvancementHolder advancement = level.getServer().getAdvancements().get(ADVANCEMENT_ID);
-                if (advancement != null)
+                if (level.getServer() != null)
                 {
-                    ((ServerPlayer) player).getAdvancements().award(advancement, "criteria");
+                    AdvancementHolder advancement = level.getServer().getAdvancements().get(ADVANCEMENT_ID);
+                    if (advancement != null)
+                    {
+                        ServerPlayerHelper.getServerPlayer(player)
+                                .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
+                    }
                 }
             }
             if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !hasSilkTouch)
@@ -85,10 +89,10 @@ public class LootVaseBlock extends Block
     //Similar code that also gets executed when InfestedBlock is brocke to spawn a SilverFish
     private static void spawnSilverFish(Level level, BlockPos pos)
     {
-        Silverfish silverfishEntity = (Silverfish) EntityType.SILVERFISH.create(level);
+        Silverfish silverfishEntity = EntityType.SILVERFISH.create(level);
         if (silverfishEntity != null)
         {
-            silverfishEntity.moveTo((double) pos.getX() + 0.5, (double) pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);
+            silverfishEntity.moveTo((double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);
             level.addFreshEntity(silverfishEntity);
             silverfishEntity.spawnAnim();
         }

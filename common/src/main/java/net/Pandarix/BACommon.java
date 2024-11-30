@@ -6,6 +6,7 @@ import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import net.Pandarix.block.ModBlocks;
+import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.item.ModItemGroup;
@@ -32,6 +33,7 @@ public final class BACommon
         ModItemGroup.register();
         ModItems.register();
         ModBlocks.register();
+        ModBlockEntities.register();
     }
 
     public static ResourceLocation createResource(String path)

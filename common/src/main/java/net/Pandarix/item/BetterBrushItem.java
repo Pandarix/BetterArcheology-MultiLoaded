@@ -25,17 +25,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class BetterBrushItem extends BrushItem
 {
-    private float brushingSpeed;
+    private final float brushingSpeed;
 
     public BetterBrushItem(Properties pProperties, float pBrushingSpeed)
     {
         super(pProperties);
         brushingSpeed = pBrushingSpeed;
-    }
-
-    public float getBrushingSpeed()
-    {
-        return brushingSpeed;
     }
 
     private HitResult calculateHitResult(Player pPlayer)
