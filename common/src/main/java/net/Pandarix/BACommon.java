@@ -11,6 +11,8 @@ import net.Pandarix.config.BAConfig;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.item.ModItemGroup;
 import net.Pandarix.item.ModItems;
+import net.Pandarix.screen.ModMenuTypes;
+import net.Pandarix.world.structure.ModStructures;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
@@ -29,11 +31,13 @@ public final class BACommon
     public static void init() {
         CONFIGURATOR.register(BAConfig.class);
 
+        ModStructures.register();
         ModEntityTypes.register();
         ModItemGroup.register();
         ModItems.register();
         ModBlocks.register();
         ModBlockEntities.register();
+        ModMenuTypes.register();
     }
 
     public static ResourceLocation createResource(String path)

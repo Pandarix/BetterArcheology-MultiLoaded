@@ -1,6 +1,7 @@
 package net.Pandarix.block.entity;
 
 import net.Pandarix.block.custom.VillagerFossilBlock;
+import net.Pandarix.screen.FossilInventoryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -161,6 +162,6 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     @NotNull
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory)
     {
-        return new FossilInventoryMenu(containerId, inventory, this);
+        return new FossilInventoryMenu(containerId, inventory, this, this.level.getBlockEntity(this.getBlockPos()));
     }
 }

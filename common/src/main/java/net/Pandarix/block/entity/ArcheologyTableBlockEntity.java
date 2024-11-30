@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.ArchelogyTable;
 import net.Pandarix.item.ModItems;
+import net.Pandarix.screen.IdentifyingMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -24,10 +25,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.RecipeCraftingHolder;
-import net.minecraft.world.inventory.StackedContentsCompatible;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -107,7 +105,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @NotNull
     protected AbstractContainerMenu createMenu(int id, Inventory inventory)
     {
-        return new IdentifyingMenu(id, inventory, this, this.data);
+        return new IdentifyingMenu(id, inventory, this, this.data, ContainerLevelAccess.create(this.level, this.getBlockPos()));
     }
 
     private void resetProgress()

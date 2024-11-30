@@ -60,13 +60,13 @@ public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements Si
     public GuardianFossilBlock(Properties settings)
     {
         super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(FACING, Direction.NORTH));
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext)
     {
         FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
-        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(fluidstate.isSourceOfType(Fluids.WATER))).setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.isSourceOfType(Fluids.WATER)).setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
     @NotNull
@@ -79,7 +79,7 @@ public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements Si
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return createTickerHelper(type, ModBlockEntities.GUARDIAN_FOSSIL, GuardianFossilBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.GUARDIAN_FOSSIL.get(), GuardianFossilBlockEntity::tick);
     }
 
     @NotNull
