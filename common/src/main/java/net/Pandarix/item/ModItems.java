@@ -18,7 +18,7 @@ public class ModItems
     // ──────── BRUSHES ───────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Item> IRON_BRUSH = registerItem("iron_brush", () -> new BetterBrushItem(propertiesWithTab().durability(128), 8));
     public static final RegistrySupplier<Item> DIAMOND_BRUSH = registerItem("diamond_brush", () -> new BetterBrushItem(propertiesWithTab().durability(512), 6));
-    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", () -> new BetterBrushItem(propertiesWithTab().durability(1024), 4));
+    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", () -> new BetterBrushItem(propertiesWithTab().durability(1024).fireResistant(), 4));
 
     // ──────── ARTIFACTS ─────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Item> ARTIFACT_SHARDS = registerItem("artifact_shards", () -> new Item(propertiesWithTab().rarity(Rarity.UNCOMMON)));
