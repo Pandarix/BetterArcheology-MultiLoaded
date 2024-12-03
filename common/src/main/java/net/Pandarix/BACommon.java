@@ -1,7 +1,6 @@
 package net.Pandarix;
 
 import com.google.common.base.Suppliers;
-import com.mojang.logging.LogUtils;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
@@ -14,7 +13,6 @@ import net.Pandarix.item.ModItemGroup;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.screen.ModMenuTypes;
 import net.Pandarix.util.ModTags;
-import net.Pandarix.villager.ModTrades;
 import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +31,8 @@ public final class BACommon
     public static final Configurator CONFIGURATOR = new Configurator(MOD_ID);
     public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(BACommon.MOD_ID));
 
-    public static void init() {
+    public static void init()
+    {
         CONFIGURATOR.register(BAConfig.class);
 
         ModStructures.register();
@@ -46,6 +45,7 @@ public final class BACommon
         ModMenuTypes.register();
         ModRecipes.register();
         ModVillagers.register();
+        //ModTrades.register();
     }
 
     public static ResourceLocation createResource(String path)

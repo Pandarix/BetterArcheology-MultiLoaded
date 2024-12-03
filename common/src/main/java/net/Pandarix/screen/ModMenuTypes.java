@@ -18,9 +18,9 @@ public class ModMenuTypes
     public static final RegistrySupplier<MenuType<IdentifyingMenu>> IDENTIFYING_MENU = registerMenuType("identifying", IdentifyingMenu::new);
 
     // REGISTRATION ────────────────────────────────────────────────────────────────────
-    private static <T extends AbstractContainerMenu> RegistrySupplier<MenuType<T>> registerMenuType(String name, MenuRegistry. ExtendedMenuTypeFactory<T> menu)
+    private static <T extends AbstractContainerMenu> RegistrySupplier<MenuType<T>> registerMenuType(String name, MenuRegistry.ExtendedMenuTypeFactory<T> menu)
     {
-        return MENUS.register(BACommon.createResource(name),  () -> MenuRegistry.ofExtended(menu));
+        return MENUS.register(BACommon.createResource(name), () -> MenuRegistry.ofExtended(menu));
     }
 
     // REGISTERING ─────────────────────────────────────────────────────────────────────

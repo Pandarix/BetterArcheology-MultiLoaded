@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class FossilInventoryScreen extends AbstractContainerScreen<FossilInventoryMenu>
 {
-    private static final ResourceLocation TEXTURE = BACommon.createResource( "textures/gui/fossil_gui.png");
+    private static final ResourceLocation TEXTURE = BACommon.createResource("textures/gui/fossil_gui.png");
 
     public FossilInventoryScreen(FossilInventoryMenu handler, Inventory inventory, Component title)
     {

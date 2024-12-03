@@ -111,6 +111,7 @@
   "block.betterarcheology.radiance_totem_message_3": "Displaying Players",
 
   "entity.minecraft.villager.archeologist": "Archeologist",
+  "entity.minecraft.villager.betterarcheology.archeologist": "Archeologist",
 
   "enchantment.betterarcheology.penetrating_strike": "Penetrating Strike",
   "enchantment.betterarcheology.penetrating_strike.desc": "Partially ignores effects of Protection Enchantments",

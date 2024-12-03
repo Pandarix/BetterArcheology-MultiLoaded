@@ -8,7 +8,7 @@ architectury {
 }
 
 loom {
-    runs{
+    runs {
         data {
             inherit client
             setConfigName("Fabric Data")

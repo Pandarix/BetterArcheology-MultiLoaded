@@ -4,6 +4,7 @@ import net.Pandarix.BACommon;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -38,6 +39,6 @@ public class ModTags
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     public static void register()
     {
-        BACommon.LOGGER.info("Registering {} for {}", "Block & Item Tags", BACommon.MOD_ID);
+        BACommon.LOGGER.info("Registering {} for {}", "Tags", BACommon.MOD_ID);
     }
 }

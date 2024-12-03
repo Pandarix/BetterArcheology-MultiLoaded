@@ -14,7 +14,7 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
 
     //saves archeology_table_gui as TEXTURE
     private static final ResourceLocation TEXTURE =
-            BACommon.createResource( "textures/gui/archeology_table_gui.png");
+            BACommon.createResource("textures/gui/archeology_table_gui.png");
 
     public IdentifyingScreen(IdentifyingMenu inventoryMenu, Inventory inventory, Component title)
     {

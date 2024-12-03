@@ -153,15 +153,18 @@ public class ModBlocks
     }
 
     // REGISTERING ─────────────────────────────────────────────────────────────────────
-    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block) {
+    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block)
+    {
         return registerBlock(name, block, null);
     }
 
-    private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block) {
+    private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block)
+    {
         return registerBlock(name, block, Rarity.UNCOMMON);
     }
 
-    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, Rarity rarity) {
+    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, Rarity rarity)
+    {
         RegistrySupplier<T> toReturn = BLOCKS.register(BACommon.createResource(name), block);
         registerBlockItem(name, toReturn, rarity);
         return toReturn;

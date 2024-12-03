@@ -128,7 +128,7 @@ public class FleeBlockGoal<T extends BlockEntity> extends Goal
 
     public void tick()
     {
-        if (this.targetBlock !=null && this.mob.distanceToSqr(this.targetBlock.getBlockPos().getCenter()) < 49.0D)
+        if (this.targetBlock != null && this.mob.distanceToSqr(this.targetBlock.getBlockPos().getCenter()) < 49.0D)
         {
             this.mob.getNavigation().setSpeedModifier(this.fastSpeed);
         } else

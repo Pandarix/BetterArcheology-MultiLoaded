@@ -72,7 +72,7 @@ dependencies {
 
 processResources {
     var replaceProperties = [
-            version: project.version,
+            version    : project.version,
             displayName: display_name, authors: authors, modDescription: mod_description
     ]
 

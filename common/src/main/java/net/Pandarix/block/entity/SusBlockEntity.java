@@ -16,7 +16,7 @@ public class SusBlockEntity extends BrushableBlockEntity
     @Override
     public boolean isValidBlockState(@NotNull BlockState blockState)
     {
-        return ModBlockEntities.SUSBLOCK.get().isValid(blockState) ||  super.isValidBlockState(blockState);
+        return ModBlockEntities.SUSBLOCK.get().isValid(blockState) || super.isValidBlockState(blockState);
     }
 
     @Override

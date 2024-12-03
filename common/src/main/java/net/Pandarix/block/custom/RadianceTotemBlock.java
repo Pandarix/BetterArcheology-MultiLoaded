@@ -117,7 +117,7 @@ public class RadianceTotemBlock extends FossilBaseWithEntityBlock
 
         if (pLevel.isClientSide())
         {
-            pPlayer .displayClientMessage(Component.translatable("block.betterarcheology.radiance_totem_message_" + newState.getValue(SELECTOR)).withStyle(ChatFormatting.GREEN), true);
+            pPlayer.displayClientMessage(Component.translatable("block.betterarcheology.radiance_totem_message_" + newState.getValue(SELECTOR)).withStyle(ChatFormatting.GREEN), true);
             pLevel.playLocalSound(pPos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.5f, 0.5f, false);
             RandomSource random = pLevel.getRandom();
             for (int i = 0; i <= 10; i++)

@@ -20,7 +20,7 @@ import java.util.Objects;
 public class BombItem extends Item
 {
     //gets id of advancement for having thrown a bomb which has the condition "impossible" because it needs to be triggered here
-    ResourceLocation ADVANCEMENT_ID = BACommon.createResource( "used_bomb_item");
+    ResourceLocation ADVANCEMENT_ID = BACommon.createResource("used_bomb_item");
 
     public BombItem(Properties pProperties)
     {

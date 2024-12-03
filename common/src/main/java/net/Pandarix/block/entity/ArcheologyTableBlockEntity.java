@@ -150,7 +150,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public void setRecipeUsed(@Nullable RecipeHolder<?> recipeHolder)
     {
-        if (recipeHolder != null) {
+        if (recipeHolder != null)
+        {
             ResourceLocation resourceLocation = recipeHolder.id();
             this.recipesUsed.addTo(resourceLocation, 1);
         }
@@ -293,7 +294,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
     protected void setItems(NonNullList<ItemStack> nonNullList)
     {
-        for(int i = 0; i < this.items.size(); i++) {
+        for (int i = 0; i < this.items.size(); i++)
+        {
             this.items.set(i, nonNullList.get(i));
         }
     }

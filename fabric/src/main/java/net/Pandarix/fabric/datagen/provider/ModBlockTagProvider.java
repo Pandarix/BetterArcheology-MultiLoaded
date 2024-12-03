@@ -15,7 +15,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
     {
         super(output, lookupProvider);
     }
-    
+
     @Override
     protected void addTags(HolderLookup.Provider pProvider)
     {
