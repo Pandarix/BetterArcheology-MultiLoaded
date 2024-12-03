@@ -8,9 +8,16 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.Block;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 import java.util.function.Supplier;
 
+/**
+ * This class implements methods that are defined in the common {@link net.Pandarix.Platform} class for specifically for Fabric.
+ * <hr>
+ * "{@link ExpectPlatform} can be applied to static methods, and its content will be replaced by the platform-specific implementation."
+ * @see <a href="https://docs.architectury.dev/plugin/expect_platform">Architectury Docs - ExpectPlatform Annotation</a>
+ */
 @SuppressWarnings("unused")
 public class PlatformImpl
 {
