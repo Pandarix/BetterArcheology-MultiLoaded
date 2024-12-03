@@ -39,6 +39,6 @@ public class ModTags
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     public static void register()
     {
-        BACommon.LOGGER.info("Registering {} for {}", "Tags", BACommon.MOD_ID);
+        BACommon.LOGGER.info("Registering {} for {}", "Tags", BACommon.MOD_NAME);
     }
 }

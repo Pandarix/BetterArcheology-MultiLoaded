@@ -6,3 +6,4 @@ accessible method net/minecraft/world/level/block/state/properties/WoodType regi
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/inventory/AbstractContainerMenu addSlot (Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;
 accessible class net/minecraft/world/entity/npc/VillagerTrades$TreasureMapForEmeralds
+accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity coolDownEndsAtTick J

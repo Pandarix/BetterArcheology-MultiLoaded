@@ -29,6 +29,6 @@ public class ModVillagers
     // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
-        BACommon.LOGGER.info("Registering {} for {}", "Villager Professions", BACommon.MOD_ID);
+        BACommon.LOGGER.info("Registering {} for {}", "Villager Professions", BACommon.MOD_NAME);
     }
 }

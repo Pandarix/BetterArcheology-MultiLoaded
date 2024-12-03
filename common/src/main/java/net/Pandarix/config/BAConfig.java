@@ -4,11 +4,12 @@ import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryType;
 import net.Pandarix.BACommon;
 
+// TODO: fix language keys
 @ConfigInfo.Provider(BAConfigInfoProvider.class)
 @Config(value = BACommon.MOD_ID)
 public final class BAConfig
 {
-    //ARTIFACTS
+    // ARTIFACTS ───────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Artifacts"
     )
@@ -19,6 +20,7 @@ public final class BAConfig
     )
     public static boolean artifactsEnabled = true;
 
+    // ──────── PENETRATING STRIKE ─────────────────────────────────────────────────────
     @ConfigEntry(id = "penetratingStrikeEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.penetratingStrikeEnabled")
     public static boolean penetratingStrikeEnabled = true;
 
@@ -28,6 +30,7 @@ public final class BAConfig
     @Comment("Set to % of damage-reduction from Protection Enchantments that should be ignored.")
     public static double penetratingStrikeIgnorance = .33d;
 
+    // ──────── SOARING WINDS ──────────────────────────────────────────────────────────
     @ConfigEntry(id = "soaringWindsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.soaringWindsEnabled")
     public static boolean soaringWindsEnabled = true;
 
@@ -36,18 +39,30 @@ public final class BAConfig
     @ConfigOption.Range(min = 0.1d, max = 3d)
     public static double soaringWindsBoost = .75d;
 
+    // ──────── TUNNELING ──────────────────────────────────────────────────────────────
     @ConfigEntry(id = "tunnelingEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.tunnelingEnabled")
     public static boolean tunnelingEnabled = true;
+
+    @ConfigEntry(id = "tunnelingEffectiveTool", type = EntryType.BOOLEAN, translation = "config.betterarcheology.tunnelingEffectiveTool")
+    public static boolean tunnelingEffectiveTool = true;
+
+    @ConfigEntry(id = "tunnelingTolerance", type = EntryType.DOUBLE, translation = "config.betterarcheology.tunnelingTolerance")
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 0.0d, max = 10d)
+    @Comment("The difference of hardness between the two blocks to break that is allowed. Per default, this prevents e.g. mining Obsidian below when mining stone, but allows for ores below to be mined. For reference: Stone has 1.5.")
+    public static double tunnelingTolerance = 3.75;
 
     @ConfigEntry(id = "tunnelingAxeEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.tunnelingAxeEnabled")
     public static boolean tunnelingAxeEnabled = false;
 
+    // TOTEMS ───────────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Totems"
     )
     @ConfigEntry(id = "totemsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.totemsEnabled")
     public static boolean totemsEnabled = true;
 
+    // ──────── RADIANCE ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "radianceTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.radianceTotemEnabled")
     public static boolean radianceTotemEnabled = true;
 
@@ -68,6 +83,7 @@ public final class BAConfig
     @ConfigOption.Range(min = 1, max = 90)
     public static int radianceTotemRadius = 10;
 
+    // ──────── TORRENT ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "torrentTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.torrentTotemEnabled")
     public static boolean torrentTotemEnabled = true;
 
@@ -79,9 +95,11 @@ public final class BAConfig
     @ConfigEntry(id = "torrentTotemUpwardsBoost", type = EntryType.BOOLEAN, translation = "config.betterarcheology.torrentTotemUpwardsBoost")
     public static boolean torrentTotemUpwardsBoost = false;
 
+    // ──────── SOUL ───────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "soulTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.soulTotemEnabled")
     public static boolean soulTotemEnabled = true;
 
+    // ──────── GROWTH ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "growthTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.growthTotemEnabled")
     public static boolean growthTotemEnabled = true;
 
@@ -94,25 +112,31 @@ public final class BAConfig
     @Comment("The growth totem uses the randomTick to determine when it should grow crops. This value determines the chance in % that a random tick actually grows crops to potentially decrease its yield. For example, a 20% chance bonemeals a crop ~10.5 times an hour")
     public static int growthTotemGrowChance = 20;
 
+    // FOSSILS ──────────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Fossils"
     )
     @ConfigEntry(id = "fossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.fossilEffectsEnabled")
     public static boolean fossilEffectsEnabled = true;
 
+    // ──────── FLEEING ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "fossilFleeRange", type = EntryType.INTEGER, translation = "config.betterarcheology.fossilFleeRange")
     @ConfigOption.Range(min = 10, max = 50)
     public static int fossilFleeRange = 20;
 
+    // ──────── CHICKEN ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "chickenFossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.chickenFossilEffectsEnabled")
     public static boolean chickenFossilEffectsEnabled = true;
 
+    // ──────── OCELOT ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "ocelotFossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.ocelotFossilEffectsEnabled")
     public static boolean ocelotFossilEffectsEnabled = true;
 
+    // ──────── WOLF ───────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "wolfFossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.wolfFossilEffectsEnabled")
     public static boolean wolfFossilEffectsEnabled = true;
 
+    // ──────── GUARDIAN ───────────────────────────────────────────────────────────────
     @ConfigEntry(id = "guardianFossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.guardianFossilEffectsEnabled")
     public static boolean guardianFossilEffectsEnabled = true;
 }

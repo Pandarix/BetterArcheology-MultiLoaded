@@ -82,6 +82,6 @@ public class ModEnchantments
     // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void registerEnchantments()
     {
-        BACommon.LOGGER.debug("Registering Enchantments for " + BACommon.MOD_ID);
+        BACommon.LOGGER.debug("Registering Enchantments for " + BACommon.MOD_NAME);
     }
 }

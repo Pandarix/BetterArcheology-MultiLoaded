@@ -33,6 +33,11 @@ public class BetterBrushItem extends BrushItem
         brushingSpeed = pBrushingSpeed;
     }
 
+    public float getBrushingSpeed()
+    {
+        return brushingSpeed;
+    }
+
     private HitResult calculateHitResult(Player pPlayer)
     {
         return ProjectileUtil.getHitResultOnViewVector(pPlayer, entity -> !entity.isSpectator() && entity.isPickable(), pPlayer.blockInteractionRange());

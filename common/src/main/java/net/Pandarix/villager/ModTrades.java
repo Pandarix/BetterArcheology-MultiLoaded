@@ -150,6 +150,6 @@ public class ModTrades
      */
     public static void register()
     {
-        BACommon.LOGGER.info("Registering {} for {}", "Villager Trades", BACommon.MOD_ID);
+        BACommon.LOGGER.info("Registering {} for {}", "Villager Trades", BACommon.MOD_NAME);
     }
 }
