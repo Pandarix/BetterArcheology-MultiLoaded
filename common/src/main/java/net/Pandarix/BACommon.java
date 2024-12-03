@@ -2,7 +2,6 @@ package net.Pandarix;
 
 import com.google.common.base.Suppliers;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
-import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -10,6 +9,7 @@ import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.compat.jei.recipe.ModRecipes;
 import net.Pandarix.config.BAConfig;
+import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.events.ModEvents;
 import net.Pandarix.item.ModItemGroup;
@@ -43,6 +43,7 @@ public final class BACommon
 
         ModStructures.register();
         ModEntityTypes.register();
+        ModEnchantments.register();
         ModItemGroup.register();
         ModItems.register();
         ModBlocks.register();
