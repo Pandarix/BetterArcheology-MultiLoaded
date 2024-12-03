@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 
 public class ModVillagers
 {
+    // PLATFORM-SPECIFIC REGISTRATION ───────────────────────────────────────────────────
     public static final Supplier<PoiType> ARCHEOLOGY_TABLE_POI = Platform.registerPoiType(
             "archeology_table_poi", ModBlocks.ARCHEOLOGY_TABLE);
 
@@ -25,7 +26,7 @@ public class ModVillagers
             )
     );
 
-    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.LOGGER.info("Registering {} for {}", "Villager Professions", BACommon.MOD_ID);

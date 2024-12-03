@@ -1,6 +1,7 @@
 package net.Pandarix.villager;
 
 import dev.architectury.registry.level.entity.trade.SimpleTrade;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.Pandarix.BACommon;
@@ -138,6 +139,15 @@ public class ModTrades
     }
 
     // REGISTERING ─────────────────────────────────────────────────────────────────────
+
+    /**
+     * Logs an information message announcing the registration of the given registry.
+     * Also used to load a class' static {@link RegistrySupplier}s resulting in the actual registration of the entries.
+     * <hr>
+     * This has to be called platform-specific to work properly
+     * NeoForge uses the {@code ServerAboutToStartEvent}
+     * Fabric uses the mod's {@code onInitialize}
+     */
     public static void register()
     {
         BACommon.LOGGER.info("Registering {} for {}", "Villager Trades", BACommon.MOD_ID);

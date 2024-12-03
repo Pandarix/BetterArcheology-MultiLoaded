@@ -23,7 +23,7 @@ public class ModMenuTypes
         return MENUS.register(BACommon.createResource(name), () -> MenuRegistry.ofExtended(menu));
     }
 
-    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(MENUS);

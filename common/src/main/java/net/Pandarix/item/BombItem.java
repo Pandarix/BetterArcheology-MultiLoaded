@@ -51,7 +51,7 @@ public class BombItem extends Item
             AdvancementHolder advancement = Objects.requireNonNull(pLevel.getServer()).getAdvancements().get(ADVANCEMENT_ID);
             if (advancement != null)
             {
-                ServerPlayerHelper.getServerPlayer(pPlayer)
+                ServerPlayerHelper.tryGetServerPlayer(pPlayer)
                         .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
             }
         }

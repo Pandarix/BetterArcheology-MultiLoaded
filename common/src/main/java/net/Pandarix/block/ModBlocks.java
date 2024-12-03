@@ -27,69 +27,70 @@ public class ModBlocks
     // REGISTRY ────────────────────────────────────────────────────────────────────────
     public static final Registrar<Block> BLOCKS = BACommon.REGISTRIES.get().get(Registries.BLOCK);
 
-    //-----------SUS VARIANTS-------------//
+    // BLOCKS ──────────────────────────────────────────────────────────────────────────
+    // ─── SUSPICIOUS ──────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlock("suspicious_red_sand", () -> new SusBlock(Blocks.RED_SAND,
             BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
 
     public static final RegistrySupplier<Block> SUSPICIOUS_DIRT = registerBlock("suspicious_dirt", () -> new SusBlock(Blocks.DIRT, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED));
 
-    //---------FOSSILIFEROUS BLOCKS-----------//
+    // ─── FOSSILIFEROUS ────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> FOSSILIFEROUS_DIRT = registerBlock("fossiliferous_dirt", () -> new SusBlock(Blocks.DIRT, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED));
 
     public static final RegistrySupplier<Block> CHISELED_BONE_BLOCK = registerBlock("chiseled_bone_block",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.3F).instrument(NoteBlockInstrument.XYLOPHONE).sound(SoundType.BONE_BLOCK)));
 
-    //-------------FOSSILS---------------//
-    //Villager
+    // ─── FOSSILS ─────────────────────────────────────────────────────────────────────
+    // ────── Villager ─────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> VILLAGER_FOSSIL = registerRareBlock("villager_fossil", () -> new VillagerFossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).lightLevel((state) -> state.getValue(VillagerFossilBlock.INVENTORY_LUMINANCE))));
 
     public static final RegistrySupplier<Block> VILLAGER_FOSSIL_HEAD = registerRareBlock("villager_fossil_head", () -> new VillagerFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> VILLAGER_FOSSIL_BODY = registerRareBlock("villager_fossil_body", () -> new VillagerFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Ocelot
+    // ────── Ocelot ────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> OCELOT_FOSSIL = registerRareBlock("ocelot_fossil", () -> new OcelotFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> OCELOT_FOSSIL_HEAD = registerRareBlock("ocelot_fossil_head", () -> new OcelotFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> OCELOT_FOSSIL_BODY = registerRareBlock("ocelot_fossil_body", () -> new OcelotFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Guardian
+    // ────── Guardian ──────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> GUARDIAN_FOSSIL = registerRareBlock("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> GUARDIAN_FOSSIL_HEAD = registerRareBlock("guardian_fossil_head", () -> new GuardianFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> GUARDIAN_FOSSIL_BODY = registerRareBlock("guardian_fossil_body", () -> new GuardianFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Sheep
+    // ────── Sheep ─────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> SHEEP_FOSSIL = registerRareBlock("sheep_fossil", () -> new SheepFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> SHEEP_FOSSIL_HEAD = registerRareBlock("sheep_fossil_head", () -> new SheepFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> SHEEP_FOSSIL_BODY = registerRareBlock("sheep_fossil_body", () -> new SheepFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Sheep
+    // ────── Chicken ───────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> CHICKEN_FOSSIL = registerRareBlock("chicken_fossil", () -> new ChickenFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CHICKEN_FOSSIL_HEAD = registerRareBlock("chicken_fossil_head", () -> new ChickenFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CHICKEN_FOSSIL_BODY = registerRareBlock("chicken_fossil_body", () -> new ChickenFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Creeper
+    // ────── Creeper ───────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> CREEPER_FOSSIL = registerRareBlock("creeper_fossil", () -> new CreeperFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CREEPER_FOSSIL_HEAD = registerRareBlock("creeper_fossil_head", () -> new CreeperFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CREEPER_FOSSIL_BODY = registerRareBlock("creeper_fossil_body", () -> new CreeperFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //Wolf
+    // ────── Wolf ──────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> WOLF_FOSSIL = registerRareBlock("wolf_fossil", () -> new WolfFossilBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> WOLF_FOSSIL_HEAD = registerRareBlock("wolf_fossil_head", () -> new WolfFossilHeadBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> WOLF_FOSSIL_BODY = registerRareBlock("wolf_fossil_body", () -> new WolfFossilBodyBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    //-----------ROTTEN WOOD-------------//
+    // ─── Rotten Wood ──────────────────────────────────────────────────────────────────
     public static final WoodType ROTTEN_WOOD_TYPE = registerWoodType("rotten_wood");
     public static final BlockSetType ROTTEN_WOOD_BLOCKSET = registerBlockSetType("rotten_wood");
 
@@ -112,7 +113,7 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> ROTTEN_PRESSURE_PLATE = registerBlock("rotten_pressure_plate", () -> new PressurePlateBlock(ROTTEN_WOOD_BLOCKSET, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY).sound(SoundType.STEM)));
 
-    //-------------MUD Brick Stuff----------------//
+    // ─── Mud Bricks ─────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> INFESTED_MUD_BRICKS = registerBlock("infested_mud_bricks", () -> new InfestedBlock(Blocks.MUD_BRICKS, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 3.0F).sound(SoundType.MUD_BRICKS)));
 
     public static final RegistrySupplier<Block> CRACKED_MUD_BRICKS = registerBlock("cracked_mud_bricks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 3.0F).sound(SoundType.MUD_BRICKS)));
@@ -121,7 +122,7 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> CRACKED_MUD_BRICK_STAIRS = registerBlock("cracked_mud_brick_stairs", () -> new StairBlock(CRACKED_MUD_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 3.0F).sound(SoundType.MUD_BRICKS)));
 
-    //-----------------OTHER--------------------//
+    // ─── Misc ──────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> ARCHEOLOGY_TABLE = registerBlock("archeology_table", () -> new ArchelogyTable(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava()));
 
     public static final RegistrySupplier<Block> LOOT_VASE = registerBlock("loot_vase", () -> new LootVaseBlock(BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).sound(SoundType.DECORATED_POT)));
@@ -144,6 +145,7 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem", () -> new RadianceTotemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
+    // UTIL ─────────────────────────────────────────────────────────────────────────────
     public static boolean isFossil(Block block)
     {
         return block instanceof FossilBaseBodyBlock
@@ -190,7 +192,7 @@ public class ModBlocks
         return BlockSetType.register(new BlockSetType(id));
     }
 
-    // LOAD THIS REGISTRY ─────────────────────────────────────────────────────────────────────
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(BLOCKS);

@@ -17,7 +17,7 @@ public class ModItemGroup
     // REGISTRY ────────────────────────────────────────────────────────────────────────
     public static final Registrar<CreativeModeTab> TABS = BACommon.REGISTRIES.get().get(Registries.CREATIVE_MODE_TAB);
 
-    // Creates a creative tab with the id "BetterArcheology:example_tab" for the example item, that is placed after the combat tab
+    // ITEM GROUP ──────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<CreativeModeTab> BETTER_ARCHEOLOGY_ITEMGROUP = TABS.register(
             BACommon.createResource("betterarcheology"), () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                     .icon(() -> new ItemStack(ModItems.UNIDENTIFIED_ARTIFACT.get()))
@@ -100,6 +100,7 @@ public class ModItemGroup
                             }
                     ).build());
 
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(TABS);

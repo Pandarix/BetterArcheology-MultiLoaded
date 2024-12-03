@@ -14,7 +14,7 @@ public class ModRecipes
     public static final RegistrySupplier<RecipeSerializer<IdentifyingRecipe>> IDENTIFYING_SERIALIZER =
             SERIALIZERS.register(BACommon.createResource("identifying"), () -> IdentifyingRecipe.Serializer.INSTANCE);
 
-    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(SERIALIZERS);

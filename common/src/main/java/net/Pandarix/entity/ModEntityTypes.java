@@ -12,6 +12,7 @@ public class ModEntityTypes
     // REGISTRY ────────────────────────────────────────────────────────────────────────
     public static final Registrar<EntityType<?>> ENTITY_TYPES = BACommon.REGISTRIES.get().get(Registries.ENTITY_TYPE);
 
+    // ENTITY TYPES ────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<EntityType<BombEntity>> BOMB_ENTITY =
             ENTITY_TYPES.register(BACommon.createResource("bombentity"),
                     () -> EntityType.Builder.<BombEntity>of(BombEntity::new, MobCategory.MISC)
@@ -19,6 +20,7 @@ public class ModEntityTypes
                             .clientTrackingRange(4).updateInterval(10)
                             .build(BACommon.createResource("bombentity").toString()));
 
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(ENTITY_TYPES);

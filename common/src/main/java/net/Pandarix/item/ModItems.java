@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class ModItems
 {
-    // REGISTRY ────────────────────────────────────────────────────────────────────────
+    // REGISTRY ───────────────────────────────────────────────────────────────────────
     public static final Registrar<Item> ITEMS = BACommon.REGISTRIES.get().get(Registries.ITEM);
 
     // ITEMS ──────────────────────────────────────────────────────────────────────────
@@ -29,7 +29,7 @@ public class ModItems
     public static final RegistrySupplier<Item> TORRENT_TOTEM = registerItem("torrent_totem", () -> new TorrentTotemItem(propertiesWithTab().rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
     public static final RegistrySupplier<Item> SOUL_TOTEM = registerItem("soul_totem", () -> new SoulTotemItem(propertiesWithTab().rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
 
-    // REGISTERING ─────────────────────────────────────────────────────────────────────
+    // REGISTERING ────────────────────────────────────────────────────────────────────
     private static Item.Properties propertiesWithTab()
     {
         return new Item.Properties();
@@ -40,6 +40,7 @@ public class ModItems
         return ITEMS.register(BACommon.createResource(id), supplier);
     }
 
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
     {
         BACommon.logRegistryEvent(ITEMS);

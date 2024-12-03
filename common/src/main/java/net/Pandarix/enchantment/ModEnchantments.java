@@ -16,10 +16,12 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class ModEnchantments
 {
+    // KEYS ───────────────────────────────────────────────────────────────────────
     public static final ResourceKey<Enchantment> PENETRATING_STRIKE_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createResource("penetrating_strike"));
     public static final ResourceKey<Enchantment> SOARING_WINDS_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createResource("soaring_winds"));
     public static final ResourceKey<Enchantment> TUNNELING_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createResource("tunneling"));
 
+    // UTIL ───────────────────────────────────────────────────────────────────────
     public static void registerEnchantedBookWith(CreativeModeTab.Output output, Holder<Enchantment> enchantmentEntry)
     {
         ItemStack book = EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantmentEntry, 1));
@@ -71,11 +73,13 @@ public class ModEnchantments
                 )));
     }*/
 
+    // REGISTERING ────────────────────────────────────────────────────────────────────
     private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder)
     {
         context.register(key, builder.build(key.location()));
     }
 
+    // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void registerEnchantments()
     {
         BACommon.LOGGER.debug("Registering Enchantments for " + BACommon.MOD_ID);

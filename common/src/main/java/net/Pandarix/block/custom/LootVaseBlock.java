@@ -66,7 +66,7 @@ public class LootVaseBlock extends Block
                     AdvancementHolder advancement = level.getServer().getAdvancements().get(ADVANCEMENT_ID);
                     if (advancement != null)
                     {
-                        ServerPlayerHelper.getServerPlayer(player)
+                        ServerPlayerHelper.tryGetServerPlayer(player)
                                 .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
                     }
                 }
