@@ -44,6 +44,7 @@ public final class BAConfig
     public static boolean tunnelingEnabled = true;
 
     @ConfigEntry(id = "tunnelingEffectiveTool", type = EntryType.BOOLEAN, translation = "config.betterarcheology.tunnelingEffectiveTool")
+    @Comment("Only mines the Block below if the Tool used is effective for the Block mined (e.g. Shovel on Stone).")
     public static boolean tunnelingEffectiveTool = true;
 
     @ConfigEntry(id = "tunnelingTolerance", type = EntryType.DOUBLE, translation = "config.betterarcheology.tunnelingTolerance")
