@@ -1,6 +1,9 @@
 package net.Pandarix.block.custom;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
+import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
+import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.ChatFormatting;
@@ -15,10 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,6 +42,15 @@ import java.util.Map;
 
 public class VillagerFossilBlock extends FossilBaseWithEntityBlock
 {
+    public static final MapCodec<ArchelogyTable> CODEC = simpleCodec(ArchelogyTable::new);
+
+    @Override
+    @NotNull
+    protected MapCodec<? extends BaseEntityBlock> codec()
+    {
+        return CODEC;
+    }
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty INVENTORY_LUMINANCE = IntegerProperty.create("inventory_luminance", 0, 15); //used to store the amount of light that the item in its inventory would emit and to emit that luminance itself
 
@@ -99,6 +114,13 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state)
     {
         return new VillagerFossilBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType)
+    {
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.VILLAGER_FOSSIL.get(), VillagerFossilBlockEntity::tick);
     }
 
     @Override

@@ -1,35 +1,36 @@
 package net.Pandarix.screen;
 
-import net.Pandarix.block.custom.ArchelogyTable;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.util.MenuHelper;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class IdentifyingMenu extends AbstractContainerMenu
 {
-    protected final ContainerLevelAccess access;
     private final ContainerData data;
+    private final Container container;
 
-    public IdentifyingMenu(int syncId, Inventory inventory, FriendlyByteBuf extraData)
+    public IdentifyingMenu(int syncId, Inventory inventory)
     {
-        this(syncId, inventory, new SimpleContainer(ArcheologyTableBlockEntity.INV_SIZE), new SimpleContainerData(ArcheologyTableBlockEntity.NO_PROP_DELEGATES), ContainerLevelAccess.create(inventory.player.level(), extraData.readBlockPos()));
+        this(syncId, inventory, new SimpleContainer(ArcheologyTableBlockEntity.INV_SIZE), new SimpleContainerData(ArcheologyTableBlockEntity.NO_PROP_DELEGATES));
     }
 
-    public IdentifyingMenu(int syncId, Inventory playerInventory, Container container, ContainerData data, ContainerLevelAccess containerLevelAccess)
+    public IdentifyingMenu(int syncId, Inventory playerInventory, Container container, ContainerData data)
     {
         super(ModMenuTypes.IDENTIFYING_MENU.get(), syncId);    //creates a new Instance of Screenhandler
         checkContainerSize(playerInventory, ArcheologyTableBlockEntity.INV_SIZE);
         this.data = data;
-        this.access = containerLevelAccess;
+        this.container = container;
 
         MenuHelper.createPlayerInventory(this, playerInventory);
         MenuHelper.createPlayerHotbar(this, playerInventory);
@@ -132,8 +133,7 @@ public class IdentifyingMenu extends AbstractContainerMenu
     @Override
     public boolean stillValid(@NotNull Player pPlayer)
     {
-        return this.access.evaluate((level, blockPos) ->
-                level.getBlockState(blockPos).getBlock() instanceof ArchelogyTable && pPlayer.canInteractWithBlock(blockPos, 4.0), true);
+        return this.container.stillValid(pPlayer);
     }
 
     private boolean isInInv(int invSlot)

@@ -48,9 +48,10 @@ public class BetterBrushItem extends BrushItem
         return UseAnim.BRUSH;
     }
 
-    /**
+    //TODO: fixme!!!
+/*    *//**
      * Called as the item is being used by an entity.
-     */
+     *//*
     public void onUseTick(@NotNull Level pLevel, @NotNull LivingEntity pLivingEntity, @NotNull ItemStack pStack, int pRemainingUseDuration)
     {
         if (pRemainingUseDuration >= 0 && pLivingEntity instanceof Player player)
@@ -102,5 +103,5 @@ public class BetterBrushItem extends BrushItem
         {
             pLivingEntity.releaseUsingItem();
         }
-    }
+    }*/
 }

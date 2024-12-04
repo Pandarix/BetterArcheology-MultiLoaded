@@ -25,7 +25,10 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.RecipeCraftingHolder;
+import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -105,7 +108,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @NotNull
     protected AbstractContainerMenu createMenu(int id, Inventory inventory)
     {
-        return new IdentifyingMenu(id, inventory, this, this.data, ContainerLevelAccess.create(this.level, this.getBlockPos()));
+        return new IdentifyingMenu(id, inventory, this, this.data);
     }
 
     private void resetProgress()
@@ -292,6 +295,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return this.items;
     }
 
+    @Override
     protected void setItems(NonNullList<ItemStack> nonNullList)
     {
         for (int i = 0; i < this.items.size(); i++)
@@ -300,6 +304,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         }
     }
 
+    @Override
     public void setItem(int i, ItemStack itemStack)
     {
         ItemStack itemStack2 = this.items.get(i);
@@ -310,7 +315,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         {
             this.setChanged();
         }
-
     }
 
     public int getContainerSize()

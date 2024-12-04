@@ -67,7 +67,7 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
         pPoseStack.scale(0.5f, 0.5f, 0.5f);
 
         //render item in inventory to hand position with lightlevel at blockpos
-        itemRenderer.renderStatic(pBlockEntity.getHeldItem(), ItemDisplayContext.FIXED, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
+        itemRenderer.renderStatic(pBlockEntity.getItems().getFirst(), ItemDisplayContext.FIXED, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
 
         pPoseStack.popPose();
     }

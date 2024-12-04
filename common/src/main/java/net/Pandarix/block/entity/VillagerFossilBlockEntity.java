@@ -1,5 +1,6 @@
 package net.Pandarix.block.entity;
 
+import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.VillagerFossilBlock;
 import net.Pandarix.screen.FossilInventoryMenu;
 import net.minecraft.core.BlockPos;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,20 +41,27 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
 
     // INVENTORY HANDLING ──────────────────────────────────────────────────────────────────────────
     @Override
-    protected @NotNull NonNullList<ItemStack> getItems()
+    public @NotNull NonNullList<ItemStack> getItems()
     {
-        return this.items;
+        //BACommon.LOGGER.info("what: " + this.items.getFirst());
+            return this.items;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList)
     {
-        this.items.set(0, nonNullList.getFirst());
+        for (int i = 0; i < this.items.size(); i++)
+        {
+            this.items.set(i, nonNullList.get(i));
+        }
     }
 
-    public ItemStack getHeldItem()
+    @Override
+    public void setItem(int i, ItemStack itemStack)
     {
-        return items.getFirst();
+        this.items.set(i, itemStack);
+        itemStack.limitSize(this.getMaxStackSize(itemStack));
+        this.setChanged();
     }
 
     public void setInventory(List<ItemStack> inventory)
@@ -63,10 +72,11 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
 
             if (this.level != null)
             {
-                int luminance = Block.byItem(this.getHeldItem().getItem()).defaultBlockState().getLightEmission();
+                int luminance = Block.byItem(this.getItems().getFirst().getItem()).defaultBlockState().getLightEmission();
                 this.level.setBlock(this.getBlockPos(), level.getBlockState(this.getBlockPos()).setValue(VillagerFossilBlock.INVENTORY_LUMINANCE, luminance), 3);
             }
         }
+        this.setChanged();
     }
 
     @Override
@@ -103,14 +113,16 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     @Override
     protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider pRegistries)
     {
-        ContainerHelper.saveAllItems(nbt, this.items, pRegistries);
         super.saveAdditional(nbt, pRegistries);
+
+        ContainerHelper.saveAllItems(nbt, this.items, pRegistries);
     }
 
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
     {
         super.loadAdditional(pTag, pRegistries);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
         setChanged();
     }
@@ -120,7 +132,7 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     {
         if (this.level != null)
         {
-            int luminance = Block.byItem(this.getHeldItem().getItem()).defaultBlockState().getLightEmission();
+            int luminance = Block.byItem(this.getItems().getFirst().getItem()).defaultBlockState().getLightEmission();
             BlockState newState = this.getBlockState().setValue(VillagerFossilBlock.INVENTORY_LUMINANCE, luminance);
             this.level.setBlock(this.getBlockPos(), newState, 3);
             level.sendBlockUpdated(worldPosition, this.getBlockState(), newState, 3);
@@ -162,6 +174,11 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     @NotNull
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory)
     {
-        return new FossilInventoryMenu(containerId, inventory, this, this.level.getBlockEntity(this.getBlockPos()));
+        return new FossilInventoryMenu(containerId, inventory, this);
+    }
+
+    public static void tick(Level level, BlockPos pos, BlockState blockState, VillagerFossilBlockEntity villagerFossilBlockEntity)
+    {
+        setChanged(level, pos, blockState);
     }
 }

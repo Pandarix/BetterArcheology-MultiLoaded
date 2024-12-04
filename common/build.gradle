@@ -4,7 +4,7 @@ architectury {
 
 plugins.withId('dev.architectury.loom') {
     loom {
-        accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accesswidener")
+        accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
     }
 }
 

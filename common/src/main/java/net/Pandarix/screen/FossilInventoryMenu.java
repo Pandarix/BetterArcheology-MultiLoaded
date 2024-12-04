@@ -1,41 +1,32 @@
 package net.Pandarix.screen;
 
-import net.Pandarix.block.ModBlocks;
-import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.Pandarix.util.MenuHelper;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class FossilInventoryMenu extends AbstractContainerMenu
 {
+    private final Container container;
 
-    public final VillagerFossilBlockEntity blockEntity;
-    private final Level level;
-
-    public FossilInventoryMenu(int syncId, Inventory inventory, FriendlyByteBuf extraData)
+    public FossilInventoryMenu(int syncId, Inventory inventory)
     {
-        this(syncId, inventory, new SimpleContainer(1), inventory.player.level().getBlockEntity(extraData.readBlockPos()));
+        this(syncId, inventory, new SimpleContainer(1));
     }
 
-    public FossilInventoryMenu(int syncId, Inventory inventory, Container container, BlockEntity entity)
+    public FossilInventoryMenu(int syncId, Inventory playerInventory, Container container)
     {
         super(ModMenuTypes.FOSSIL_MENU.get(), syncId);
-        checkContainerSize(inventory, 1);
-        blockEntity = (VillagerFossilBlockEntity) entity;
-        this.level = inventory.player.level();
+        checkContainerSize(playerInventory, 1);
+        this.container = container;
 
-        MenuHelper.createPlayerInventory(this, inventory);
-        MenuHelper.createPlayerHotbar(this, inventory);
+        MenuHelper.createPlayerInventory(this, playerInventory);
+        MenuHelper.createPlayerHotbar(this, playerInventory);
 
         this.addSlot(new Slot(container, 0, 80, 22));
     }
@@ -43,7 +34,7 @@ public class FossilInventoryMenu extends AbstractContainerMenu
     @Override
     public boolean stillValid(Player pPlayer)
     {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, ModBlocks.VILLAGER_FOSSIL.get());
+        return this.container.stillValid(pPlayer);
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -98,11 +89,9 @@ public class FossilInventoryMenu extends AbstractContainerMenu
         if (sourceStack.getCount() == 0)
         {
             sourceSlot.set(ItemStack.EMPTY);
-        } else
-        {
-            sourceSlot.setChanged();
         }
         sourceSlot.onTake(playerIn, sourceStack);
+        sourceSlot.setChanged();
         return copyOfSourceStack;
     }
 }
