@@ -20,6 +20,9 @@
     "client": [
       "net.Pandarix.fabric.client.BAFabricClient"
     ],
+    "jei_mod_plugin": [
+      "net.Pandarix.compat.jei.JeiPlugin"
+    ],
     "fabric-datagen": [
       "net.Pandarix.fabric.datagen.ModDataGenerators"
     ]

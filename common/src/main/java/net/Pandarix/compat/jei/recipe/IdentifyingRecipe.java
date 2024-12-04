@@ -31,7 +31,6 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         this.result = result;
     }
 
-
     @Override
     public boolean matches(CraftingInput pInput, Level pLevel)
     {
@@ -152,7 +151,9 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         public static IdentifyingRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf friendlyByteBuf)
         {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(friendlyByteBuf);
-            ItemStack result = ItemStack.STREAM_CODEC.decode(friendlyByteBuf);
+            ItemStack result = ItemStack.OPTIONAL_STREAM_CODEC.decode(friendlyByteBuf);
+            BACommon.LOGGER.info("resultItem" + result);
+            BACommon.LOGGER.info("resultItem components" + result.getComponents().get(DataComponents.STORED_ENCHANTMENTS));
             return new IdentifyingRecipe(input, result);
         }
 

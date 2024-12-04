@@ -18,4 +18,6 @@ dependencies {
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-common-1.21:$rootProject.resourceful_config_version"
+
+    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
 }

@@ -5,10 +5,12 @@
   },
   "result": {
     "id": "minecraft:enchanted_book",
-    "Count": 1,
+    "count": 1,
     "components": {
       "minecraft:stored_enchantments": {
-        "betterarcheology:penetrating_strike": 1
+        "levels": {
+          "betterarcheology:tunneling": 1
+        }
       }
     }
   }
