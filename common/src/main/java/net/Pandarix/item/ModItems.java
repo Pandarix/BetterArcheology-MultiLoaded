@@ -3,6 +3,7 @@ package net.Pandarix.item;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
+import net.Pandarix.util.BetterBrushTiers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -16,9 +17,9 @@ public class ModItems
 
     // ITEMS ──────────────────────────────────────────────────────────────────────────
     // ──────── BRUSHES ───────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Item> IRON_BRUSH = registerItem("iron_brush", () -> new BetterBrushItem(propertiesWithTab().durability(128), 8));
-    public static final RegistrySupplier<Item> DIAMOND_BRUSH = registerItem("diamond_brush", () -> new BetterBrushItem(propertiesWithTab().durability(512), 6));
-    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", () -> new BetterBrushItem(propertiesWithTab().durability(1024).fireResistant(), 4));
+    public static final RegistrySupplier<Item> IRON_BRUSH = registerItem("iron_brush", () -> new BetterBrushItem(propertiesWithTab().durability(128), BetterBrushTiers.IRON));
+    public static final RegistrySupplier<Item> DIAMOND_BRUSH = registerItem("diamond_brush", () -> new BetterBrushItem(propertiesWithTab().durability(512), BetterBrushTiers.DIAMOND));
+    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", () -> new BetterBrushItem(propertiesWithTab().durability(1024).fireResistant(), BetterBrushTiers.NETHERITE));
 
     // ──────── ARTIFACTS ─────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Item> ARTIFACT_SHARDS = registerItem("artifact_shards", () -> new Item(propertiesWithTab().rarity(Rarity.UNCOMMON)));
