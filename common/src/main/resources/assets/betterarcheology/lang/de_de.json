@@ -125,6 +125,7 @@
   "filled_map.light": "Lichttempel-Entdeckerkarte",
 
   "config.notify.disabled": "Diese Funktion wurde in der Konfiguration deaktiviert!",
+  "config.betterarcheology.rustyBombTerrainDamage": "'Rostige Bombe' Terrain-Schaden",
   "config.betterarcheology.artifactsEnabled": "Artefakt (Enchantment) Effekte",
   "config.betterarcheology.penetratingStrikeEnabled": "'Durchdringender Hieb' Effekt",
   "config.betterarcheology.penetratingStrikeIgnorance": "'Durchdringender Hieb' Schutz Umgehung",

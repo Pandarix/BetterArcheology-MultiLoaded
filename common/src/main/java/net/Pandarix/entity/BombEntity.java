@@ -1,5 +1,6 @@
 package net.Pandarix.entity;
 
+import net.Pandarix.config.BAConfig;
 import net.Pandarix.item.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -70,7 +71,8 @@ public class BombEntity extends ThrowableItemProjectile
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }
+
         //explode on collision
-        this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.5f, Level.ExplosionInteraction.TNT);
+        this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.5f, BAConfig.rustyBombTerrainDamage ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE);
     }
 }

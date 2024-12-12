@@ -127,6 +127,7 @@
   "filled_map.light": "Light Temple Explorer Map",
 
   "config.notify.disabled": "This feature has been disabled in the config!",
+  "config.betterarcheology.rustyBombTerrainDamage": "'Rusty Bomb' Terrain Damage",
   "config.betterarcheology.ironBrushTickRate": "'Iron Brush' Brushing Tickrate",
   "config.betterarcheology.diamondBrushTickRate": "'Diamond Brush' Brushing Tickrate",
   "config.betterarcheology.netheriteBrushTickRate": "'Netherite Brush' Brushing Tickrate",

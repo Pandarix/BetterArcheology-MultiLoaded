@@ -12,7 +12,14 @@ import net.minecraft.sounds.SoundEvents;
 @Config(value = BACommon.MOD_ID)
 public final class BAConfig
 {
-    // TOTEMS ───────────────────────────────────────────────────────────────────────────
+    // MISC ───────────────────────────────────────────────────────────────────────────
+    @ConfigOption.Separator(
+            value = "Misc."
+    )
+    @ConfigEntry(id = "rustyBombTerrainDamage", type = EntryType.BOOLEAN, translation = "config.betterarcheology.rustyBombTerrainDamage")
+    public static boolean rustyBombTerrainDamage = true;
+
+    // BRUSHES ───────────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Brushes"
     )
