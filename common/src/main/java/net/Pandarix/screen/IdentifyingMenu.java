@@ -2,12 +2,10 @@ package net.Pandarix.screen;
 
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.item.ModItems;
-import net.Pandarix.util.MenuHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
@@ -15,7 +13,7 @@ import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class IdentifyingMenu extends AbstractContainerMenu
+public class IdentifyingMenu extends BAAbstractContainerMenu
 {
     private final ContainerData data;
     private final Container container;
@@ -32,8 +30,8 @@ public class IdentifyingMenu extends AbstractContainerMenu
         this.data = data;
         this.container = container;
 
-        MenuHelper.createPlayerInventory(this, playerInventory);
-        MenuHelper.createPlayerHotbar(this, playerInventory);
+        createPlayerInventory(playerInventory);
+        createPlayerHotbar(playerInventory);
 
         this.addSlot(new Slot(container, 0, 80, 20));
         this.addSlot(new Slot(container, 0, 80, 20));

@@ -32,5 +32,12 @@ versionRange = "[13.0.2,)"
 ordering = "AFTER"
 side = "BOTH"
 
+[[dependencies.betterarcheology]]
+modId = "resourcefulconfig"
+type = "required"
+versionRange = "[3.0.3,)"
+ordering = "AFTER"
+side = "BOTH"
+
 [[mixins]]
 config = "betterarcheology.mixins.json"

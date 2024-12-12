@@ -127,6 +127,9 @@
   "filled_map.light": "Light Temple Explorer Map",
 
   "config.notify.disabled": "This feature has been disabled in the config!",
+  "config.betterarcheology.ironBrushTickRate": "'Iron Brush' Brushing Tickrate",
+  "config.betterarcheology.diamondBrushTickRate": "'Diamond Brush' Brushing Tickrate",
+  "config.betterarcheology.netheriteBrushTickRate": "'Netherite Brush' Brushing Tickrate",
   "config.betterarcheology.artifactsEnabled": "Artifact (Enchantment) Effects",
   "config.betterarcheology.penetratingStrikeEnabled": "'Penetrating Strike' Effects",
   "config.betterarcheology.penetratingStrikeIgnorance": "'Penetrating Strike' Prot. Ignorance",

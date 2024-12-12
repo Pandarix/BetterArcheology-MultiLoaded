@@ -1,6 +1,5 @@
 package net.Pandarix.block.entity;
 
-import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.VillagerFossilBlock;
 import net.Pandarix.screen.FossilInventoryMenu;
 import net.minecraft.core.BlockPos;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,8 +41,7 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     @Override
     public @NotNull NonNullList<ItemStack> getItems()
     {
-        //BACommon.LOGGER.info("what: " + this.items.getFirst());
-            return this.items;
+        return this.items;
     }
 
     @Override
@@ -175,10 +172,5 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory)
     {
         return new FossilInventoryMenu(containerId, inventory, this);
-    }
-
-    public static void tick(Level level, BlockPos pos, BlockState blockState, VillagerFossilBlockEntity villagerFossilBlockEntity)
-    {
-        setChanged(level, pos, blockState);
     }
 }

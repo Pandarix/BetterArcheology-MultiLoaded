@@ -86,7 +86,9 @@ configurations {
         canBeConsumed = false
     }
 }
-
+loom {
+    accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
+}
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
@@ -102,7 +104,9 @@ dependencies {
     // Cardinal Components needed in 1.20.4 for trinkets to run in dev env
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}")
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}")
+
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+    modImplementation "curse.maven:elytra-slot-317716:5770052"
 
     //CONFIG
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21:$rootProject.resourceful_config_version"
@@ -129,5 +133,7 @@ shadowJar {
 }
 
 remapJar {
+    atAccessWideners.add(loom.accessWidenerPath.get().asFile.name)
     input.set shadowJar.archiveFile
+    dependsOn shadowJar
 }

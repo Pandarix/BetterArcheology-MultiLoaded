@@ -1,7 +1,7 @@
 package net.Pandarix.mixin;
 
+import net.Pandarix.Platform;
 import net.Pandarix.config.BAConfig;
-import net.Pandarix.util.ArtifactEnchantmentHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ public abstract class ElytraStartupMixin
             Player betterarcheology$player = (Player) (Object) this;
 
             //if the enchantment in the chestslot is soaring winds
-            if (ArtifactEnchantmentHelper.hasSoaringWinds(betterarcheology$player))
+            if (Platform.hasSoaringWinds(betterarcheology$player))
             {
                 float betterarcheology$boost = (float) (BAConfig.soaringWindsBoost * 0.5f);
                 Vec3 betterarcheology$vec3d = betterarcheology$player.getLookAngle();

@@ -152,8 +152,7 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(friendlyByteBuf);
             ItemStack result = ItemStack.OPTIONAL_STREAM_CODEC.decode(friendlyByteBuf);
-            BACommon.LOGGER.info("resultItem" + result);
-            BACommon.LOGGER.info("resultItem components" + result.getComponents().get(DataComponents.STORED_ENCHANTMENTS));
+
             return new IdentifyingRecipe(input, result);
         }
 

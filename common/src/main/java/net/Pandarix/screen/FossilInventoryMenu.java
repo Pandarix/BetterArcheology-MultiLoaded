@@ -1,16 +1,14 @@
 package net.Pandarix.screen;
 
-import net.Pandarix.util.MenuHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class FossilInventoryMenu extends AbstractContainerMenu
+public class FossilInventoryMenu extends BAAbstractContainerMenu
 {
     private final Container container;
 
@@ -25,8 +23,8 @@ public class FossilInventoryMenu extends AbstractContainerMenu
         checkContainerSize(playerInventory, 1);
         this.container = container;
 
-        MenuHelper.createPlayerInventory(this, playerInventory);
-        MenuHelper.createPlayerHotbar(this, playerInventory);
+        createPlayerInventory(playerInventory);
+        createPlayerHotbar(playerInventory);
 
         this.addSlot(new Slot(container, 0, 80, 22));
     }

@@ -2,12 +2,9 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
-plugins.withId('dev.architectury.loom') {
-    loom {
-        accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
-    }
+loom {
+    accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
 }
-
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.

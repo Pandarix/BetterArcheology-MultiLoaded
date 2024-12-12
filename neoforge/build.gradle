@@ -23,15 +23,13 @@ configurations {
         canBeConsumed = false
     }
 }
-
+loom {
+    accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
+}
 repositories {
     maven {
         name = 'NeoForged'
         url = 'https://maven.neoforged.net/releases'
-    }
-    maven {
-        name = "C4"
-        url = "https://maven.theillusivec4.top/"
     }
     maven {
         url "https://www.cursemaven.com"
@@ -46,6 +44,10 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    maven {
+        name = "OctoStudios"
+        url = uri("https://maven.octo-studios.com/releases")
+    }
 }
 
 dependencies {
@@ -56,6 +58,11 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    implementation "curse.maven:elytra-slot-317716:5778461"
+    runtimeOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}"
+    compileOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}:api"
 
     // Config library
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21:$rootProject.resourceful_config_version"
@@ -88,5 +95,7 @@ shadowJar {
 }
 
 remapJar {
+    atAccessWideners.add(loom.accessWidenerPath.get().asFile.name)
     input.set shadowJar.archiveFile
+    dependsOn shadowJar
 }

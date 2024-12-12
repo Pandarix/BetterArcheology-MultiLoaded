@@ -3,20 +3,32 @@ package net.Pandarix.neoforge;
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.Registrar;
 import net.Pandarix.BACommon;
+import net.Pandarix.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.EventHooks;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.ISlotType;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -84,5 +96,47 @@ public class PlatformImpl
             blockState.getBlock().destroy(serverLevel, pos, blockState);
         }
         return removed;
+    }
+
+    public static boolean hasSoaringWinds(Player player)
+    {
+        if (player == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
+
+            //  if there is an elytra in the chestslot and it has the enchantment
+            if (player.getItemBySlot(EquipmentSlot.CHEST).canElytraFly(player)
+                    && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
+            {
+                return true;
+            }
+
+            // If ElytraSlot mod is installed (means that CuriosAPI must be installed too)
+            if (ModList.get().isLoaded("curios"))
+            {
+                Map<String, ISlotType> playerSlots = CuriosApi.getPlayerSlots(player);
+                // check for back-slot
+                if (playerSlots != null && playerSlots.containsKey("back"))
+                {
+                    Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(player);
+
+                    // searching the backslot for the Elytra
+                    return curios.map((itemHandler) ->
+                            curios.get().findCurios("back").stream().anyMatch(
+                                    (slotResult) -> slotResult.stack().canElytraFly(player)
+                                            && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, slotResult.stack()) >= 1)).orElse(false);
+                }
+            }
+        } catch (Exception e)
+        {
+            BACommon.LOGGER.error("Could not find enchantment in registries: " + ModEnchantments.SOARING_WINDS_KEY, e);
+        }
+
+        return false;
     }
 }

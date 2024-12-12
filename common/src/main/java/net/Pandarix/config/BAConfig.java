@@ -12,6 +12,26 @@ import net.minecraft.sounds.SoundEvents;
 @Config(value = BACommon.MOD_ID)
 public final class BAConfig
 {
+    // TOTEMS ───────────────────────────────────────────────────────────────────────────
+    @ConfigOption.Separator(
+            value = "Brushes"
+    )
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 1, max = 10)
+    @Comment("Time between brush uses in ticks. Lower values are faster. The vanilla brush has a speed of 10.")
+    @ConfigEntry(id = "ironBrushTickRate", type = EntryType.INTEGER, translation = "config.betterarcheology.ironBrushTickRate")
+    public static int ironBrushTickRate = 7;
+
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 1, max = 10)
+    @ConfigEntry(id = "diamondBrushTickRate", type = EntryType.INTEGER, translation = "config.betterarcheology.diamondBrushTickRate")
+    public static int diamondBrushTickRate = 5;
+
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 1, max = 10)
+    @ConfigEntry(id = "netheriteBrushTickRate", type = EntryType.INTEGER, translation = "config.betterarcheology.netheriteBrushTickRate")
+    public static int netheriteBrushTickRate = 3;
+
     // ARTIFACTS ───────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Artifacts"
@@ -55,9 +75,6 @@ public final class BAConfig
     @ConfigOption.Range(min = 0.0d, max = 10d)
     @Comment("The difference of hardness between the two blocks to break that is allowed. Per default, this prevents e.g. mining Obsidian below when mining stone, but allows for ores below to be mined. For reference: Stone has 1.5.")
     public static double tunnelingTolerance = 3.75;
-
-    @ConfigEntry(id = "tunnelingAxeEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.tunnelingAxeEnabled")
-    public static boolean tunnelingAxeEnabled = false;
 
     // TOTEMS ───────────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(

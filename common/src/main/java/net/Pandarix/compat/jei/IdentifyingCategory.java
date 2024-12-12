@@ -22,7 +22,7 @@ import java.util.List;
 
 public class IdentifyingCategory implements IRecipeCategory<IdentifyingRecipe>
 {
-    public static final ResourceLocation UID = BACommon.createResource( "identifying");
+    public static final ResourceLocation UID = BACommon.createResource("identifying");
     public static final ResourceLocation TEXTURE = BACommon.createResource(
             "textures/gui/archeology_table_overlay.png");
 

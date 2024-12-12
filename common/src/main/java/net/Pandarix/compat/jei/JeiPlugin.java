@@ -25,7 +25,7 @@ public class JeiPlugin implements IModPlugin
     @NotNull
     public ResourceLocation getPluginUid()
     {
-        return BACommon.createResource( "jei_plugin");
+        return BACommon.createResource("jei_plugin");
     }
 
     @Override
@@ -43,8 +43,6 @@ public class JeiPlugin implements IModPlugin
 
             List<IdentifyingRecipe> identifyingRecipes = new ArrayList<>();
             recipeManager.getAllRecipesFor(IdentifyingRecipe.Type.INSTANCE).forEach(recipe -> identifyingRecipes.add(recipe.value()));
-
-            BACommon.LOGGER.info("All recipes: " + identifyingRecipes);
 
             registration.addRecipes(IdentifyingCategory.IDENTIFYING_RECIPE_TYPE, identifyingRecipes);
         }

@@ -1,23 +1,25 @@
 package net.Pandarix.util;
 
+import net.Pandarix.config.BAConfig;
+
 import java.text.DecimalFormat;
 
 public enum BetterBrushTiers
 {
-    IRON(8),
-    DIAMOND(6),
-    NETHERITE(5);
-
-    private final int brushTickRate;
-
-    BetterBrushTiers(int pBrushTickRate)
-    {
-        this.brushTickRate = pBrushTickRate;
-    }
+    IRON,
+    DIAMOND,
+    NETHERITE;
 
     public int getBrushTickRate()
     {
-        return brushTickRate;
+        int speed = switch (this)
+        {
+            case IRON -> BAConfig.ironBrushTickRate;
+            case DIAMOND -> BAConfig.diamondBrushTickRate;
+            case NETHERITE -> BAConfig.netheriteBrushTickRate;
+        };
+
+        return Math.max(1, speed);
     }
 
     public String getSpeedFactor()

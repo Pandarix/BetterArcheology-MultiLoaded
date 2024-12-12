@@ -30,15 +30,15 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider
         HolderGetter<Item> itemLookup = registries.asGetterLookup().lookupOrThrow(Registries.ITEM);
 
         register(entries, ModEnchantments.PENETRATING_STRIKE_KEY, new Enchantment.Builder(
-                        Enchantment.definition(
-                                itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                                2, // probability of showing up in the enchantment table - will be ignored due to it being treasure
-                                1, // max level
-                                Enchantment.dynamicCost(1, 10), // cost per level (base)
-                                Enchantment.dynamicCost(1, 15), // cost per level (max)
-                                7, // anvil applying cost
-                                EquipmentSlotGroup.HAND
-                        )));
+                Enchantment.definition(
+                        itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                        2, // probability of showing up in the enchantment table - will be ignored due to it being treasure
+                        1, // max level
+                        Enchantment.dynamicCost(1, 10), // cost per level (base)
+                        Enchantment.dynamicCost(1, 15), // cost per level (max)
+                        7, // anvil applying cost
+                        EquipmentSlotGroup.HAND
+                )));
 
         register(entries, ModEnchantments.TUNNELING_KEY, new Enchantment.Builder(
                 Enchantment.definition(
