@@ -97,6 +97,9 @@ public class ModItemGroup
                                 {
                                     BACommon.LOGGER.error("Could not add Enchanted Book to creative tab!", e);
                                 }
+
+                                //disc
+                                output.accept(ModItems.DISC_SWINGS.get());
                             }
                     ).build());
 

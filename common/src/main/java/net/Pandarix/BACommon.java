@@ -15,6 +15,7 @@ import net.Pandarix.events.ModEvents;
 import net.Pandarix.item.ModItemGroup;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.screen.ModMenuTypes;
+import net.Pandarix.sound.ModSounds;
 import net.Pandarix.util.ModTags;
 import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
@@ -53,6 +54,7 @@ public final class BACommon
         ModRecipes.register();
         ModVillagers.register();
         ModEvents.register();
+        ModSounds.register();
     }
 
     // UTIL ────────────────────────────────────────────────────────────────────────────

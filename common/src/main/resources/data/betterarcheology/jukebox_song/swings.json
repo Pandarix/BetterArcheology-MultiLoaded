@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.betterarcheology.music_disc_swings_desc"
+  },
+  "length_in_seconds": 161.0,
+  "sound_event": "betterarcheology:swings"
+}

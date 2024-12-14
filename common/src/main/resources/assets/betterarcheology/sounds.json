@@ -1,0 +1,10 @@
+{
+  "swings": {
+    "sounds": [
+      {
+        "name": "betterarcheology:music_disc_swings_axolotl",
+        "stream": true
+      }
+    ]
+  }
+}
