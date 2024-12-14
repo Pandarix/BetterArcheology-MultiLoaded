@@ -77,6 +77,16 @@ dependencies {
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir("src/main/generated/resources")
+            srcDir(project(":common").file("src/main/generated/resources"))
+            exclude("**/.cache")
+        }
+    }
+}
+
 processResources {
     var replaceProperties = [
             version    : project.version,

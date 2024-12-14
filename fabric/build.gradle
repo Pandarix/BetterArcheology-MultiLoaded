@@ -116,6 +116,16 @@ dependencies {
     }
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir("src/main/generated/resources")
+            srcDir(project(":common").file("src/main/generated/resources"))
+            exclude("**/.cache")
+        }
+    }
+}
+
 processResources {
     var replaceProperties = [
             version: project.version, displayName: display_name, authors: authors, modDescription: mod_description
