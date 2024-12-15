@@ -3,9 +3,6 @@ package net.Pandarix.config;
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryType;
 import net.Pandarix.BACommon;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.sounds.SoundEvents;
 
 // TODO: fix language keys
 @ConfigInfo.Provider(BAConfigInfoProvider.class)
@@ -167,8 +164,4 @@ public final class BAConfig
     // ──────── GUARDIAN ───────────────────────────────────────────────────────────────
     @ConfigEntry(id = "guardianFossilEffectsEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.guardianFossilEffectsEnabled")
     public static boolean guardianFossilEffectsEnabled = true;
-
-    // ──────── :3 ─────────────────────────────────────────────────────────────────────
-    @ConfigButton(title = ":3", text = "?")
-    public static final Runnable meow = () -> Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.CAT_AMBIENT, 1.5F, 2.0F));
 }
