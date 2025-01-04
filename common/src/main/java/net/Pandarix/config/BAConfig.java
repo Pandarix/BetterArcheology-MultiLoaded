@@ -4,7 +4,6 @@ import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryType;
 import net.Pandarix.BACommon;
 
-// TODO: fix language keys
 @ConfigInfo.Provider(BAConfigInfoProvider.class)
 @Config(value = BACommon.MOD_ID)
 public final class BAConfig

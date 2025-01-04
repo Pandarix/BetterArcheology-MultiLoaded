@@ -32,6 +32,12 @@ public class BetterBrushItem extends BrushItem
     }
 
     @Override
+    public boolean isEnchantable(ItemStack itemStack)
+    {
+        return itemStack.getItem() instanceof BetterBrushItem;
+    }
+
+    @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag)
     {
         list.add(Component.literal("+" + brushTier.getSpeedFactor() + "% Brushing Speed").withStyle(ChatFormatting.DARK_GREEN));

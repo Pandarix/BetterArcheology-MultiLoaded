@@ -41,6 +41,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
         this.tag(ModTags.Items.BRUSHES)
                 .add(Items.BRUSH.builtInRegistryHolder().key(), ModItems.IRON_BRUSH.getKey(), ModItems.DIAMOND_BRUSH.getKey(), ModItems.NETHERITE_BRUSH.getKey());
 
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(ModItems.IRON_BRUSH.getKey(), ModItems.DIAMOND_BRUSH.getKey(), ModItems.NETHERITE_BRUSH.getKey());
+
         this.tag(ItemTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.get().asItem().builtInRegistryHolder().key());
 
