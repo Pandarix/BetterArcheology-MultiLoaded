@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "tag": "c:brushes"
+      "tag": "c:tools/brush"
     },
     "S": {
       "item": "betterarcheology:artifact_shards"

@@ -21,7 +21,7 @@ public class ModTags
 
     public static class Items
     {
-        public static final TagKey<Item> BRUSHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "brushes"));
+        public static final TagKey<Item> BRUSHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/brush"));
 
         public static final TagKey<Item> ELYTRAS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "elytras"));
 
