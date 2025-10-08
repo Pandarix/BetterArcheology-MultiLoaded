@@ -3,14 +3,12 @@
   "category": "redstone",
   "group": "wooden_door",
   "key": {
-    "P": {
-      "item": "betterarcheology:rotten_planks"
-    }
+    "#": "betterarcheology:rotten_planks"
   },
   "pattern": [
-    "PP",
-    "PP",
-    "PP"
+    "##",
+    "##",
+    "##"
   ],
   "result": {
     "count": 3,

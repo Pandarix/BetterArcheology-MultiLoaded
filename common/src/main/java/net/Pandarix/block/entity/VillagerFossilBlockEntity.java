@@ -15,7 +15,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
@@ -101,9 +101,9 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     @Override
-    public void fillStackedContents(StackedContents stackedContents)
+    public void fillStackedContents(StackedItemContents stackedItemContents)
     {
-        this.items.forEach(stackedContents::accountStack);
+        this.items.forEach(stackedItemContents::accountStack);
     }
 
     // NETWORKING ──────────────────────────────────────────────────────────────────────────────────

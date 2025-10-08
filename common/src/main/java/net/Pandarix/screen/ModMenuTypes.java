@@ -20,7 +20,7 @@ public class ModMenuTypes
     // REGISTRATION ────────────────────────────────────────────────────────────────────
     private static <T extends AbstractContainerMenu> RegistrySupplier<MenuType<T>> registerMenuType(String name, MenuType.MenuSupplier<T> menu)
     {
-        return MENUS.register(BACommon.createResource(name), () -> new MenuType<>(menu, FeatureFlags.VANILLA_SET));
+        return MENUS.register(BACommon.createRLoc(name), () -> new MenuType<>(menu, FeatureFlags.VANILLA_SET));
     }
 
     // LOAD ────────────────────────────────────────────────────────────────────────────

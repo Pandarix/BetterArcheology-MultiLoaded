@@ -15,7 +15,8 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,7 @@ public class EvokerTrapBlock extends HorizontalDirectionalBlock
         return CODEC;
     }
 
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
     private static final int fangCooldown = 40; //cooldown used to prevent Fang-spamming
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active"); //active as long as fangs are spawning and for the duration of fangcooldown
@@ -49,9 +50,10 @@ public class EvokerTrapBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, BlockPos sourcePos, boolean notify)
+    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean bl)
     {
-        super.neighborChanged(blockState, level, blockPos, block, sourcePos, notify);
+        super.neighborChanged(blockState, level, blockPos, block, orientation, bl);
+
         boolean powered = level.hasNeighborSignal(blockPos) || level.hasNeighborSignal(blockPos.above());
         boolean active = blockState.getValue(ACTIVE);
 

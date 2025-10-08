@@ -24,7 +24,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
@@ -57,7 +57,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     private static final int[] SLOTS_FOR_DOWN = new int[]{2};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
     //loottable for crafting results
-    protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("identifying_loot"));
+    protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("identifying_loot"));
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
 
     // PROGRESS ──────────────────────────────────────────────────────────────────────────
@@ -155,7 +155,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     {
         if (recipeHolder != null)
         {
-            ResourceLocation resourceLocation = recipeHolder.id();
+            ResourceLocation resourceLocation = recipeHolder.id().location();
             this.recipesUsed.addTo(resourceLocation, 1);
         }
     }
@@ -323,9 +323,9 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void fillStackedContents(StackedContents stackedContents)
+    public void fillStackedContents(StackedItemContents stackedItemContents)
     {
-        this.items.forEach(stackedContents::accountStack);
+        this.items.forEach(stackedItemContents::accountStack);
     }
 
     // NETWORKING ──────────────────────────────────────────────────────────────────────────
@@ -392,7 +392,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @NotNull
     public Component getDisplayName()
     {
-        return Component.translatable(BACommon.createResource("archeology_table").toLanguageKey());
+        return Component.translatable(BACommon.createRLoc("archeology_table").toLanguageKey());
     }
 
     @Override

@@ -105,15 +105,15 @@ dependencies {
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}")
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}")
 
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
-    modImplementation "curse.maven:elytra-slot-317716:5770052"
+    modImplementation("io.wispforest:accessories-fabric:${project.accessories_version}")
+    modImplementation "curse.maven:elytra-slot-317716:6677386"
 
     //CONFIG
-    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21:$rootProject.resourceful_config_version"
+    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-$minecraft_version:$rootProject.resourceful_config_version"
 
-    modImplementation("mezz.jei:jei-${project.minecraft_version}-fabric:${jei_version}") {
-        exclude group: "mezz.jei"
-    }
+    //modImplementation("mezz.jei:jei-${project.minecraft_version}-fabric:${jei_version}") {
+    //    exclude group: "mezz.jei"
+    //}
 }
 
 processResources {

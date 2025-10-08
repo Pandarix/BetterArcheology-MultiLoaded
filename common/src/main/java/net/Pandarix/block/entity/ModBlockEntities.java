@@ -8,27 +8,30 @@ import net.Pandarix.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import java.util.Set;
+
 public class ModBlockEntities
 {
     // REGISTRY ────────────────────────────────────────────────────────────────────────
     public static final Registrar<BlockEntityType<?>> BLOCK_ENTITIES = BACommon.REGISTRIES.get().get(Registries.BLOCK_ENTITY_TYPE);
 
     // TYPES ───────────────────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<BlockEntityType<ArcheologyTableBlockEntity>> ARCHEOLOGY_TABLE = BLOCK_ENTITIES.register(BACommon.createResource("archeology_table"), () -> BlockEntityType.Builder.of(ArcheologyTableBlockEntity::new, ModBlocks.ARCHEOLOGY_TABLE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<ArcheologyTableBlockEntity>> ARCHEOLOGY_TABLE = BLOCK_ENTITIES.register(BACommon.createRLoc("archeology_table"), () -> new BlockEntityType<>(ArcheologyTableBlockEntity::new, Set.of(ModBlocks.ARCHEOLOGY_TABLE.get())));
 
-    public static final RegistrySupplier<BlockEntityType<VillagerFossilBlockEntity>> VILLAGER_FOSSIL = BLOCK_ENTITIES.register(BACommon.createResource("villager_fossil"), () -> BlockEntityType.Builder.of(VillagerFossilBlockEntity::new, ModBlocks.VILLAGER_FOSSIL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<VillagerFossilBlockEntity>> VILLAGER_FOSSIL = BLOCK_ENTITIES.register(BACommon.createRLoc("villager_fossil"), () -> new BlockEntityType<>(VillagerFossilBlockEntity::new, Set.of(ModBlocks.VILLAGER_FOSSIL.get())));
 
-    public static final RegistrySupplier<BlockEntityType<ChickenFossilBlockEntity>> CHICKEN_FOSSIL = BLOCK_ENTITIES.register(BACommon.createResource("chicken_fossil"), () -> BlockEntityType.Builder.of(ChickenFossilBlockEntity::new, ModBlocks.CHICKEN_FOSSIL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<ChickenFossilBlockEntity>> CHICKEN_FOSSIL = BLOCK_ENTITIES.register(BACommon.createRLoc("chicken_fossil"), () -> new BlockEntityType<>(ChickenFossilBlockEntity::new, Set.of(ModBlocks.CHICKEN_FOSSIL.get())));
 
-    public static final RegistrySupplier<BlockEntityType<GuardianFossilBlockEntity>> GUARDIAN_FOSSIL = BLOCK_ENTITIES.register(BACommon.createResource("guardian_fossil"), () -> BlockEntityType.Builder.of(GuardianFossilBlockEntity::new, ModBlocks.GUARDIAN_FOSSIL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<GuardianFossilBlockEntity>> GUARDIAN_FOSSIL = BLOCK_ENTITIES.register(BACommon.createRLoc("guardian_fossil"), () -> new BlockEntityType<>(GuardianFossilBlockEntity::new, Set.of(ModBlocks.GUARDIAN_FOSSIL.get())));
 
-    public static final RegistrySupplier<BlockEntityType<FleeFromBlockEntity>> FLEE_FROM = BLOCK_ENTITIES.register(BACommon.createResource("flee_from"), () -> BlockEntityType.Builder.of(FleeFromBlockEntity::new, ModBlocks.OCELOT_FOSSIL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<FleeFromBlockEntity>> FLEE_FROM = BLOCK_ENTITIES.register(BACommon.createRLoc("flee_from"), () -> new BlockEntityType<>(FleeFromBlockEntity::new, Set.of(ModBlocks.OCELOT_FOSSIL.get())));
 
-    public static final RegistrySupplier<BlockEntityType<SkeletonFleeFromBlockEntity>> SKELETON_FLEE_FROM = BLOCK_ENTITIES.register(BACommon.createResource("skeleton_flee_from"), () -> BlockEntityType.Builder.of(SkeletonFleeFromBlockEntity::new, ModBlocks.WOLF_FOSSIL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<SkeletonFleeFromBlockEntity>> SKELETON_FLEE_FROM = BLOCK_ENTITIES.register(BACommon.createRLoc("skeleton_flee_from"), () -> new BlockEntityType<>(SkeletonFleeFromBlockEntity::new, Set.of(ModBlocks.WOLF_FOSSIL.get())));
 
-    public static final RegistrySupplier<BlockEntityType<RadianceTotemBlockEntity>> RADIANCE_TOTEM = BLOCK_ENTITIES.register(BACommon.createResource("radiance_totem"), () -> BlockEntityType.Builder.of(RadianceTotemBlockEntity::new, ModBlocks.RADIANCE_TOTEM.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<RadianceTotemBlockEntity>> RADIANCE_TOTEM = BLOCK_ENTITIES.register(BACommon.createRLoc("radiance_totem"), () -> new BlockEntityType<>(RadianceTotemBlockEntity::new, Set.of(ModBlocks.RADIANCE_TOTEM.get())));
 
-    public static final RegistrySupplier<BlockEntityType<SusBlockEntity>> SUSBLOCK = BLOCK_ENTITIES.register(BACommon.createResource("sus_block"), () -> BlockEntityType.Builder.of(SusBlockEntity::new, ModBlocks.SUSPICIOUS_DIRT.get(), ModBlocks.SUSPICIOUS_RED_SAND.get(), ModBlocks.FOSSILIFEROUS_DIRT.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<SusBlockEntity>> SUSBLOCK = BLOCK_ENTITIES.register(BACommon.createRLoc("sus_block"), () -> new BlockEntityType<>(SusBlockEntity::new, Set.of(ModBlocks.SUSPICIOUS_DIRT.get(), ModBlocks.SUSPICIOUS_RED_SAND.get(),
+            ModBlocks.FOSSILIFEROUS_DIRT.get())));
 
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     public static void register()

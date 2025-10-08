@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
-    {
-      "item": "betterarcheology:sheep_fossil_head"
-    },
-    {
-      "item": "betterarcheology:sheep_fossil_body"
-    }
+    "betterarcheology:sheep_fossil_head",
+    "betterarcheology:sheep_fossil_body"
   ],
   "result": {
     "count": 1,

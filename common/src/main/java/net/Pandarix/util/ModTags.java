@@ -15,7 +15,7 @@ public class ModTags
 
         private static TagKey<Block> tag(String name)
         {
-            return TagKey.create(Registries.BLOCK, BACommon.createResource(name));
+            return TagKey.create(Registries.BLOCK, BACommon.createRLoc(name));
         }
     }
 
@@ -31,7 +31,7 @@ public class ModTags
 
         private static TagKey<Item> tag(String name)
         {
-            return TagKey.create(Registries.ITEM, BACommon.createResource(name));
+            return TagKey.create(Registries.ITEM, BACommon.createRLoc(name));
         }
     }
 

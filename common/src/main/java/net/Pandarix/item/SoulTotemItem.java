@@ -7,15 +7,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -39,14 +39,14 @@ public class SoulTotemItem extends Item
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(ItemStack pStack)
+    public @NotNull ItemUseAnimation getUseAnimation(ItemStack itemStack)
     {
-        return UseAnim.BLOCK;
+        return ItemUseAnimation.BLOCK;
     }
 
     @Override
     @NotNull
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand)
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pHand)
     {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         // if feature is disabled, notify the user and skip
@@ -56,11 +56,11 @@ public class SoulTotemItem extends Item
             {
                 pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
             }
-            return InteractionResultHolder.pass(itemstack);
+            return InteractionResult.PASS;
         }
 
         pPlayer.startUsingItem(pHand);
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class SoulTotemItem extends Item
                         Vec3 playerPos = player.position();
                         Vec3 targetPos = entity.position();
                         Vec3 toPlayerPos = playerPos.subtract(targetPos);
-                        for (float f = 0; f <= 1; f += 0.05)
+                        for (float f = 0; f <= 1; f += 0.05F)
                         {
                             pLevel.addParticle(ParticleTypes.SCULK_SOUL,
                                     lerp(playerPos.x, targetPos.x, f),
@@ -107,7 +107,7 @@ public class SoulTotemItem extends Item
                         entity.hurt(entity.damageSources().playerAttack(player), 4);
                         player.heal(4);
                         //set cooldown and damage stack
-                        player.getCooldowns().addCooldown(this, 180);
+                        player.getCooldowns().addCooldown(pStack, 180);
                         pStack.hurtAndBreak(1, player, pLivingEntity.getEquipmentSlotForItem(pStack));
                     }
                 }

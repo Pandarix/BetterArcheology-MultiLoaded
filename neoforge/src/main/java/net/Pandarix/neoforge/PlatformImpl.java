@@ -2,10 +2,12 @@ package net.Pandarix.neoforge;
 
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.Registrar;
+import io.wispforest.accessories.api.AccessoriesCapability;
 import net.Pandarix.BACommon;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,10 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.EventHooks;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.ISlotType;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -46,12 +46,12 @@ public class PlatformImpl
 
     public static Supplier<VillagerProfession> registerProfession(String name, Supplier<VillagerProfession> profession)
     {
-        return PROFESSIONS.register(BACommon.createResource(name), profession);
+        return PROFESSIONS.register(BACommon.createRLoc(name), profession);
     }
 
     public static Supplier<PoiType> registerPoiType(String name, Supplier<Block> block)
     {
-        return POI_TYPES.register(BACommon.createResource(name), () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), 1, 1));
+        return POI_TYPES.register(BACommon.createRLoc(name), () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), 1, 1));
     }
 
     public static void performTunneling(ServerLevel serverLevel, BlockPos blockPos, BlockState blockState, Block block, ServerPlayer serverPlayer, ItemStack stack)
@@ -107,28 +107,38 @@ public class PlatformImpl
 
         try
         {
-            Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
+            Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
 
-            //  if there is an elytra in the chestslot and it has the enchantment
-            if (player.getItemBySlot(EquipmentSlot.CHEST).canElytraFly(player)
+            //  VANILLA
+            if (player.getItemBySlot(EquipmentSlot.CHEST).getComponents().has(DataComponents.GLIDER)
                     && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
             {
                 return true;
             }
 
-            // If ElytraSlot mod is installed (means that CuriosAPI must be installed too)
+            // ACCESSORIES
+            if (ModList.get().isLoaded("accessories"))
+            {
+                AccessoriesCapability capability = AccessoriesCapability.get(player);
+
+                if (capability != null &&
+                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)))
+                {
+                    return true;
+                }
+            }
+
+            // CURIOS
             if (ModList.get().isLoaded("curios"))
             {
-                Map<String, ISlotType> playerSlots = CuriosApi.getPlayerSlots(player);
-                // check for back-slot
-                if (playerSlots != null && playerSlots.containsKey("back"))
-                {
-                    Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(player);
+                Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(player);
 
+                if (curios.isPresent())
+                {
                     // searching the backslot for the Elytra
                     return curios.map((itemHandler) ->
                             curios.get().findCurios("back").stream().anyMatch(
-                                    (slotResult) -> slotResult.stack().canElytraFly(player)
+                                    (slotResult) -> slotResult.stack().getComponents().has(DataComponents.GLIDER)
                                             && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, slotResult.stack()) >= 1)).orElse(false);
                 }
             }

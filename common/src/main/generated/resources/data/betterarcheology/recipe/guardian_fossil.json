@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
-    {
-      "item": "betterarcheology:guardian_fossil_head"
-    },
-    {
-      "item": "betterarcheology:guardian_fossil_body"
-    }
+    "betterarcheology:guardian_fossil_head",
+    "betterarcheology:guardian_fossil_body"
   ],
   "result": {
     "count": 1,

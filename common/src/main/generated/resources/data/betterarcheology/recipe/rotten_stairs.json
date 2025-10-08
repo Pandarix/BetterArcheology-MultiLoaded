@@ -3,14 +3,12 @@
   "category": "building",
   "group": "wooden_stairs",
   "key": {
-    "W": {
-      "item": "betterarcheology:rotten_planks"
-    }
+    "#": "betterarcheology:rotten_planks"
   },
   "pattern": [
-    "W  ",
-    "WW ",
-    "WWW"
+    "#  ",
+    "## ",
+    "###"
   ],
   "result": {
     "count": 4,

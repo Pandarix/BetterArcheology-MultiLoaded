@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
-    {
-      "item": "betterarcheology:creeper_fossil_body"
-    },
-    {
-      "item": "betterarcheology:creeper_fossil_head"
-    }
+    "betterarcheology:creeper_fossil_body",
+    "betterarcheology:creeper_fossil_head"
   ],
   "result": {
     "count": 1,

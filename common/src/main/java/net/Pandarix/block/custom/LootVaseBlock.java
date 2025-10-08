@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -34,7 +35,7 @@ public class LootVaseBlock extends Block
 {
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
     //advancement id for granting the advancement in onBreak, condition of advancement is "impossible" and needs to be executed here
-    ResourceLocation ADVANCEMENT_ID = BACommon.createResource("loot_vase_broken");
+    ResourceLocation ADVANCEMENT_ID = BACommon.createRLoc("loot_vase_broken");
 
     public LootVaseBlock(Properties settings)
     {
@@ -46,7 +47,7 @@ public class LootVaseBlock extends Block
     {
         try
         {
-            Optional<Holder.Reference<Enchantment>> SILK_TOUCH = level.registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.SILK_TOUCH);
+            Optional<Holder.Reference<Enchantment>> SILK_TOUCH = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.SILK_TOUCH);
             boolean hasSilkTouch = SILK_TOUCH.isPresent() && EnchantmentHelper.getItemEnchantmentLevel(SILK_TOUCH.get(), player.getMainHandItem()) > 0;
 
             if (!level.isClientSide())
@@ -72,7 +73,7 @@ public class LootVaseBlock extends Block
                     }
                 }
             }
-            if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !hasSilkTouch)
+            if (level.getServer() != null && level.getServer().getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !hasSilkTouch)
             {
                 //4% chance of spawning a silverfish when breaking a loot vase
                 if (level.getRandom().nextInt(25) == 1)
@@ -90,7 +91,7 @@ public class LootVaseBlock extends Block
     //Similar code that also gets executed when InfestedBlock is brocke to spawn a SilverFish
     private static void spawnSilverFish(Level level, BlockPos pos)
     {
-        Silverfish silverfishEntity = EntityType.SILVERFISH.create(level);
+        Silverfish silverfishEntity = EntityType.SILVERFISH.create(level, EntitySpawnReason.TRIGGERED);
         if (silverfishEntity != null)
         {
             silverfishEntity.moveTo((double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);

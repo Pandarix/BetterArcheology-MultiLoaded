@@ -12,7 +12,7 @@ public class ModStructures
     public static final Registrar<StructureType<?>> STRUCTURES = BACommon.REGISTRIES.get().get(Registries.STRUCTURE_TYPE);
 
     // STRUCTURE-TYPE ──────────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<StructureType<ArcheologyStructures>> ARCHEOLOGY_STRUCTURES = STRUCTURES.register(BACommon.createResource("betterarcheology_structures"), () -> () -> ArcheologyStructures.CODEC);
+    public static final RegistrySupplier<StructureType<ArcheologyStructures>> ARCHEOLOGY_STRUCTURES = STRUCTURES.register(BACommon.createRLoc("betterarcheology_structures"), () -> () -> ArcheologyStructures.CODEC);
 
     // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()

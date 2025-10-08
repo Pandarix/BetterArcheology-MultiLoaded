@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
-    {
-      "item": "betterarcheology:villager_fossil_head"
-    },
-    {
-      "item": "betterarcheology:villager_fossil_body"
-    }
+    "betterarcheology:villager_fossil_head",
+    "betterarcheology:villager_fossil_body"
   ],
   "result": {
     "count": 1,

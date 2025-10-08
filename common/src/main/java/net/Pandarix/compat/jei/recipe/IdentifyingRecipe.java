@@ -1,5 +1,7 @@
 package net.Pandarix.compat.jei.recipe;
 
+// Disabled because JEI is not available for 1.21.4
+/*
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.Pandarix.BACommon;
@@ -42,11 +44,13 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         return input.test(pInput.getItem(0));
     }
 
-    /**
+    */
+/**
      * Makes recipe not display in the recipe book
      *
      * @return false
-     */
+     *//*
+
     @Override
     public boolean isSpecial()
     {
@@ -162,4 +166,4 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
             ItemStack.STREAM_CODEC.encode(pBuffer, pRecipe.result);
         }
     }
-}
+}*/

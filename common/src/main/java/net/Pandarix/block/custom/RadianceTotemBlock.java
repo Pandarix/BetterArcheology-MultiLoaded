@@ -1,5 +1,6 @@
 package net.Pandarix.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.block.entity.RadianceTotemBlockEntity;
 import net.Pandarix.config.BAConfig;
@@ -20,8 +21,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
@@ -45,11 +47,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RadianceTotemBlock extends FossilBaseWithEntityBlock
+public class RadianceTotemBlock extends BaseEntityBlock
 {
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty SELECTOR = IntegerProperty.create("selector", 0, 3);
+    public static final MapCodec<RadianceTotemBlock> CODEC = simpleCodec(RadianceTotemBlock::new);
 
     protected static final VoxelShape AABB = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D));
     protected static final VoxelShape HANGING_AABB = Shapes.or(Block.box(5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D), Block.box(6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D));
@@ -209,15 +212,15 @@ public class RadianceTotemBlock extends FossilBaseWithEntityBlock
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    @NotNull
-    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos)
+    @Override
+    protected @NotNull BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource)
     {
-        if (pState.getValue(WATERLOGGED))
+        if (blockState.getValue(WATERLOGGED))
         {
-            pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+            scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
         }
 
-        return getConnectedDirection(pState).getOpposite() == pDirection && !pState.canSurvive(pLevel, pPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+        return getConnectedDirection(blockState).getOpposite() == direction && !blockState.canSurvive(levelReader, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
     }
 
     @NotNull
@@ -230,5 +233,12 @@ public class RadianceTotemBlock extends FossilBaseWithEntityBlock
     protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType)
     {
         return false;
+    }
+
+    @Override
+    @NotNull
+    protected MapCodec<? extends BaseEntityBlock> codec()
+    {
+        return CODEC;
     }
 }

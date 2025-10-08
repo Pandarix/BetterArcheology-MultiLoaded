@@ -26,7 +26,7 @@ public class PenetratingStrikeMixin
             //TODO: test this effect
             try
             {
-                Holder.Reference<Enchantment> ba$penetratingStrike = pLevel.registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.PENETRATING_STRIKE_KEY);
+                Holder.Reference<Enchantment> ba$penetratingStrike = pLevel.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.PENETRATING_STRIKE_KEY);
 
                 if (pDamageSource.getWeaponItem() != null && EnchantmentHelper.getItemEnchantmentLevel(ba$penetratingStrike, pDamageSource.getWeaponItem()) >= 1)
                 {

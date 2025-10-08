@@ -128,7 +128,7 @@ public class ModTrades
                         ),
 
                         new VillagerTrades.TreasureMapForEmeralds(
-                                24, TagKey.create(Registries.STRUCTURE, BACommon.createResource("on_catacombs_explorer_map")),
+                                24, TagKey.create(Registries.STRUCTURE, BACommon.createRLoc("on_catacombs_explorer_map")),
                                 "filled_map.catacombs",
                                 MapDecorationTypes.WOODLAND_MANSION, 12, 5
                         )

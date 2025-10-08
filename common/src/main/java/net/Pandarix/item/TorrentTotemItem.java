@@ -6,13 +6,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +28,7 @@ public class TorrentTotemItem extends Item
 
     @Override
     @NotNull
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
     {
         ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
 
@@ -39,7 +39,7 @@ public class TorrentTotemItem extends Item
             {
                 pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         Vec3 rotationVector = pPlayer.getLookAngle();
@@ -58,15 +58,9 @@ public class TorrentTotemItem extends Item
         pLevel.playSound(null, pPlayer, SoundEvents.WATER_AMBIENT, SoundSource.NEUTRAL, 0.1f, (float) pLevel.getRandom().nextDouble() * 0.5f + 0.5f);
         pLevel.playSound(null, pPlayer, SoundEvents.PLAYER_SPLASH_HIGH_SPEED, SoundSource.NEUTRAL, 0.25F, 0.35F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
 
-        pPlayer.getCooldowns().addCooldown(this, 120);
+        pPlayer.getCooldowns().addCooldown(itemStack, 120);
         itemStack.hurtAndBreak(1, pPlayer, pPlayer.getEquipmentSlotForItem(itemStack));
-        return InteractionResultHolder.consume(itemStack);
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack)
-    {
-        return false;
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -83,8 +77,8 @@ public class TorrentTotemItem extends Item
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack pStack)
+    public @NotNull ItemUseAnimation getUseAnimation(ItemStack itemStack)
     {
-        return UseAnim.BOW;
+        return ItemUseAnimation.BOW;
     }
 }

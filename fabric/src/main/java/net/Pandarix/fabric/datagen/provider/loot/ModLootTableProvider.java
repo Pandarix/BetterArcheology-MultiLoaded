@@ -30,9 +30,9 @@ public class ModLootTableProvider extends SimpleFabricLootTableProvider
     }
 
     //references for other loot tables
-    protected static final ResourceKey<LootTable> SUPPLY_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("blocks/supply_loot_from_loot_vase"));
-    protected static final ResourceKey<LootTable> TREASURE_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("blocks/treasure_loot_from_loot_vase"));
-    protected static final ResourceKey<LootTable> GREEN_TREASURE_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createResource("blocks/treasure_loot_from_green_loot_vase"));
+    protected static final ResourceKey<LootTable> SUPPLY_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("blocks/supply_loot_from_loot_vase"));
+    protected static final ResourceKey<LootTable> TREASURE_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("blocks/treasure_loot_from_loot_vase"));
+    protected static final ResourceKey<LootTable> GREEN_TREASURE_LOOTTABLE_KEY = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("blocks/treasure_loot_from_green_loot_vase"));
 
     //universal shard drop rate
     protected static final LootPool.Builder SHARD_POOL_BUILDER = LootPool.lootPool().setRolls(ConstantValue.exactly(1))

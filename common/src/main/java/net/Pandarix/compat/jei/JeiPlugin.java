@@ -1,5 +1,6 @@
 package net.Pandarix.compat.jei;
-
+// Disabled because JEI is not available for 1.21.4
+/*
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -61,4 +62,4 @@ public class JeiPlugin implements IModPlugin
         IModPlugin.super.registerRecipeCatalysts(registration);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ARCHEOLOGY_TABLE.get()), IdentifyingCategory.IDENTIFYING_RECIPE_TYPE);
     }
-}
+}*/

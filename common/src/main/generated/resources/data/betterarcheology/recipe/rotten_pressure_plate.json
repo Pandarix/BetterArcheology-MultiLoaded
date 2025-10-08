@@ -3,12 +3,10 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "W": {
-      "item": "betterarcheology:rotten_planks"
-    }
+    "#": "betterarcheology:rotten_planks"
   },
   "pattern": [
-    "WW"
+    "##"
   ],
   "result": {
     "count": 1,

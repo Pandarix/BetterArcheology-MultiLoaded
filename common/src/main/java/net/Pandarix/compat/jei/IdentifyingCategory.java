@@ -1,5 +1,6 @@
 package net.Pandarix.compat.jei;
-
+// Disabled because JEI is not available for 1.21.4
+/*
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -77,4 +78,4 @@ public class IdentifyingCategory implements IRecipeCategory<IdentifyingRecipe>
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 134, 48).addItemStack(recipe.getResult(3));
     }
-}
+}*/

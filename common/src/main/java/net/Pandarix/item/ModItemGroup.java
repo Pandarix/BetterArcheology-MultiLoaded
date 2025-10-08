@@ -19,7 +19,7 @@ public class ModItemGroup
 
     // ITEM GROUP ──────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<CreativeModeTab> BETTER_ARCHEOLOGY_ITEMGROUP = TABS.register(
-            BACommon.createResource("betterarcheology"), () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+            BACommon.createRLoc("betterarcheology"), () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                     .icon(() -> new ItemStack(ModItems.UNIDENTIFIED_ARTIFACT.get()))
                     .title(Component.translatable("itemGroup." + BACommon.MOD_ID))
                     .displayItems((parameters, output) ->
@@ -88,7 +88,7 @@ public class ModItemGroup
                                 //enchantments
                                 try
                                 {
-                                    HolderGetter<Enchantment> getter = parameters.holders().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT);
+                                    HolderGetter<Enchantment> getter = parameters.holders().lookupOrThrow(Registries.ENCHANTMENT);
 
                                     ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.TUNNELING_KEY));
                                     ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.PENETRATING_STRIKE_KEY));

@@ -3,12 +3,10 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-    "W": {
-      "item": "betterarcheology:rotten_planks"
-    }
+    "#": "betterarcheology:rotten_planks"
   },
   "pattern": [
-    "WWW"
+    "###"
   ],
   "result": {
     "count": 6,

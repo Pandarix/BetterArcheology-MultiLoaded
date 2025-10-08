@@ -93,7 +93,7 @@ public class ArchelogyTable extends BaseEntityBlock
                 throw new IllegalStateException("Container Provider Missing!");
             }
         }
-        return InteractionResult.sidedSuccess(pLevel.isClientSide());
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     // creates ArcheologyTableBlockEntity for each ArcheologyTable

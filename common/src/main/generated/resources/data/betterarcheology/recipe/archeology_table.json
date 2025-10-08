@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "tag": "c:brushes"
-    },
-    "S": {
-      "item": "betterarcheology:artifact_shards"
-    },
-    "W": {
-      "tag": "minecraft:planks"
-    }
+    "B": "#c:brushes",
+    "S": "betterarcheology:artifact_shards",
+    "W": "#minecraft:planks"
   },
   "pattern": [
     "BS",

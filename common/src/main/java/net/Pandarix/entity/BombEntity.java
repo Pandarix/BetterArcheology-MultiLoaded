@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
@@ -19,14 +20,14 @@ public class BombEntity extends ThrowableItemProjectile
         super(entityType, level);
     }
 
-    public BombEntity(Level level, LivingEntity owner)
+    public BombEntity(Level level, LivingEntity owner, ItemStack stack)
     {
-        super(ModEntityTypes.BOMB_ENTITY.get(), owner, level);
+        super(ModEntityTypes.BOMB_ENTITY.get(), owner, level, stack);
     }
 
-    public BombEntity(Level pLevel, double pX, double pY, double pZ)
+    public BombEntity(Level pLevel, double pX, double pY, double pZ, ItemStack stack)
     {
-        super(ModEntityTypes.BOMB_ENTITY.get(), pX, pY, pZ, pLevel);
+        super(ModEntityTypes.BOMB_ENTITY.get(), pX, pY, pZ, pLevel, stack);
     }
 
     @Override

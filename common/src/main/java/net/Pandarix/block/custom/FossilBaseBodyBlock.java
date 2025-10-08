@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,7 +28,7 @@ public class FossilBaseBodyBlock extends HorizontalDirectionalBlock
         return CODEC;
     }
 
-    public static DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public FossilBaseBodyBlock(Properties settings)
     {

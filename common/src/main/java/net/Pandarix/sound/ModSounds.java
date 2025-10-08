@@ -15,8 +15,8 @@ public class ModSounds
     public static final Registrar<SoundEvent> SOUNDS = BACommon.REGISTRIES.get().get(Registries.SOUND_EVENT);
 
     // SOUNDS ──────────────────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<SoundEvent> MUSIC_DISC_SWINGS = registerSound(BACommon.createResource("swings"));
-    public static final ResourceKey<JukeboxSong> SWINGS_SONG_KEY = ResourceKey.create(Registries.JUKEBOX_SONG, BACommon.createResource("swings"));
+    public static final RegistrySupplier<SoundEvent> MUSIC_DISC_SWINGS = registerSound(BACommon.createRLoc("swings"));
+    public static final ResourceKey<JukeboxSong> SWINGS_SONG_KEY = ResourceKey.create(Registries.JUKEBOX_SONG, BACommon.createRLoc("swings"));
 
     // REGISTERING ────────────────────────────────────────────────────────────────────
     private static RegistrySupplier<SoundEvent> registerSound(ResourceLocation id)

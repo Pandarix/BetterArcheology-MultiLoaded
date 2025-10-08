@@ -2,11 +2,6 @@ package net.Pandarix.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -14,11 +9,11 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FossilBaseHeadBlock extends HorizontalDirectionalBlock implements Equipable
+public class FossilBaseHeadBlock extends HorizontalDirectionalBlock
 {
     public static final MapCodec<FossilBaseHeadBlock> CODEC = simpleCodec(FossilBaseHeadBlock::new);
 
@@ -29,7 +24,7 @@ public class FossilBaseHeadBlock extends HorizontalDirectionalBlock implements E
         return CODEC;
     }
 
-    public static DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public FossilBaseHeadBlock(Properties settings)
     {
@@ -63,18 +58,5 @@ public class FossilBaseHeadBlock extends HorizontalDirectionalBlock implements E
     public BlockState mirror(BlockState state, Mirror mirror)
     {
         return state.rotate(mirror.getRotation((Direction) state.getValue(FACING)));
-    }
-
-    @Override
-    @NotNull
-    public EquipmentSlot getEquipmentSlot()
-    {
-        return EquipmentSlot.HEAD;
-    }
-
-    @Override
-    public @NotNull Holder<SoundEvent> getEquipSound()
-    {
-        return SoundEvents.ARMOR_EQUIP_TURTLE;
     }
 }

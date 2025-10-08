@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
-    {
-      "item": "betterarcheology:wolf_fossil_head"
-    },
-    {
-      "item": "betterarcheology:wolf_fossil_body"
-    }
+    "betterarcheology:wolf_fossil_head",
+    "betterarcheology:wolf_fossil_body"
   ],
   "result": {
     "count": 1,

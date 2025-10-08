@@ -7,7 +7,7 @@ import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.entity.ModBlockEntities;
-import net.Pandarix.compat.jei.recipe.ModRecipes;
+//import net.Pandarix.compat.jei.recipe.ModRecipes;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.entity.ModEntityTypes;
@@ -19,7 +19,11 @@ import net.Pandarix.sound.ModSounds;
 import net.Pandarix.util.ModTags;
 import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +55,7 @@ public final class BACommon
         ModTags.register();
         ModBlockEntities.register();
         ModMenuTypes.register();
-        ModRecipes.register();
+        //ModRecipes.register();
         ModVillagers.register();
         ModEvents.register();
         ModSounds.register();
@@ -65,9 +69,20 @@ public final class BACommon
      * @param path Path of the {@link ResourceLocation} to be created
      * @return ResourceLocation of the format "betterarcheology:{@code path}"
      */
-    public static ResourceLocation createResource(String path)
+    public static ResourceLocation createRLoc(String path)
     {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+    /**
+     * Creates a {@link ResourceKey} with the "betterarcheology" mod-id for the given registry.
+     *
+     * @param path Path of the {@link ResourceLocation} to be created for the key
+     * @return ResourceKey of registry with the given path
+     */
+    public static <T> ResourceKey<T> createRKey(ResourceKey<? extends Registry<T>> registry, String path)
+    {
+        return ResourceKey.create(registry, createRLoc(path));
     }
 
     /**

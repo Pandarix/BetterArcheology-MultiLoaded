@@ -1,9 +1,6 @@
 package net.Pandarix.fabric.datagen;
 
-import net.Pandarix.fabric.datagen.provider.ModBlockTagProvider;
-import net.Pandarix.fabric.datagen.provider.ModEnchantmentProvider;
-import net.Pandarix.fabric.datagen.provider.ModItemTagProvider;
-import net.Pandarix.fabric.datagen.provider.ModRecipeProvider;
+import net.Pandarix.fabric.datagen.provider.*;
 import net.Pandarix.fabric.datagen.provider.loot.ModBlockLootTableProvider;
 import net.Pandarix.fabric.datagen.provider.loot.ModLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -18,6 +15,7 @@ public class ModDataGenerators implements DataGeneratorEntrypoint
 
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModBlockLootTableProvider::new);
         pack.addProvider(ModRecipeProvider::new);

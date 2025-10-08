@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "betterarcheology:rotten_logs"
-    }
+    "#betterarcheology:rotten_logs"
   ],
   "result": {
     "count": 4,

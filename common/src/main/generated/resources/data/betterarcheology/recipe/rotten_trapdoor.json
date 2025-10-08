@@ -3,13 +3,11 @@
   "category": "redstone",
   "group": "wooden_trapdoor",
   "key": {
-    "W": {
-      "item": "betterarcheology:rotten_planks"
-    }
+    "#": "betterarcheology:rotten_planks"
   },
   "pattern": [
-    "WWW",
-    "WWW"
+    "###",
+    "###"
   ],
   "result": {
     "count": 2,

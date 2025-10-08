@@ -60,18 +60,19 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
-    implementation "curse.maven:elytra-slot-317716:5778461"
+    implementation("io.wispforest:accessories-neoforge:${project.accessories_version}")
+    implementation "curse.maven:elytra-slot-317716:6801976"
     runtimeOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}"
     compileOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}:api"
 
     // Config library
-    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21:$rootProject.resourceful_config_version"
+    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-$minecraft_version:$rootProject.resourceful_config_version"
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    //compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    //compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    //runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transitive dependencies request 6.0+
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }

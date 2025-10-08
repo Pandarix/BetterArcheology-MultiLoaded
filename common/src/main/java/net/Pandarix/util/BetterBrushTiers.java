@@ -24,7 +24,7 @@ public enum BetterBrushTiers
 
     public String getSpeedFactor()
     {
-        DecimalFormat df = new DecimalFormat("#.##");
-        return df.format(10f / getBrushTickRate());
+        DecimalFormat df = new DecimalFormat("###");
+        return df.format(10f / getBrushTickRate() * 100f);
     }
 }

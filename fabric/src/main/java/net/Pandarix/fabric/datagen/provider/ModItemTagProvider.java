@@ -6,6 +6,7 @@ import net.Pandarix.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
@@ -44,8 +45,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
         this.tag(ItemTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.get().asItem().builtInRegistryHolder().key());
 
-        this.tag(ItemTags.FLOWERS)
-                .add(ModBlocks.GROWTH_TOTEM.get().asItem().builtInRegistryHolder().key());
         this.tag(ItemTags.SMALL_FLOWERS)
                 .add(ModBlocks.GROWTH_TOTEM.get().asItem().builtInRegistryHolder().key());
 

@@ -1,5 +1,6 @@
 package net.Pandarix.compat.jei.recipe;
-
+// Disabled because JEI is not available for 1.21.4
+/*
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
@@ -19,4 +20,4 @@ public class ModRecipes
     {
         BACommon.logRegistryEvent(SERIALIZERS);
     }
-}
+}*/

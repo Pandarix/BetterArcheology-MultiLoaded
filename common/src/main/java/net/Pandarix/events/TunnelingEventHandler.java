@@ -27,7 +27,7 @@ public class TunnelingEventHandler
             try
             {
                 ItemStack stack = serverPlayer.getMainHandItem();
-                Holder.Reference<Enchantment> tunneling = level.registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.TUNNELING_KEY);
+                Holder.Reference<Enchantment> tunneling = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.TUNNELING_KEY);
 
                 //if it is enabled in the config and the stack exists, has Enchantments & is Tunneling
                 if (BAConfig.artifactsEnabled && BAConfig.tunnelingEnabled && !serverPlayer.isShiftKeyDown() && !stack.isEmpty() && stack.isEnchanted() && EnchantmentHelper.getItemEnchantmentLevel(tunneling, stack) >= 1)

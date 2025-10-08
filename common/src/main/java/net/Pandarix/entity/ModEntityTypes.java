@@ -4,6 +4,7 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
@@ -14,11 +15,11 @@ public class ModEntityTypes
 
     // ENTITY TYPES ────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<EntityType<BombEntity>> BOMB_ENTITY =
-            ENTITY_TYPES.register(BACommon.createResource("bombentity"),
+            ENTITY_TYPES.register(BACommon.createRLoc("bombentity"),
                     () -> EntityType.Builder.<BombEntity>of(BombEntity::new, MobCategory.MISC)
                             .sized(0.25F, 0.25F)
                             .clientTrackingRange(4).updateInterval(10)
-                            .build(BACommon.createResource("bombentity").toString()));
+                            .build(ResourceKey.create(Registries.ENTITY_TYPE, BACommon.createRLoc("bombentity"))));
 
     // LOAD ────────────────────────────────────────────────────────────────────────────
     public static void register()
