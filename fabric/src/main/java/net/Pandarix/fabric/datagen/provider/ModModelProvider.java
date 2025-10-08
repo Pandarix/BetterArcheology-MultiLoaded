@@ -7,13 +7,10 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.*;
-import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.world.item.Item;
-
-import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider
 {
@@ -39,9 +36,9 @@ public class ModModelProvider extends FabricModelProvider
         basicItem(itemModelGenerator, ModItems.UNIDENTIFIED_ARTIFACT.get());
         handheldItem(itemModelGenerator, ModItems.SOUL_TOTEM.get());
 
-        itemModelGenerator.declareCustomModelItem(ModItems.IRON_BRUSH.get());
-        itemModelGenerator.declareCustomModelItem(ModItems.DIAMOND_BRUSH.get());
-        itemModelGenerator.declareCustomModelItem(ModItems.NETHERITE_BRUSH.get());
+        itemModelGenerator.generateBrush(ModItems.IRON_BRUSH.get());
+        itemModelGenerator.generateBrush(ModItems.DIAMOND_BRUSH.get());
+        itemModelGenerator.generateBrush(ModItems.NETHERITE_BRUSH.get());
 
         itemModelGenerator.declareCustomModelItem(ModItems.BOMB_ITEM.get());
         itemModelGenerator.declareCustomModelItem(ModItems.DISC_SWINGS.get());
