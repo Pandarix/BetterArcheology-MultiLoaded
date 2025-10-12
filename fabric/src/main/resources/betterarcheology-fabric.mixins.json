@@ -6,13 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "AddCreeperGoalsMixin",
-    "AddSkeletonGoalsMixin",
-    "BrushItemMixin",
-    "ElytraStartupMixin",
-    "FasterBrushingMixin",
-    "PenetratingStrikeMixin",
-    "TorrentTotemItemTickMixin"
+    "ArmadilloBrushingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,5 @@
 package net.Pandarix.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.Pandarix.BACommon;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,7 +13,9 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
 
     //saves archeology_table_gui as TEXTURE
     private static final ResourceLocation TEXTURE =
-            BACommon.createRLoc("textures/gui/archeology_table_gui.png");
+            BACommon.createRLoc("textures/gui/container/archeology_table.png");
+    private static final ResourceLocation PROGRESS_TEXTURE =
+            BACommon.createRLoc("container/archeology_table/brushing_progress");
 
     public IdentifyingScreen(IdentifyingMenu inventoryMenu, Inventory inventory, Component title)
     {
@@ -32,11 +33,9 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY)
     {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderProgressArrow(guiGraphics, x, y);
     }
@@ -45,7 +44,7 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
     {
         if (menu.isCrafting())
         {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 51, y + 48, 176, 0, imageWidth, imageHeight, menu.getScaledProgress(), 17);
+            guiGraphics.blitSprite(RenderType::guiTextured, PROGRESS_TEXTURE, 74, 17, 0, 0, x + 51, y + 48, menu.getScaledProgress(), 17);
         }
     }
 

@@ -18,5 +18,5 @@ dependencies {
     modImplementation "io.wispforest:accessories-common:${project.accessories_version}"
 
     // Disabled because JEI is not available for 1.21.4
-    //modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
 }

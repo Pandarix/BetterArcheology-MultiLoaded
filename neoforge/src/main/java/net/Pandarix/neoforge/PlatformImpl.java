@@ -2,7 +2,7 @@ package net.Pandarix.neoforge;
 
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.Registrar;
-import io.wispforest.accessories.api.AccessoriesCapability;
+//import io.wispforest.accessories.api.AccessoriesCapability;
 import net.Pandarix.BACommon;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
@@ -116,17 +116,19 @@ public class PlatformImpl
                 return true;
             }
 
+            /* Disabled until compat layer is out for 1.21.4
             // ACCESSORIES
             if (ModList.get().isLoaded("accessories"))
             {
                 AccessoriesCapability capability = AccessoriesCapability.get(player);
 
                 if (capability != null &&
-                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)))
+                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)) &&
+                        EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
                 {
                     return true;
                 }
-            }
+            }*/
 
             // CURIOS
             if (ModList.get().isLoaded("curios"))

@@ -21,7 +21,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = BACommon.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BACommon.MOD_ID, value = Dist.CLIENT)
 public class BANeoClient
 {
     @SubscribeEvent

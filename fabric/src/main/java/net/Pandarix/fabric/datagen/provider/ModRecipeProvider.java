@@ -1,6 +1,7 @@
 package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.block.ModBlocks;
+import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -37,7 +38,7 @@ public class ModRecipeProvider extends FabricRecipeProvider
                 buildBrickRecipes();
                 buildMiscRecipes();
                 this.planksFromLogs(ModBlocks.ROTTEN_PLANKS.get(), ModTags.Items.ROTTEN_LOGS, 4);
-                this.generateRecipes(ModBlocks.ROTTEN_FAM, FeatureFlagSet.of(FeatureFlags.VANILLA));
+                this.generateRecipes(ModDataGenerators.ROTTEN_FAM.getFamily(), FeatureFlagSet.of(FeatureFlags.VANILLA));
             }
 
             private void buildMiscRecipes()

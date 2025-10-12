@@ -7,8 +7,6 @@ import net.Pandarix.block.custom.*;
 import net.Pandarix.item.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
@@ -155,8 +153,6 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem",
             () -> new RadianceTotemBlock(propsWithId("radiance_totem").mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
-
-    public static final BlockFamily ROTTEN_FAM = BlockFamilies.familyBuilder(ROTTEN_PLANKS.get()).fence(ROTTEN_FENCE.get()).fenceGate(ROTTEN_FENCE_GATE.get()).pressurePlate(ROTTEN_PRESSURE_PLATE.get()).slab(ROTTEN_SLAB.get()).stairs(ROTTEN_STAIRS.get()).door(ROTTEN_DOOR.get()).trapdoor(ROTTEN_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 
     // UTIL ─────────────────────────────────────────────────────────────────────────────
     public static boolean isFossil(Block block)

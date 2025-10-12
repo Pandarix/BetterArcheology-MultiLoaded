@@ -69,7 +69,8 @@ public class PlatformImpl
                 AccessoriesCapability capability = AccessoriesCapability.get(player);
 
                 if (capability != null &&
-                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)))
+                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)) &&
+                        EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
                 {
                     return true;
                 }

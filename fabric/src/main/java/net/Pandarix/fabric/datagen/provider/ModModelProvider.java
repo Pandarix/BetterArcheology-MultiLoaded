@@ -2,6 +2,7 @@ package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.custom.SusBlock;
+import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -22,7 +23,7 @@ public class ModModelProvider extends FabricModelProvider
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator)
     {
-       blockStateModelGenerator.family(ModBlocks.ROTTEN_FAM.getBaseBlock()).generateFor(ModBlocks.ROTTEN_FAM);
+       blockStateModelGenerator.family(ModDataGenerators.ROTTEN_FAM.getFamily().getBaseBlock()).generateFor(ModDataGenerators.ROTTEN_FAM.getFamily());
        blockStateModelGenerator.woodProvider(ModBlocks.ROTTEN_LOG.get()).logWithHorizontal(ModBlocks.ROTTEN_LOG.get());
     }
 
