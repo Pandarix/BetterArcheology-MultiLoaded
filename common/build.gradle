@@ -18,4 +18,5 @@ dependencies {
     modImplementation "io.wispforest:accessories-common:${project.accessories_version}"
 
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rei_version}"
 }

@@ -22,6 +22,12 @@
     ],
     "fabric-datagen": [
       "net.Pandarix.fabric.datagen.ModDataGenerators"
+    ],
+    "rei_common": [
+      "net.Pandarix.compat.rei.ReiPlugin"
+    ],
+    "rei_client": [
+      "net.Pandarix.compat.rei.ReiClientPlugin"
     ]
   },
   "mixins": [

@@ -1,4 +1,4 @@
-package net.Pandarix.compat.jei.recipe;
+package net.Pandarix.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

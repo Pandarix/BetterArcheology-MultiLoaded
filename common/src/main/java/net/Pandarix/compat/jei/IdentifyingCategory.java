@@ -11,7 +11,7 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
-import net.Pandarix.compat.jei.recipe.IdentifyingRecipe;
+import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.item.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

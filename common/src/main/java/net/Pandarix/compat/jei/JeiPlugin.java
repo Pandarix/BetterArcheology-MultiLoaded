@@ -7,7 +7,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
-import net.Pandarix.compat.jei.recipe.IdentifyingRecipe;
+import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.screen.IdentifyingScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

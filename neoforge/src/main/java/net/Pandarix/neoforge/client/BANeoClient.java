@@ -7,7 +7,7 @@ import net.Pandarix.block.entity.client.ArcheologyTableBlockEntityRenderer;
 import net.Pandarix.block.entity.client.SusBlockEntityRenderer;
 import net.Pandarix.block.entity.client.VillagerFossilBlockEntityRenderer;
 import net.Pandarix.compat.jei.JeiPlugin;
-import net.Pandarix.compat.jei.recipe.IdentifyingRecipe;
+import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.screen.FossilInventoryScreen;
 import net.Pandarix.screen.IdentifyingScreen;

@@ -1,4 +1,4 @@
-package net.Pandarix.compat.jei.recipe;
+package net.Pandarix.recipe;
 
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;

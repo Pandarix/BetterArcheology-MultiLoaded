@@ -68,6 +68,7 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    maven { url "https://maven.shedaniel.me" }
 }
 
 configurations {
@@ -112,6 +113,8 @@ dependencies {
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-$minecraft_version:$rootProject.resourceful_config_version"
 
     compileOnly "mezz.jei:jei-$project.minecraft_version-common-api:$jei_version"
+
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 }
 
 processResources {
