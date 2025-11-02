@@ -17,6 +17,5 @@ dependencies {
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-common-${minecraft_version}:$rootProject.resourceful_config_version"
     modImplementation "io.wispforest:accessories-common:${project.accessories_version}"
 
-    // Disabled because JEI is not available for 1.21.4
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
 }

@@ -1,8 +1,6 @@
 {
   "type": "betterarcheology:identifying",
-  "input": {
-    "item": "betterarcheology:unidentified_artifact"
-  },
+  "ingredient": "betterarcheology:unidentified_artifact",
   "result": {
     "id": "minecraft:enchanted_book",
     "count": 1,

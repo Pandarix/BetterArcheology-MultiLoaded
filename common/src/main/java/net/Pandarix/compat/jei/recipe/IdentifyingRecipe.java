@@ -1,13 +1,10 @@
 package net.Pandarix.compat.jei.recipe;
 
-// Disabled because JEI is not available for 1.21.4
-/*
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.Pandarix.BACommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -44,24 +41,10 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         return input.test(pInput.getItem(0));
     }
 
-    */
-/**
-     * Makes recipe not display in the recipe book
-     *
-     * @return false
-     *//*
-
     @Override
     public boolean isSpecial()
     {
         return true;
-    }
-
-    @Override
-    @NotNull
-    public NonNullList<Ingredient> getIngredients()
-    {
-        return NonNullList.of(Ingredient.EMPTY, input);
     }
 
     @NotNull
@@ -71,14 +54,7 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
         return this.getResultItem(pRegistries);
     }
 
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight)
-    {
-        return true;
-    }
-
     @NotNull
-    @Override
     public ItemStack getResultItem(HolderLookup.Provider pRegistries)
     {
         if (POSSIBLE_RESULT_COUNT == 0)
@@ -108,16 +84,28 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
 
     @Override
     @NotNull
-    public RecipeSerializer<?> getSerializer()
+    public RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer()
     {
         return Serializer.INSTANCE;
     }
 
     @Override
     @NotNull
-    public RecipeType<?> getType()
+    public RecipeType<? extends Recipe<CraftingInput>> getType()
     {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public @NotNull PlacementInfo placementInfo()
+    {
+        return PlacementInfo.create(this.input);
+    }
+
+    @Override
+    public @NotNull RecipeBookCategory recipeBookCategory()
+    {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     public static class Type implements RecipeType<IdentifyingRecipe>
@@ -129,7 +117,7 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
     {
         private static final MapCodec<IdentifyingRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (builder) -> builder.group(
-                        Ingredient.CODEC.fieldOf("input").forGetter((IdentifyingRecipe recipe) -> recipe.input),
+                        Ingredient.CODEC.fieldOf("ingredient").forGetter((IdentifyingRecipe recipe) -> recipe.input),
                         ItemStack.CODEC.fieldOf("result").forGetter((IdentifyingRecipe recipe) -> recipe.result)
                 ).apply(builder, IdentifyingRecipe::new)
         );
@@ -166,4 +154,4 @@ public class IdentifyingRecipe implements Recipe<CraftingInput>
             ItemStack.STREAM_CODEC.encode(pBuffer, pRecipe.result);
         }
     }
-}*/
+}

@@ -7,6 +7,7 @@ import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.entity.ModBlockEntities;
+import net.Pandarix.compat.jei.recipe.ModRecipes;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.entity.ModEntityTypes;
@@ -52,6 +53,7 @@ public final class BACommon
         ModTags.register();
         ModBlockEntities.register();
         ModMenuTypes.register();
+        ModRecipes.register();
         ModVillagers.register();
         ModEvents.register();
         ModSounds.register();

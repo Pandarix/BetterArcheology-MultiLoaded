@@ -111,9 +111,7 @@ dependencies {
     //CONFIG
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-$minecraft_version:$rootProject.resourceful_config_version"
 
-    //modImplementation("mezz.jei:jei-${project.minecraft_version}-fabric:${jei_version}") {
-    //    exclude group: "mezz.jei"
-    //}
+    compileOnly "mezz.jei:jei-$project.minecraft_version-common-api:$jei_version"
 }
 
 processResources {

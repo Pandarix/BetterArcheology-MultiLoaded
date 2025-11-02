@@ -6,6 +6,8 @@ import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.block.entity.client.ArcheologyTableBlockEntityRenderer;
 import net.Pandarix.block.entity.client.SusBlockEntityRenderer;
 import net.Pandarix.block.entity.client.VillagerFossilBlockEntityRenderer;
+import net.Pandarix.compat.jei.JeiPlugin;
+import net.Pandarix.compat.jei.recipe.IdentifyingRecipe;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.screen.FossilInventoryScreen;
 import net.Pandarix.screen.IdentifyingScreen;
@@ -15,10 +17,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = BACommon.MOD_ID, value = Dist.CLIENT)
@@ -41,6 +46,21 @@ public class BANeoClient
     {
         event.register(ModMenuTypes.FOSSIL_MENU.get(), FossilInventoryScreen::new);
         event.register(ModMenuTypes.IDENTIFYING_MENU.get(), IdentifyingScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void datapackSyncEvent(OnDatapackSyncEvent event)
+    {
+        event.sendRecipes(IdentifyingRecipe.Type.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void recipeEvent(RecipesReceivedEvent event)
+    {
+        if (ModList.get().isLoaded("jei"))
+        {
+            JeiPlugin.recipeMap = event.getRecipeMap();
+        }
     }
 
     @SubscribeEvent

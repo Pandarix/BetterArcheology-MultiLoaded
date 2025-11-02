@@ -9,6 +9,7 @@
     "AddCreeperGoalsMixin",
     "AddSkeletonGoalsMixin",
     "BrushItemMixin",
+    "ArmadilloBrushingMixin",
     "ElytraStartupMixin",
     "FasterBrushingMixin",
     "PenetratingStrikeMixin",
