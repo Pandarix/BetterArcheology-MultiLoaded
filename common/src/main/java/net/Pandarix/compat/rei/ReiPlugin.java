@@ -17,7 +17,7 @@ public class ReiPlugin implements REICommonPlugin
     @Override
     public void registerDisplays(ServerDisplayRegistry registry)
     {
-        registry.beginRecipeFiller(IdentifyingRecipe.class).filterType(IdentifyingRecipe.Type.INSTANCE).fill(IdentifyingDisplay::new);
+        registry.beginRecipeFiller(IdentifyingRecipe.class).filterType(IdentifyingRecipe.Type.INSTANCE).fill((IdentifyingDisplay::new));
     }
 
     @Override

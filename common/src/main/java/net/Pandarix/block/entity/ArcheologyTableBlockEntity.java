@@ -1,15 +1,13 @@
 package net.Pandarix.block.entity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.ArchelogyTable;
-import net.Pandarix.item.ModItems;
+import net.Pandarix.item.BetterBrushItem;
+import net.Pandarix.recipe.IdentifyingRecipe;
+import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.screen.IdentifyingMenu;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -30,18 +28,14 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.BrushItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,6 +53,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     //loottable for crafting results
     protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("identifying_loot"));
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
+    private final RecipeManager.CachedCheck<SingleRecipeInput, IdentifyingRecipe> quickCheck;
 
     // PROGRESS ──────────────────────────────────────────────────────────────────────────
     //synchronises Ints between server and client
@@ -71,6 +66,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         super(ModBlockEntities.ARCHEOLOGY_TABLE.get(), pos, state);
         this.items = NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
         this.recipesUsed = new Object2IntOpenHashMap<>();
+        this.quickCheck = RecipeManager.createCheck(ModRecipes.IDENTIFYING_RECIPE_TYPE.get());
         //getter und setter für PropertyDelegate based on index (progress, maxProgress)
         this.data = new ContainerData()
         {
@@ -106,7 +102,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     // CRAFTING-RELATED ──────────────────────────────────────────────────────────────────────────
     @Override
     @NotNull
-    protected AbstractContainerMenu createMenu(int id, Inventory inventory)
+    protected AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory)
     {
         return new IdentifyingMenu(id, inventory, this, this.data);
     }
@@ -116,38 +112,60 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         this.progress = 0;
     }
 
+    public int getProgress()
+    {
+        return progress;
+    }
+
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, ArcheologyTableBlockEntity entity)
     {
-        //don't do anything clientside
-        if (world.isClientSide())
-        {
-            return;
-        }
+        if (world.isClientSide()) return;
 
-        //if the entity has a recipe inside:
-        if (hasRecipe(entity))
+        ItemStack brushSlotContent = entity.items.getFirst();
+        boolean hasBrush = brushSlotContent.getItem() instanceof BrushItem;
+        ItemStack inputSlotContent = entity.items.get(1);
+
+        if (hasBrush && !inputSlotContent.isEmpty())
         {
-            //play sound every 10th tick
-            if (entity.progress % 10 == 0)
+            ServerLevel serverLevel = (ServerLevel) world;
+            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(inputSlotContent);
+            RecipeHolder<? extends IdentifyingRecipe> recipeHolder = entity.quickCheck.getRecipeFor(singleRecipeInput, serverLevel).orElse(null);
+
+            // Reset and cancel
+            if (!canBrush(serverLevel.registryAccess(), recipeHolder, singleRecipeInput, entity.items, entity.getMaxStackSize()))
             {
-                world.playSound(null, entity.worldPosition, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 0.25f, 1f);
+                setBlockBrushing(world, blockPos, blockState, false);
+                entity.resetProgress();
+                return;
             }
 
-            //if the recipe is inside, et self state to dusting
-            world.setBlock(blockPos, blockState.setValue(ArchelogyTable.DUSTING, true), 3);
-            entity.progress++; //increase progress
+            int brushSpeed = brushSlotContent.getItem() instanceof BetterBrushItem betterBrushItem ? betterBrushItem.getBrushingSpeed() : 10;
+
+            //play sound every 10th tick
+            if (entity.progress % brushSpeed == 0)
+                world.playSound(null, entity.worldPosition, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 0.25f, 1f);
+
+            //if the recipe is inside, set state to dusting
+            int progressStep = (int) Math.ceil(10f / brushSpeed);
+            entity.progress += progressStep; //increase progress
+            setBlockBrushing(world, blockPos, blockState, true);
             setChanged(world, blockPos, blockState);
+
             //if crafting progress is bigger or as big as the maxProgress, then craft the Item, else reset the timer
             if (entity.progress >= entity.maxProgress)
-            {
-                entity.craftItem();
-            }
+                entity.craftItem(serverLevel, recipeHolder, singleRecipeInput, entity.items);
         } else
         {
-            world.setBlock(blockPos, blockState.setValue(ArchelogyTable.DUSTING, false), 3);
-            entity.resetProgress();
-            setChanged(world, blockPos, blockState);
+            entity.resetProgress(); //resets crafting progress
+            setBlockBrushing(world, blockPos, blockState, false);
+            entity.setChanged();
         }
+    }
+
+    private static void setBlockBrushing(Level world, BlockPos blockPos, BlockState blockState, boolean brushing)
+    {
+        world.setBlock(blockPos, blockState.setValue(ArchelogyTable.DUSTING, brushing), 3);
+        setChanged(world, blockPos, blockState);
     }
 
     @Override
@@ -167,80 +185,59 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return null;
     }
 
-    private void craftItem()
+    private void craftItem(ServerLevel serverLevel, RecipeHolder<? extends IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> contents)
     {
-        //if there is an unidentified artifact in the input slot and the output slot is empty:
-        if (hasRecipe(this) && this.items.get(2).isEmpty())
+        if (recipeHolder == null || !canBrush(serverLevel.registryAccess(), recipeHolder, singleRecipeInput, contents, this.getMaxStackSize()))
+            return;
+
+        //remove input from slot
+        ItemStack stack = this.items.get(1);
+        stack.shrink(1);
+        this.items.set(1, stack);
+
+        ItemStack brush = this.items.getFirst();
+        brush.hurtAndBreak(1, serverLevel, null, item -> serverLevel.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 0.25f, 1f));
+
+        //play sound after crafting
+        serverLevel.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
+        this.setRecipeUsed(recipeHolder);
+
+        ItemStack resultStack = recipeHolder.value().assemble(singleRecipeInput, serverLevel.registryAccess());
+        ItemStack stackInOutput = contents.get(2).copy();
+
+        if (stackInOutput.isEmpty())
         {
-            //remove input from slot
-            ItemStack stack = this.items.get(1);
-            stack.shrink(1);
-            this.items.set(1, stack);
-            ItemStack brush = this.items.get(0);
-            int newDamage = brush.getDamageValue() + 1; //calculate new Damage Value the item would have
-
-            //if the item is supposed to break or the durability is smaller than zero
-            if (newDamage > brush.getMaxDamage())
-            {
-                ItemStack brushStack = this.items.get(0);
-                brushStack.shrink(1);
-                this.items.set(0, brushStack);   //remove the Item
-                assert this.level != null;
-                if (!this.level.isClientSide())
-                {
-                    //play break sound
-                    this.level.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 0.25f, 1f);
-                }
-            } else
-            {
-                //if not, set the damage to the calculated damage above
-                brush.setDamageValue(newDamage);
-            }
-
-            //if on server
-            if (this.level != null && !this.level.isClientSide())
-            {
-                //play sound after crafting
-                this.level.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
-            }
-            this.items.set(2, generateCraftingLoot(this, this.level)); //set crafted output in the output slot
-            this.resetProgress(); //resets crafting progress
-            this.setChanged();
+            this.items.set(2, resultStack.copy());
+        } else if (ItemStack.isSameItemSameComponents(stackInOutput, resultStack))
+        {
+            stackInOutput.grow(resultStack.getCount());
+            this.items.set(2, stackInOutput);
         }
+
+        this.resetProgress(); //resets crafting progress
+        this.setChanged();
     }
 
-    private ItemStack generateCraftingLoot(BlockEntity entity, Level level)
+    private static boolean canBrush(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
     {
-        //if on server and there is a Server(World)
-        if (level != null && !level.isClientSide() && level.getServer() != null)
-        {
-            //gets loot-table based on .json loot
-            LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(CRAFTING_LOOT);
-            //parameters for determining loot such as luck, origin and position
-            LootParams lootparams = (new LootParams.Builder((ServerLevel) level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(entity.getBlockPos())).withLuck(0).create(LootContextParamSets.CHEST);
+        if (nonNullList.getFirst().isEmpty() || recipeHolder == null)
+            return false;
 
-            //returns ArrayList of ItemStacks that get generated by the LootTable
-            ObjectArrayList<ItemStack> objectArrayList = lootTable.getRandomItems(lootparams, level.random.nextLong());
+        ItemStack potResult = recipeHolder.value().assemble(singleRecipeInput, registryAccess);
+        if (potResult.isEmpty())
+            return false;
 
-            //return first LootTable entry as crafting output
-            if (objectArrayList.isEmpty())
-            {
-                return ItemStack.EMPTY;
-            }
-            if (objectArrayList.size() == 1)
-            {
-                return objectArrayList.getFirst();
-            }
-        }
-        return ItemStack.EMPTY;
-    }
+        ItemStack stackInOutput = nonNullList.get(2);
+        if (stackInOutput.isEmpty())
+            return true;
 
-    private static boolean hasRecipe(ArcheologyTableBlockEntity entity)
-    {
-        boolean hasShardInFirstSlot = entity.items.get(1).is(ModItems.UNIDENTIFIED_ARTIFACT.get());                     //Input
-        Item itemInSlot0 = entity.items.get(0).getItem();
-        boolean hasBrushInSlot = itemInSlot0 instanceof BrushItem;
-        return hasShardInFirstSlot && hasBrushInSlot && canInsertAmountIntoOutputSlot(entity.items) && canInsertItemIntoOutputSlot(entity.items, entity.items.get(2).getItem());
+        if (!ItemStack.isSameItemSameComponents(potResult, stackInOutput))
+            return false;
+
+        if (potResult.getCount() < maxStackSize && stackInOutput.getCount() < stackInOutput.getMaxStackSize())
+            return true;
+
+        return stackInOutput.getCount() < potResult.getMaxStackSize();
     }
 
     // INVENTORY HANDLING ──────────────────────────────────────────────────────────────────────────
@@ -256,37 +253,23 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction)
+    public boolean canPlaceItemThroughFace(int slot, @NotNull ItemStack itemStack, @Nullable Direction direction)
     {
-        //no insertion into the output slot
-        if (direction == Direction.DOWN)
+        if (direction == null) return false;
+
+        return switch (direction)
         {
-            return false;
-        }
-        //if the top is targeted and the item is a Brush, insert
-        if (direction == Direction.UP)
-        {
-            return slot == 0 && itemStack.getItem() instanceof BrushItem;
-        }
-        //for the sides: if it is an unidentified artifact
-        return slot == 1 && itemStack.is(ModItems.UNIDENTIFIED_ARTIFACT.get());
+            case Direction.DOWN -> false;
+            case Direction.UP -> slot == 0 && itemStack.getItem() instanceof BrushItem;
+            default -> slot == 1 && this.items.get(1).isEmpty();
+        };
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction)
+    public boolean canTakeItemThroughFace(int slot, @NotNull ItemStack itemStack, @NotNull Direction direction)
     {
         //only extract on the bottom
         return direction == Direction.DOWN && slot == 2;
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(NonNullList<ItemStack> handler, Item output)
-    {
-        return handler.get(2).getItem() == output || handler.get(2).isEmpty();
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(NonNullList<ItemStack> items)
-    {
-        return items.get(2).getMaxStackSize() > items.get(2).getCount();
     }
 
     @NotNull
@@ -296,25 +279,24 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList)
+    protected void setItems(@NotNull NonNullList<ItemStack> nonNullList)
     {
         for (int i = 0; i < this.items.size(); i++)
-        {
             this.items.set(i, nonNullList.get(i));
-        }
     }
 
     @Override
     public void setItem(int i, ItemStack itemStack)
     {
         ItemStack itemStack2 = this.items.get(i);
+
         boolean isValid = !itemStack.isEmpty() && ItemStack.isSameItemSameComponents(itemStack2, itemStack);
         this.items.set(i, itemStack);
+
         itemStack.limitSize(this.getMaxStackSize(itemStack));
+
         if (i == 0 && !isValid)
-        {
             this.setChanged();
-        }
     }
 
     public int getContainerSize()
@@ -333,9 +315,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     public void setChanged()
     {
         if (this.level != null)
-        {
             level.sendBlockUpdated(worldPosition, this.getBlockState(), this.getBlockState(), 3);
-        }
+
         super.setChanged();
     }
 
@@ -348,7 +329,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     @NotNull
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries)
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries)
     {
         CompoundTag nbt = super.getUpdateTag(pRegistries);
         this.saveAdditional(nbt, pRegistries);
@@ -356,7 +337,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries)
     {
         super.saveAdditional(pTag, pRegistries);
 
@@ -371,7 +352,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
+    protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries)
     {
         super.loadAdditional(pTag, pRegistries);
 

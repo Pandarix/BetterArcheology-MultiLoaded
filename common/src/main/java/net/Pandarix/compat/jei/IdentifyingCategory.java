@@ -11,8 +11,8 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
-import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.item.ModItems;
+import net.Pandarix.recipe.IdentifyingRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -75,6 +75,6 @@ public class IdentifyingCategory implements IRecipeCategory<RecipeHolder<Identif
 
         builder.addSlot(RecipeIngredientRole.INPUT, 26, 48).add(recipe.value().placementInfo().ingredients().getFirst());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 134, 48).add(recipe.value().getResult(3));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 134, 48).add(recipe.value().getResult());
     }
 }

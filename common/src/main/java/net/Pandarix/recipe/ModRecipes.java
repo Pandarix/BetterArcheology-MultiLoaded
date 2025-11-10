@@ -6,6 +6,7 @@ import net.Pandarix.BACommon;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
 
 public class ModRecipes
 {
@@ -14,7 +15,7 @@ public class ModRecipes
     public static final Registrar<RecipeType<?>> RECIPE_TYPES = BACommon.REGISTRIES.get().get(Registries.RECIPE_TYPE);
 
     public static final RegistrySupplier<RecipeSerializer<IdentifyingRecipe>> IDENTIFYING_SERIALIZER =
-            SERIALIZERS.register(BACommon.createRLoc("identifying"), () -> IdentifyingRecipe.Serializer.INSTANCE);
+            SERIALIZERS.register(BACommon.createRLoc("identifying"), () -> new SingleItemRecipe.Serializer<>(IdentifyingRecipe::new));
     public static final RegistrySupplier<RecipeType<IdentifyingRecipe>> IDENTIFYING_RECIPE_TYPE =
             RECIPE_TYPES.register(BACommon.createRLoc("identifying"), () -> IdentifyingRecipe.Type.INSTANCE);
 

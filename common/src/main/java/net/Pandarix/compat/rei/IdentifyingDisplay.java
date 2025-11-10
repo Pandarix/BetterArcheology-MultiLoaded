@@ -47,7 +47,7 @@ public record IdentifyingDisplay(RecipeHolder<IdentifyingRecipe> recipe) impleme
     @Override
     public List<EntryIngredient> getOutputEntries()
     {
-        return List.of(EntryIngredients.of(recipe.value().getResult(3)));
+        return List.of(EntryIngredients.of(recipe.value().getResult()));
     }
 
     @Override
