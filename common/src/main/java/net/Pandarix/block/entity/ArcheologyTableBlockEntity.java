@@ -8,13 +8,11 @@ import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.screen.IdentifyingMenu;
 import net.minecraft.core.*;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -35,7 +33,6 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,9 +46,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     protected NonNullList<ItemStack> items;
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_DOWN = new int[]{2};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
-    //loottable for crafting results
-    protected static final ResourceKey<LootTable> CRAFTING_LOOT = ResourceKey.create(Registries.LOOT_TABLE, BACommon.createRLoc("identifying_loot"));
+    private static final int[] SLOTS_FOR_SIDES = new int[]{1};;
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
     private final RecipeManager.CachedCheck<SingleRecipeInput, IdentifyingRecipe> quickCheck;
 

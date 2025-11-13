@@ -1,7 +1,6 @@
 package net.Pandarix.screen;
 
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
-import net.Pandarix.item.ModItems;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -85,20 +84,17 @@ public class IdentifyingMenu extends BAAbstractContainerMenu
             }
 
             //ARTIFACTS
-            if (originalStack.is(ModItems.UNIDENTIFIED_ARTIFACT.get()))
+            if (isInInv(pIndex))
             {
-                if (isInInv(pIndex))
-                {
-                    //inventory -> slots
-                    if (!this.moveItemStackTo(originalStack, this.slots.size() - 2, this.slots.size() - 1, true))
-                    {
-                        return ItemStack.EMPTY;
-                    }
-                    //slots -> inventory
-                } else if (!this.moveItemStackTo(originalStack, 0, this.slots.size() - ArcheologyTableBlockEntity.INV_SIZE - 1, false))
+                //inventory -> slots
+                if (!this.moveItemStackTo(originalStack, this.slots.size() - 2, this.slots.size() - 1, true))
                 {
                     return ItemStack.EMPTY;
                 }
+                //slots -> inventory
+            } else if (!this.moveItemStackTo(originalStack, 0, this.slots.size() - ArcheologyTableBlockEntity.INV_SIZE - 1, false))
+            {
+                return ItemStack.EMPTY;
             }
 
             if (!isInInv(pIndex))
