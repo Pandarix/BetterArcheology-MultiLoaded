@@ -28,7 +28,7 @@ side = "BOTH"
 [[dependencies.betterarcheology]]
 modId = "architectury"
 type = "required"
-versionRange = "[13.0.2,)"
+versionRange = "[15.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
