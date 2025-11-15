@@ -1,6 +1,6 @@
 {
   "type": "betterarcheology:identifying",
-  "input": {
+  "ingredient": {
     "item": "betterarcheology:unidentified_artifact"
   },
   "result": {

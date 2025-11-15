@@ -27,7 +27,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider
     @Override
     protected void configure(HolderLookup.Provider registries, Entries entries)
     {
-        HolderGetter<Item> itemLookup = registries.asGetterLookup().lookupOrThrow(Registries.ITEM);
+        HolderGetter<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
 
         register(entries, ModEnchantments.PENETRATING_STRIKE_KEY, new Enchantment.Builder(
                 Enchantment.definition(

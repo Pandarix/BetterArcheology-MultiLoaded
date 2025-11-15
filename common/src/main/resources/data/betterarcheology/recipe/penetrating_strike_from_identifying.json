@@ -1,6 +1,6 @@
 {
   "type": "betterarcheology:identifying",
-  "input": {
+  "ingredient": {
     "item": "betterarcheology:unidentified_artifact"
   },
   "result": {
@@ -9,7 +9,7 @@
     "components": {
       "minecraft:stored_enchantments": {
         "levels": {
-          "betterarcheology:tunneling": 1
+          "betterarcheology:penetrating_strike": 1
         }
       }
     }

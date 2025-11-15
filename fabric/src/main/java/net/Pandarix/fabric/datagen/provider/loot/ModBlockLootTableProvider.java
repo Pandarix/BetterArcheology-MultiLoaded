@@ -50,8 +50,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider
                 createSilkTouchOnlyTable(ModBlocks.INFESTED_MUD_BRICKS.get()));
         this.add(ModBlocks.CHISELED_BONE_BLOCK.get(), block ->
                 this.createSingleItemTableWithSilkTouch(block, Items.BONE, UniformGenerator.between(2, 3)));
-        this.dropOther(ModBlocks.SUSPICIOUS_DIRT.get(), Items.AIR);
-        this.dropOther(ModBlocks.SUSPICIOUS_RED_SAND.get(), Items.AIR);
+        this.add(ModBlocks.SUSPICIOUS_DIRT.get(), LootTable.lootTable());
+        this.add(ModBlocks.SUSPICIOUS_RED_SAND.get(), LootTable.lootTable());
         this.dropOther(ModBlocks.FOSSILIFEROUS_DIRT.get(), Items.BONE);
 
         //ROTTEN

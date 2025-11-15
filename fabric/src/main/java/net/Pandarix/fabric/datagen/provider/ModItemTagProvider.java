@@ -27,6 +27,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
     @Override
     protected void addTags(HolderLookup.Provider pProvider)
     {
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .addOptionalTag(ModTags.Items.BRUSHES.location());
+
         this.tag(ModTags.Items.TUNNELING_ITEMS)
                 .addOptionalTag(ItemTags.PICKAXES.location())
                 .addOptionalTag(ItemTags.SHOVELS.location())

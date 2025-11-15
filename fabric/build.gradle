@@ -68,6 +68,7 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    maven { url "https://maven.shedaniel.me" }
 }
 
 configurations {
@@ -105,6 +106,7 @@ dependencies {
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}")
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}")
 
+    modImplementation("io.wispforest:accessories-fabric:${project.accessories_version}")
     modImplementation "dev.emi:trinkets:${trinkets_version}"
     modImplementation "curse.maven:elytra-slot-317716:5770052"
 
@@ -114,6 +116,8 @@ dependencies {
     modImplementation("mezz.jei:jei-${project.minecraft_version}-fabric:${jei_version}") {
         exclude group: "mezz.jei"
     }
+
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 }
 
 processResources {

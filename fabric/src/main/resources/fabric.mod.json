@@ -25,11 +25,13 @@
     ],
     "fabric-datagen": [
       "net.Pandarix.fabric.datagen.ModDataGenerators"
+    ],
+    "rei_client": [
+      "net.Pandarix.compat.rei.ReiClientPlugin"
     ]
   },
   "mixins": [
-    "betterarcheology.mixins.json",
-    "betterarcheology.fabric.mixins.json"
+    "betterarcheology.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.7",

@@ -3,14 +3,18 @@ package net.Pandarix.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.block.entity.ModBlockEntities;
+import net.Pandarix.item.BetterBrushItem;
 import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -115,27 +119,27 @@ public class ArchelogyTable extends BaseEntityBlock
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom)
     {
         if (pLevel.isClientSide() && pState.getValue(DUSTING))
-        {
             addDustParticles(pLevel, pPos, pRandom);
-        }
+
         super.animateTick(pState, pLevel, pPos, pRandom);
     }
 
     public void addDustParticles(Level pLevel, BlockPos pos, RandomSource random)
     {
-        if (random.nextBoolean())
-        {
-            return;
-        } //create particles half of the time
+        ArcheologyTableBlockEntity entity = (ArcheologyTableBlockEntity) pLevel.getBlockEntity(pos);
+        if (entity == null) return;
+
+        ItemStack brush = entity.getItems().getFirst();
+        int brushSpeed = brush.getItem() instanceof BetterBrushItem brushItem ? brushItem.getBrushingSpeed() : 10;
+
+        //play sound every Xth tick
+        if (entity.getProgress() % brushSpeed == 0)
+            pLevel.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 0.25f, 1f);
+
         int i = random.nextIntBetweenInclusive(1, 3); //number of particles to be created
-
         BlockParticleOption blockStateParticleEffect = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SAND.defaultBlockState());
-
         for (int j = 0; j < i; ++j)
         {
-            //centering Block position
-            //setting base velocity to 3 and multiplying it with rand double with random sign
-            //that way particles can spread in every direction by chance
             pLevel.addParticle(blockStateParticleEffect,
                     pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
                     3.0 * random.nextDouble() * (random.nextBoolean() ? 1 : -1),

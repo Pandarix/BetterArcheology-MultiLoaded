@@ -1,5 +1,6 @@
 package net.Pandarix.mixin;
 
+import dev.architectury.injectables.annotations.PlatformOnly;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.Item;
@@ -9,11 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Armadillo.class)
-public abstract class ArmadilloMixin
+public abstract class ArmadilloBrushingMixin
 {
+    @PlatformOnly(PlatformOnly.FABRIC)
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
-    public boolean inject(ItemStack stack, Item item)
+    private boolean injectBrushing(ItemStack instance, Item arg)
     {
-        return item instanceof BrushItem;
+        return instance.getItem() instanceof BrushItem;
     }
 }
