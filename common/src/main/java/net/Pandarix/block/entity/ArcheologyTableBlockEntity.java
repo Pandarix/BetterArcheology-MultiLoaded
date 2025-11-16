@@ -5,7 +5,6 @@ import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.ArchelogyTable;
 import net.Pandarix.item.BetterBrushItem;
 import net.Pandarix.recipe.IdentifyingRecipe;
-import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.screen.IdentifyingMenu;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -28,13 +27,15 @@ import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible
 {
@@ -48,7 +49,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     private static final int[] SLOTS_FOR_DOWN = new int[]{2};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
-    private final RecipeManager.CachedCheck<SingleRecipeInput, IdentifyingRecipe> quickCheck;
 
     // PROGRESS ──────────────────────────────────────────────────────────────────────────
     //synchronises Ints between server and client
@@ -61,7 +61,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         super(ModBlockEntities.ARCHEOLOGY_TABLE.get(), pos, state);
         this.items = NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
         this.recipesUsed = new Object2IntOpenHashMap<>();
-        this.quickCheck = RecipeManager.createCheck(ModRecipes.IDENTIFYING_RECIPE_TYPE.get());
         //getter und setter für PropertyDelegate based on index (progress, maxProgress)
         this.data = new ContainerData()
         {
@@ -112,6 +111,20 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return progress;
     }
 
+
+    private static Optional<RecipeHolder<IdentifyingRecipe>> getRecipeOrRandomMatching(SingleRecipeInput singleRecipeInput, ServerLevel serverLevel)
+    {
+        List<RecipeHolder<IdentifyingRecipe>> possibleRecipes = serverLevel.getRecipeManager().getRecipesFor(IdentifyingRecipe.Type.INSTANCE, singleRecipeInput, serverLevel);
+
+        int size = possibleRecipes.size();
+        return switch (size)
+        {
+            case 0 -> Optional.empty();
+            case 1 -> Optional.of(possibleRecipes.getFirst());
+            default -> Optional.of(possibleRecipes.get(serverLevel.random.nextInt(size)));
+        };
+    }
+
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, ArcheologyTableBlockEntity entity)
     {
         if (world.isClientSide()) return;
@@ -124,10 +137,10 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         {
             ServerLevel serverLevel = (ServerLevel) world;
             SingleRecipeInput singleRecipeInput = new SingleRecipeInput(inputSlotContent);
-            RecipeHolder<? extends IdentifyingRecipe> recipeHolder = entity.quickCheck.getRecipeFor(singleRecipeInput, serverLevel).orElse(null);
+            Optional<RecipeHolder<IdentifyingRecipe>> recipeHolder = getRecipeOrRandomMatching(singleRecipeInput, serverLevel);
 
             // Reset and cancel
-            if (!canBrush(serverLevel.registryAccess(), recipeHolder, singleRecipeInput, entity.items, entity.getMaxStackSize()))
+            if (recipeHolder.isEmpty() || !canBrush(serverLevel.registryAccess(), recipeHolder.get(), singleRecipeInput, entity.items, entity.getMaxStackSize()))
             {
                 setBlockBrushing(world, blockPos, blockState, false);
                 entity.resetProgress();
@@ -148,7 +161,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
             //if crafting progress is bigger or as big as the maxProgress, then craft the Item, else reset the timer
             if (entity.progress >= entity.maxProgress)
-                entity.craftItem(serverLevel, recipeHolder, singleRecipeInput, entity.items);
+                entity.craftItem(serverLevel, recipeHolder.get(), singleRecipeInput, entity.items);
         } else
         {
             entity.resetProgress(); //resets crafting progress
@@ -180,7 +193,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return null;
     }
 
-    private void craftItem(ServerLevel serverLevel, RecipeHolder<? extends IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> contents)
+    private void craftItem(ServerLevel serverLevel, RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> contents)
     {
         if (recipeHolder == null || !canBrush(serverLevel.registryAccess(), recipeHolder, singleRecipeInput, contents, this.getMaxStackSize()))
             return;
@@ -213,7 +226,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         this.setChanged();
     }
 
-    private static boolean canBrush(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
+    private static boolean canBrush(RegistryAccess registryAccess, @Nullable RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
     {
         if (nonNullList.getFirst().isEmpty() || recipeHolder == null)
             return false;
