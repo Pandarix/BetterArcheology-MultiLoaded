@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.NotNull;
@@ -26,12 +27,15 @@ public class IdentifyingRecipe extends SingleItemRecipe
     public ItemStack getResult()
     {
         //Adding the Enchantment Tags
-        ItemStack modifiedResultBook = this.result().copy();
-        //apply custom naming to the book
-        modifiedResultBook.set(DataComponents.ITEM_NAME, Component.translatable("item.betterarcheology.identified_artifact"));
-        modifiedResultBook.set(DataComponents.LORE,
-                new ItemLore(List.of(Component.translatable("item.betterarcheology.identified_artifact").withColor(ChatFormatting.AQUA.getColor()))));
-        return modifiedResultBook;
+        ItemStack item = this.result().copy();
+        if (item.is(Items.ENCHANTED_BOOK))
+        {
+            //apply custom naming to the book
+            item.set(DataComponents.ITEM_NAME, Component.translatable("item.betterarcheology.identified_artifact"));
+            item.set(DataComponents.LORE,
+                    new ItemLore(List.of(Component.translatable("item.betterarcheology.identified_artifact_info").withColor(ChatFormatting.AQUA.getColor()))));
+        }
+        return item;
     }
 
     @Override
