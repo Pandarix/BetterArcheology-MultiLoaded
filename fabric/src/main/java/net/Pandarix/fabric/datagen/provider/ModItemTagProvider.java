@@ -27,56 +27,56 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
     @Override
     protected void addTags(HolderLookup.Provider pProvider)
     {
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE)
-                .addOptionalTag(ModTags.Items.BRUSHES.location());
+        this.builder(ItemTags.DURABILITY_ENCHANTABLE)
+                .addOptionalTag(ModTags.Items.BRUSHES);
 
-        this.tag(ModTags.Items.TUNNELING_ITEMS)
-                .addOptionalTag(ItemTags.PICKAXES.location())
-                .addOptionalTag(ItemTags.SHOVELS.location())
-                .addOptionalTag(ItemTags.HOES.location());
+        this.builder(ModTags.Items.TUNNELING_ITEMS)
+                .addOptionalTag(ItemTags.PICKAXES)
+                .addOptionalTag(ItemTags.SHOVELS)
+                .addOptionalTag(ItemTags.HOES);
 
-        this.tag(ModTags.Items.ELYTRAS)
+        this.builder(ModTags.Items.ELYTRAS)
                 .add(Items.ELYTRA.builtInRegistryHolder().key());
 
-        this.tag(ModTags.Items.ROTTEN_LOGS)
+        this.builder(ModTags.Items.ROTTEN_LOGS)
                 .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
 
-        this.tag(ModTags.Items.BRUSHES)
+        this.builder(ModTags.Items.BRUSHES)
                 .add(Items.BRUSH.builtInRegistryHolder().key(), ModItems.IRON_BRUSH.getKey(), ModItems.DIAMOND_BRUSH.getKey(), ModItems.NETHERITE_BRUSH.getKey());
 
-        this.tag(ItemTags.DIRT)
+        this.builder(ItemTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.get().asItem().builtInRegistryHolder().key());
 
-        this.tag(ItemTags.SMALL_FLOWERS)
+        this.builder(ItemTags.SMALL_FLOWERS)
                 .add(ModBlocks.GROWTH_TOTEM.get().asItem().builtInRegistryHolder().key());
 
-        this.tag(ItemTags.DOORS)
+        this.builder(ItemTags.DOORS)
                 .add(ModBlocks.ROTTEN_DOOR.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.WOODEN_DOORS)
+        this.builder(ItemTags.WOODEN_DOORS)
                 .add(ModBlocks.ROTTEN_DOOR.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.FENCE_GATES)
+        this.builder(ItemTags.FENCE_GATES)
                 .add(ModBlocks.ROTTEN_FENCE_GATE.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.FENCES)
+        this.builder(ItemTags.FENCES)
                 .add(ModBlocks.ROTTEN_FENCE.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.WOODEN_FENCES)
+        this.builder(ItemTags.WOODEN_FENCES)
                 .add(ModBlocks.ROTTEN_FENCE.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.LOGS)
+        this.builder(ItemTags.LOGS)
                 .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.LOGS_THAT_BURN)
+        this.builder(ItemTags.LOGS_THAT_BURN)
                 .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.PLANKS)
+        this.builder(ItemTags.PLANKS)
                 .add(ModBlocks.ROTTEN_PLANKS.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.WOODEN_PRESSURE_PLATES)
+        this.builder(ItemTags.WOODEN_PRESSURE_PLATES)
                 .add(ModBlocks.ROTTEN_PRESSURE_PLATE.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.SLABS)
+        this.builder(ItemTags.SLABS)
                 .add(ModBlocks.ROTTEN_SLAB.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.WOODEN_SLABS)
+        this.builder(ItemTags.WOODEN_SLABS)
                 .add(ModBlocks.ROTTEN_SLAB.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.STAIRS)
+        this.builder(ItemTags.STAIRS)
                 .add(ModBlocks.ROTTEN_STAIRS.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.TRAPDOORS)
+        this.builder(ItemTags.TRAPDOORS)
                 .add(ModBlocks.ROTTEN_TRAPDOOR.get().asItem().builtInRegistryHolder().key());
-        this.tag(ItemTags.WOODEN_TRAPDOORS)
+        this.builder(ItemTags.WOODEN_TRAPDOORS)
                 .add(ModBlocks.ROTTEN_TRAPDOOR.get().asItem().builtInRegistryHolder().key());
     }
 }

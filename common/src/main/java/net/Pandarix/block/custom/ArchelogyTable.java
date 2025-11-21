@@ -11,11 +11,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -66,20 +66,10 @@ public class ArchelogyTable extends BaseEntityBlock
         return RenderShape.MODEL;
     }
 
-    //Drops Items present in the table at the time of destruction
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved)
+    public void destroy(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState)
     {
-        if (state.getBlock() != newState.getBlock())
-        {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof ArcheologyTableBlockEntity archeologyTableBlockEntity)
-            {
-                Containers.dropContents(level, pos, archeologyTableBlockEntity);
-                level.updateNeighbourForOutputSignal(pos, this);
-            }
-        }
-        super.onRemove(state, level, pos, newState, moved);
+        super.destroy(levelAccessor, blockPos, blockState);
     }
 
     @Override

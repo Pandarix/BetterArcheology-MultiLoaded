@@ -7,9 +7,10 @@ import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class BetterBrushItem extends BrushItem
 {
@@ -32,12 +33,13 @@ public class BetterBrushItem extends BrushItem
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag)
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
         if (this.getBrushingSpeed() != 10)
         {
-            list.add(Component.literal("+" + brushTier.getSpeedFactor() + "% Brushing Speed").withStyle(ChatFormatting.DARK_GREEN));
-            super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
+            consumer.accept(Component.literal("+" + brushTier.getSpeedFactor() + "% Brushing Speed").withStyle(ChatFormatting.DARK_GREEN));
+            super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
         }
     }
 }

@@ -3,7 +3,7 @@ package net.Pandarix.screen;
 import net.Pandarix.BACommon;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -35,7 +35,7 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
     {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderProgressArrow(guiGraphics, x, y);
     }
@@ -44,7 +44,7 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
     {
         if (menu.isCrafting())
         {
-            guiGraphics.blitSprite(RenderType::guiTextured, PROGRESS_TEXTURE, 74, 17, 0, 0, x + 51, y + 48, menu.getScaledProgress(), 17);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_TEXTURE, 74, 17, 0, 0, x + 51, y + 48, menu.getScaledProgress(), 17);
         }
     }
 

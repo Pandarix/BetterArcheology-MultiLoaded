@@ -1,5 +1,6 @@
 package net.Pandarix.block.entity;
 
+import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.VillagerFossilBlock;
 import net.Pandarix.screen.FossilInventoryMenu;
 import net.minecraft.core.BlockPos;
@@ -11,23 +12,30 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implements MenuProvider, StackedContentsCompatible, WorldlyContainer
+public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implements ItemOwner, MenuProvider, StackedContentsCompatible, WorldlyContainer
 {
     protected NonNullList<ItemStack> items;
 
@@ -108,19 +116,18 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
 
     // NETWORKING ──────────────────────────────────────────────────────────────────────────────────
     @Override
-    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider pRegistries)
+    protected void saveAdditional(ValueOutput valueOutput)
     {
-        super.saveAdditional(nbt, pRegistries);
-
-        ContainerHelper.saveAllItems(nbt, this.items, pRegistries);
+        super.saveAdditional(valueOutput);
+        ContainerHelper.saveAllItems(valueOutput, this.items);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries)
+    protected void loadAdditional(ValueInput valueInput)
     {
-        super.loadAdditional(pTag, pRegistries);
+        super.loadAdditional(valueInput);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
+        ContainerHelper.loadAllItems(valueInput, this.items);
         setChanged();
     }
 
@@ -146,11 +153,14 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
 
     @Override
     @NotNull
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries)
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries)
     {
-        CompoundTag nbt = super.getUpdateTag(pRegistries);
-        this.saveAdditional(nbt, pRegistries);
-        return nbt;
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), BACommon.LOGGER))
+        {
+            TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, pRegistries);
+            this.saveAdditional(tagValueOutput);
+            return tagValueOutput.buildResult();
+        }
     }
 
     // MISC ──────────────────────────────────────────────────────────────────────────────────
@@ -172,5 +182,23 @@ public class VillagerFossilBlockEntity extends BaseContainerBlockEntity implemen
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory)
     {
         return new FossilInventoryMenu(containerId, inventory, this);
+    }
+
+    @Override
+    public Level level()
+    {
+        return this.level;
+    }
+
+    @Override
+    public Vec3 position()
+    {
+        return this.getBlockPos().getCenter();
+    }
+
+    @Override
+    public float getVisualRotationYInDegrees()
+    {
+        return 0f;
     }
 }

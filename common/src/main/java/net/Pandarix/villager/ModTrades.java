@@ -8,6 +8,7 @@ import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.item.ModItems;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
@@ -135,7 +136,7 @@ public class ModTrades
                 }
         );
 
-        VillagerTrades.TRADES.put(ModVillagers.ARCHEOLOGIST.get(), archeologistTrades);
+        VillagerTrades.TRADES.put(ResourceKey.create(Registries.VILLAGER_PROFESSION, BACommon.createRLoc("archeologist")), archeologistTrades);
     }
 
     // REGISTERING ─────────────────────────────────────────────────────────────────────

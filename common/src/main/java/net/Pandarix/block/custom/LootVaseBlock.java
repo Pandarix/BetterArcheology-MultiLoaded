@@ -94,7 +94,7 @@ public class LootVaseBlock extends Block
         Silverfish silverfishEntity = EntityType.SILVERFISH.create(level, EntitySpawnReason.TRIGGERED);
         if (silverfishEntity != null)
         {
-            silverfishEntity.moveTo((double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);
+            silverfishEntity.snapTo((double) pos.getX() + 0.5, (double) pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);
             level.addFreshEntity(silverfishEntity);
             silverfishEntity.spawnAnim();
         }

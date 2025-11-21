@@ -1,5 +1,6 @@
 package net.Pandarix.compat.rei;
 
+/*
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
@@ -68,3 +69,4 @@ public record IdentifyingDisplay(RecipeHolder<IdentifyingRecipe> recipe) impleme
         return SERIALIZER;
     }
 }
+*/

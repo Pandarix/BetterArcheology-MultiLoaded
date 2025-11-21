@@ -1,7 +1,6 @@
 package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.block.ModBlocks;
-import net.Pandarix.block.custom.SusBlock;
 import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -12,6 +11,7 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.BrushableBlock;
 
 public class ModModelProvider extends FabricModelProvider
 {
@@ -56,7 +56,7 @@ public class ModModelProvider extends FabricModelProvider
 
         ModBlocks.BLOCKS.forEach((block) ->
         {
-            if (ModBlocks.isFossil(block) || block instanceof SusBlock) {
+            if (ModBlocks.isFossil(block) || block instanceof BrushableBlock) {
                 itemModelGenerator.declareCustomModelItem(block.asItem());
             }
         });

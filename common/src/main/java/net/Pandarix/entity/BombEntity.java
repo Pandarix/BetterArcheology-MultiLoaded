@@ -67,7 +67,7 @@ public class BombEntity extends ThrowableItemProjectile
     protected void onHit(HitResult pResult)
     {
         super.onHit(pResult);
-        if (!this.level().isClientSide)
+        if (!this.level().isClientSide())
         {
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();

@@ -37,7 +37,7 @@ public class ArcheologyStructures extends Structure
                     Codec.intRange(0, 50).fieldOf("size").forGetter(structure -> structure.size),
                     HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
-                    Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
+                    JigsawStructure.MaxDistance.CODEC.fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
                     Codec.list(PoolAliasBinding.CODEC).optionalFieldOf("pool_aliases", List.of()).forGetter((structure) -> structure.poolAliasBindings),
                     DimensionPadding.CODEC.optionalFieldOf("dimension_padding", JigsawStructure.DEFAULT_DIMENSION_PADDING).forGetter(structure -> structure.dimensionPadding),
                     LiquidSettings.CODEC.optionalFieldOf("liquid_settings", JigsawStructure.DEFAULT_LIQUID_SETTINGS).forGetter(structure -> structure.liquidSettings)
@@ -48,7 +48,7 @@ public class ArcheologyStructures extends Structure
     private final int size;
     private final HeightProvider startHeight;
     private final Optional<Heightmap.Types> projectStartToHeightmap;
-    private final int maxDistanceFromCenter;
+    private final JigsawStructure.MaxDistance maxDistanceFromCenter;
     private final LiquidSettings liquidSettings;
     private final DimensionPadding dimensionPadding;
 
@@ -60,7 +60,7 @@ public class ArcheologyStructures extends Structure
                                 int size,
                                 HeightProvider startHeight,
                                 Optional<Heightmap.Types> projectStartToHeightmap,
-                                int maxDistanceFromCenter,
+                                JigsawStructure.MaxDistance maxDistanceFromCenter,
                                 List<PoolAliasBinding> poolAliasBindings,
                                 DimensionPadding dimensionPadding,
                                 LiquidSettings liquidSettings)
@@ -120,7 +120,7 @@ public class ArcheologyStructures extends Structure
 
     @Override
     @NotNull
-    public Optional<GenerationStub> findGenerationPoint(GenerationContext context)
+    public Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context)
     {
 
         // Check if the spot is valid for our structure. This is just as another method for cleanness.

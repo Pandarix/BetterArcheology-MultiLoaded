@@ -1,81 +1,89 @@
 package net.Pandarix.block.entity.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.Pandarix.block.custom.FossilBaseWithEntityBlock;
+import it.unimi.dsi.fastutil.HashCommon;
+import net.Pandarix.block.custom.VillagerFossilBlock;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.Pandarix.block.entity.state.VillagerFossilRenderState;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-
-public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<VillagerFossilBlockEntity>
+public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<VillagerFossilBlockEntity, VillagerFossilRenderState>
 {
+    private final ItemModelResolver itemModelResolver;
+
     public VillagerFossilBlockEntityRenderer(BlockEntityRendererProvider.Context context)
     {
+        this.itemModelResolver = context.itemModelResolver();
     }
 
     @Override
-    public void render(VillagerFossilBlockEntity pBlockEntity, float pPartialTick, com.mojang.blaze3d.vertex.PoseStack pPoseStack,
-                       MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay)
+    public @NotNull VillagerFossilRenderState createRenderState()
     {
-        if (pBlockEntity.getLevel() == null)
-        {
-            return;
-        }
+        return new VillagerFossilRenderState();
+    }
 
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+    @Override
+    public void extractRenderState(@NotNull VillagerFossilBlockEntity villagerFossilBlockEntity, @NotNull VillagerFossilRenderState villagerFossilRenderState, float f, @NotNull Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
+    {
+        BlockEntityRenderer.super.extractRenderState(villagerFossilBlockEntity, villagerFossilRenderState, f, vec3, crumblingOverlay);
+        Direction facing = villagerFossilBlockEntity.getBlockState().getValue(VillagerFossilBlock.FACING);
+        villagerFossilRenderState.lightCoords = villagerFossilBlockEntity.getLevel() != null ? LevelRenderer.getLightColor(villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity.getBlockPos().relative(facing)) : 15728880;
 
-        pPoseStack.pushPose();
+        ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
+        this.itemModelResolver.updateForTopItem(itemStackRenderState, villagerFossilBlockEntity.getItem(0), ItemDisplayContext.FIXED, villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity, HashCommon.long2int(villagerFossilBlockEntity.getBlockPos().asLong()));
+        villagerFossilRenderState.items[0] = itemStackRenderState;
+    }
 
-        BlockState state = pBlockEntity.getLevel().getBlockState(pBlockEntity.getBlockPos());
-        Direction facing = state.getBlock() instanceof FossilBaseWithEntityBlock ? state.getValue(FossilBaseWithEntityBlock.FACING) : Direction.NORTH;
+    @Override
+    public void submit(VillagerFossilRenderState villagerFossilRenderState, PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector, @NotNull CameraRenderState cameraRenderState)
+    {
+        ItemStackRenderState itemRenderState = villagerFossilRenderState.items[0];
+
+        poseStack.pushPose();
+
+        Direction facing = villagerFossilRenderState.blockState.getValue(VillagerFossilBlock.FACING);
 
         //rotation based on direction the Block ist facing
         switch (facing)
         {
             case EAST ->
             {
-                pPoseStack.translate(0.75f, 0.95f, 0.5f);
-                pPoseStack.mulPose(Axis.YP.rotationDegrees(-90));
+                poseStack.translate(0.75f, 0.95f, 0.5f);
+                poseStack.mulPose(Axis.YP.rotationDegrees(-90));
             }
             case WEST ->
             {
-                pPoseStack.translate(0.25f, 0.95f, 0.5f);
-                pPoseStack.mulPose(Axis.YP.rotationDegrees(90));
+                poseStack.translate(0.25f, 0.95f, 0.5f);
+                poseStack.mulPose(Axis.YP.rotationDegrees(90));
             }
-            case NORTH -> pPoseStack.translate(0.5f, 0.95f, 0.25f);
+            case NORTH -> poseStack.translate(0.5f, 0.95f, 0.25f);
             case SOUTH ->
             {
-                pPoseStack.translate(0.5f, 0.95f, 0.75f);
-                pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
+                poseStack.translate(0.5f, 0.95f, 0.75f);
+                poseStack.mulPose(Axis.YP.rotationDegrees(180));
             }
-            default -> pPoseStack.mulPose(Axis.YP.rotationDegrees(-90));
+            default -> poseStack.mulPose(Axis.YP.rotationDegrees(-90));
         }
 
         //scale item to 0.5x size
-        pPoseStack.scale(0.5f, 0.5f, 0.5f);
+        poseStack.scale(0.5f, 0.5f, 0.5f);
 
         //render item in inventory to hand position with lightlevel at blockpos
-        itemRenderer.renderStatic(pBlockEntity.getItems().getFirst(), ItemDisplayContext.FIXED, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
-
-        pPoseStack.popPose();
-    }
-
-    private int getLightLevel(Level level, BlockPos pos)
-    {
-        int bLight = level.getBrightness(LightLayer.BLOCK, pos);
-        int sLight = level.getBrightness(LightLayer.SKY, pos);
-        return LightTexture.pack(bLight, sLight);
+        itemRenderState.submit(poseStack, submitNodeCollector, villagerFossilRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+        poseStack.popPose();
     }
 }

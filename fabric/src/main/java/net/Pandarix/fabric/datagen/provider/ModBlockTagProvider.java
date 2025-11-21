@@ -19,10 +19,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
     @Override
     protected void addTags(HolderLookup.Provider pProvider)
     {
-        this.tag(ModTags.Blocks.ROTTEN_LOGS)
+        this.builder(ModTags.Blocks.ROTTEN_LOGS)
                 .add(ModBlocks.ROTTEN_LOG.getKey());
 
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        this.builder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(
                         ModBlocks.CRACKED_MUD_BRICKS.getKey(),
                         ModBlocks.CRACKED_MUD_BRICK_SLAB.getKey(),
@@ -53,7 +53,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
                         ModBlocks.RADIANCE_TOTEM.getKey()
                 );
 
-        this.tag(BlockTags.MINEABLE_WITH_AXE)
+        this.builder(BlockTags.MINEABLE_WITH_AXE)
                 .add(
                         ModBlocks.ROTTEN_LOG.getKey(),
                         ModBlocks.ROTTEN_PLANKS.getKey(),
@@ -67,53 +67,53 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
                         ModBlocks.ARCHEOLOGY_TABLE.getKey()
                 );
 
-        this.tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        this.builder(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-        this.tag(BlockTags.BAMBOO_PLANTABLE_ON)
+        this.builder(BlockTags.BAMBOO_PLANTABLE_ON)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-        this.tag(BlockTags.DIRT)
+        this.builder(BlockTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
 
-        this.tag(BlockTags.LUSH_GROUND_REPLACEABLE)
+        this.builder(BlockTags.LUSH_GROUND_REPLACEABLE)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-        this.tag(BlockTags.FLOWERS)
+        this.builder(BlockTags.FLOWERS)
                 .add(ModBlocks.GROWTH_TOTEM.getKey());
-        this.tag(BlockTags.SMALL_FLOWERS)
+        this.builder(BlockTags.SMALL_FLOWERS)
                 .add(ModBlocks.GROWTH_TOTEM.getKey());
 
-        this.tag(BlockTags.DOORS)
+        this.builder(BlockTags.DOORS)
                 .add(ModBlocks.ROTTEN_DOOR.getKey());
-        this.tag(BlockTags.WOODEN_DOORS)
+        this.builder(BlockTags.WOODEN_DOORS)
                 .add(ModBlocks.ROTTEN_DOOR.getKey());
-        this.tag(BlockTags.FENCE_GATES)
+        this.builder(BlockTags.FENCE_GATES)
                 .add(ModBlocks.ROTTEN_FENCE_GATE.getKey());
-        this.tag(BlockTags.FENCES)
+        this.builder(BlockTags.FENCES)
                 .add(ModBlocks.ROTTEN_FENCE.getKey());
-        this.tag(BlockTags.WOODEN_FENCES)
+        this.builder(BlockTags.WOODEN_FENCES)
                 .add(ModBlocks.ROTTEN_FENCE.getKey());
-        this.tag(BlockTags.LOGS)
+        this.builder(BlockTags.LOGS)
                 .add(ModBlocks.ROTTEN_LOG.getKey());
-        this.tag(BlockTags.LOGS_THAT_BURN)
+        this.builder(BlockTags.LOGS_THAT_BURN)
                 .add(ModBlocks.ROTTEN_LOG.getKey());
-        this.tag(BlockTags.PLANKS)
+        this.builder(BlockTags.PLANKS)
                 .add(ModBlocks.ROTTEN_PLANKS.getKey());
-        this.tag(BlockTags.PRESSURE_PLATES)
+        this.builder(BlockTags.PRESSURE_PLATES)
                 .add(ModBlocks.ROTTEN_PRESSURE_PLATE.getKey());
-        this.tag(BlockTags.WOODEN_PRESSURE_PLATES)
+        this.builder(BlockTags.WOODEN_PRESSURE_PLATES)
                 .add(ModBlocks.ROTTEN_PRESSURE_PLATE.getKey());
-        this.tag(BlockTags.WALL_POST_OVERRIDE)
+        this.builder(BlockTags.WALL_POST_OVERRIDE)
                 .add(ModBlocks.ROTTEN_PRESSURE_PLATE.getKey());
-        this.tag(BlockTags.SLABS)
+        this.builder(BlockTags.SLABS)
                 .add(ModBlocks.ROTTEN_SLAB.getKey());
-        this.tag(BlockTags.WOODEN_SLABS)
+        this.builder(BlockTags.WOODEN_SLABS)
                 .add(ModBlocks.ROTTEN_SLAB.getKey());
-        this.tag(BlockTags.STAIRS)
+        this.builder(BlockTags.STAIRS)
                 .add(ModBlocks.ROTTEN_STAIRS.getKey());
-        this.tag(BlockTags.TRAPDOORS)
+        this.builder(BlockTags.TRAPDOORS)
                 .add(ModBlocks.ROTTEN_TRAPDOOR.getKey());
-        this.tag(BlockTags.WOODEN_TRAPDOORS)
+        this.builder(BlockTags.WOODEN_TRAPDOORS)
                 .add(ModBlocks.ROTTEN_TRAPDOOR.getKey());
-        this.tag(BlockTags.UNSTABLE_BOTTOM_CENTER)
+        this.builder(BlockTags.UNSTABLE_BOTTOM_CENTER)
                 .add(ModBlocks.ROTTEN_FENCE_GATE.getKey());
     }
 }

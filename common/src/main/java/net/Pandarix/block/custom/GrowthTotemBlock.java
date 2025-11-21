@@ -1,30 +1,26 @@
 package net.Pandarix.block.custom;
 
 import net.Pandarix.config.BAConfig;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
 
 public class GrowthTotemBlock extends FlowerBlock
 {
@@ -38,10 +34,9 @@ public class GrowthTotemBlock extends FlowerBlock
     {
         super.animateTick(pState, pLevel, pPos, pRandom);
         if (!BAConfig.totemsEnabled || !BAConfig.growthTotemEnabled)
-        {
             return;
-        }
-        if (pLevel.isClientSide() && pRandom.nextIntBetweenInclusive(0, 15) == 0)
+
+        if (pLevel.isClientSide() && pRandom.nextIntBetweenInclusive(0, 40) == 0)
         {
             for (int i = -BAConfig.growthTotemGrowRadius; i <= BAConfig.growthTotemGrowRadius; i++)
             {
@@ -49,9 +44,10 @@ public class GrowthTotemBlock extends FlowerBlock
                 {
                     if (pRandom.nextIntBetweenInclusive(0, 3) == 3)
                     {
-                        Vec3 center = pPos.offset(i, 0, j).getCenter();
+                        SpellParticleOption particleOption = SpellParticleOption.create(ParticleTypes.INSTANT_EFFECT, ARGB.white(1), 0);
 
-                        pLevel.addParticle(ParticleTypes.INSTANT_EFFECT,
+                        Vec3 center = pPos.offset(i, 0, j).getCenter();
+                        pLevel.addParticle(particleOption,
                                 center.x + randomDirectionModifier(pRandom, 3),
                                 pPos.getY(),
                                 center.z + randomDirectionModifier(pRandom, 3),
@@ -73,13 +69,11 @@ public class GrowthTotemBlock extends FlowerBlock
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom)
     {
         if (!BAConfig.totemsEnabled || !BAConfig.growthTotemEnabled)
-        {
             return;
-        }
+
         if (pRandom.nextIntBetweenInclusive(1, 100) > BAConfig.growthTotemGrowChance)
-        {
             return;
-        }
+
         for (int i = -BAConfig.growthTotemGrowRadius; i <= BAConfig.growthTotemGrowRadius; i++)
         {
             for (int j = -BAConfig.growthTotemGrowRadius; j <= BAConfig.growthTotemGrowRadius; j++)
@@ -93,11 +87,9 @@ public class GrowthTotemBlock extends FlowerBlock
                     {
                         if (cropBlock.isBonemealSuccess(pLevel, pLevel.random, pos, state))
                         {
-                            cropBlock.performBonemeal((ServerLevel) pLevel, pLevel.random, pos, state);
+                            cropBlock.performBonemeal(pLevel, pLevel.random, pos, state);
                             if (pRandom.nextBoolean())
-                            {
                                 pLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS);
-                            }
                         }
                     }
                 }
@@ -107,24 +99,15 @@ public class GrowthTotemBlock extends FlowerBlock
     }
 
     @Override
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity)
+    protected void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl)
     {
-        super.entityInside(pState, pLevel, pPos, pEntity);
-        if (pEntity instanceof LivingEntity livingEntity)
-        {
+        super.entityInside(blockState, level, blockPos, entity, insideBlockEffectApplier, bl);
+        if (entity instanceof LivingEntity livingEntity)
             livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
-        }
     }
 
     private static float randomDirectionModifier(RandomSource pRandom, int pReduce)
     {
         return ((pRandom.nextFloat() / pReduce) * pRandom.nextIntBetweenInclusive(-1, 1));
-    }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pTooltipFlag)
-    {
-        super.appendHoverText(pStack, pContext, pTooltip, pTooltipFlag);
-        pTooltip.add(Component.translatable("block.betterarcheology.growth_totem_tooltip").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

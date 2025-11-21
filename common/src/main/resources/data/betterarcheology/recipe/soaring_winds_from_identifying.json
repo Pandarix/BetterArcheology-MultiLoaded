@@ -6,9 +6,7 @@
     "count": 1,
     "components": {
       "minecraft:stored_enchantments": {
-        "levels": {
-          "betterarcheology:soaring_winds": 1
-        }
+        "betterarcheology:soaring_winds": 1
       }
     }
   }

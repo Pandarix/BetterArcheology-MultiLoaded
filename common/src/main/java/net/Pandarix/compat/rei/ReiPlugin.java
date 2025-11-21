@@ -1,4 +1,5 @@
 package net.Pandarix.compat.rei;
+/*
 
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
@@ -26,3 +27,4 @@ public class ReiPlugin implements REICommonPlugin
         registry.register(IdentifyingDisplay.CATEGORY.getIdentifier(), IdentifyingDisplay.SERIALIZER);
     }
 }
+*/

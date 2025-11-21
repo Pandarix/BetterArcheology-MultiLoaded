@@ -1,16 +1,11 @@
 package net.Pandarix.block.custom;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -21,7 +16,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Map;
 
 public class CreeperFossilBlock extends FossilBaseBlock
@@ -86,12 +80,5 @@ public class CreeperFossilBlock extends FossilBaseBlock
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext)
     {
         return CREEPER_SHAPES_FOR_DIRECTION.get(blockState.getValue(FACING));
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> component, TooltipFlag flag)
-    {
-        component.add(Component.translatable("block.betterarcheology.creeper_fossil_tooltip").withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, component, flag);
     }
 }

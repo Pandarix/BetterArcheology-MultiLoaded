@@ -1,6 +1,7 @@
 package net.Pandarix.block.entity;
 
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.ArchelogyTable;
 import net.Pandarix.item.BetterBrushItem;
@@ -12,12 +13,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -26,19 +29,25 @@ import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible
+public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity implements ItemOwner, WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible
 {
     // INVENTORY ──────────────────────────────────────────────────────────────────────────
     //default inventory size of the archeology table,
@@ -49,7 +58,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_DOWN = new int[]{2};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
-    private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
+    private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
+    private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed;
 
     // PROGRESS ──────────────────────────────────────────────────────────────────────────
     //synchronises Ints between server and client
@@ -61,7 +71,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     {
         super(ModBlockEntities.ARCHEOLOGY_TABLE.get(), pos, state);
         this.items = NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
-        this.recipesUsed = new Object2IntOpenHashMap<>();
         //getter und setter für PropertyDelegate based on index (progress, maxProgress)
         this.data = new ContainerData()
         {
@@ -92,6 +101,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
                 return NO_PROP_DELEGATES;
             }
         };
+
+        this.recipesUsed = new Reference2IntOpenHashMap<>();
     }
 
     // CRAFTING-RELATED ──────────────────────────────────────────────────────────────────────────
@@ -187,7 +198,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     {
         if (recipeHolder != null)
         {
-            ResourceLocation resourceLocation = recipeHolder.id().location();
+            ResourceKey<Recipe<?>> resourceLocation = recipeHolder.id();
             this.recipesUsed.addTo(resourceLocation, 1);
         }
     }
@@ -210,7 +221,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         this.items.set(1, stack);
 
         ItemStack brush = this.items.getFirst();
-        brush.hurtAndBreak(1, serverLevel, null, item -> serverLevel.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 0.25f, 1f));
+        brush.hurtAndBreak(1, serverLevel, null, item -> serverLevel.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.25f, 1f));
 
         //play sound after crafting
         serverLevel.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
@@ -345,41 +356,39 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @NotNull
     public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries)
     {
-        CompoundTag nbt = super.getUpdateTag(pRegistries);
-        this.saveAdditional(nbt, pRegistries);
-        return nbt;
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), BACommon.LOGGER))
+        {
+            TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, pRegistries);
+            this.saveAdditional(tagValueOutput);
+            return tagValueOutput.buildResult();
+        }
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries)
+    protected void saveAdditional(@NotNull ValueOutput valueOutput)
     {
-        super.saveAdditional(pTag, pRegistries);
+        super.saveAdditional(valueOutput);
 
-        ContainerHelper.saveAllItems(pTag, this.items, pRegistries);
+        ContainerHelper.saveAllItems(valueOutput, this.items);
 
-        pTag.putInt("archeology_table.progress", progress);
-
-        CompoundTag recipesUsed = new CompoundTag();
-        this.recipesUsed.forEach((resourceLocation, integer) ->
-                recipesUsed.putInt(resourceLocation.toString(), integer));
-        pTag.put("RecipesUsed", recipesUsed);
+        valueOutput.putShort("archeology_table.progress", (short) this.progress);
+        valueOutput.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries)
+    protected void loadAdditional(@NotNull ValueInput valueInput)
     {
-        super.loadAdditional(pTag, pRegistries);
+        super.loadAdditional(valueInput);
 
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
+        ContainerHelper.loadAllItems(valueInput, this.items);
 
-        progress = pTag.getInt("archeology_table");
+        this.progress = valueInput.getShortOr("archeology_table", (short) 0);
 
-        CompoundTag recipesUsed = pTag.getCompound("RecipesUsed");
-        recipesUsed.getAllKeys().forEach(string ->
-                this.recipesUsed.put(ResourceLocation.parse(string), recipesUsed.getInt(string)));
+        this.recipesUsed.clear();
+        this.recipesUsed.putAll(valueInput.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
 
-        setChanged();
+        this.setChanged();
     }
 
     // MISC ──────────────────────────────────────────────────────────────────────────
@@ -395,5 +404,24 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     protected Component getDefaultName()
     {
         return getDisplayName();
+    }
+
+    @Override
+    @NotNull
+    public Level level()
+    {
+        return this.level;
+    }
+
+    @Override
+    public Vec3 position()
+    {
+        return this.getBlockPos().getCenter();
+    }
+
+    @Override
+    public float getVisualRotationYInDegrees()
+    {
+        return 0f;
     }
 }

@@ -6,9 +6,7 @@
     "count": 1,
     "components": {
       "minecraft:stored_enchantments": {
-        "levels": {
-          "betterarcheology:tunneling": 1
-        }
+        "betterarcheology:tunneling": 1
       }
     }
   }

@@ -2,75 +2,112 @@ package net.Pandarix.block.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import it.unimi.dsi.fastutil.HashCommon;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.Pandarix.block.entity.state.ArcheologyTableRenderState;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Objects;
-
-public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<ArcheologyTableBlockEntity>
+public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<ArcheologyTableBlockEntity, ArcheologyTableRenderState>
 {
+    private final ItemModelResolver itemModelResolver;
+
     public ArcheologyTableBlockEntityRenderer(BlockEntityRendererProvider.Context context)
     {
+        this.itemModelResolver = context.itemModelResolver();
     }
 
     @Override
-    public void render(ArcheologyTableBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay)
+    public @NotNull ArcheologyTableRenderState createRenderState()
     {
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        return new ArcheologyTableRenderState();
+    }
 
+    @Override
+    public void extractRenderState(@NotNull ArcheologyTableBlockEntity archeologyTableBlockEntity, @NotNull ArcheologyTableRenderState archeologyTableRenderState, float f, @NotNull Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
+    {
+        BlockEntityRenderer.super.extractRenderState(archeologyTableBlockEntity, archeologyTableRenderState, f, vec3, crumblingOverlay);
+        archeologyTableRenderState.lightCoords = archeologyTableBlockEntity.getLevel() != null ? LevelRenderer.getLightColor(archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity.getBlockPos().above()) : 15728880;
+        NonNullList<ItemStack> nonNullList = archeologyTableBlockEntity.getItems();
+        int i = HashCommon.long2int(archeologyTableBlockEntity.getBlockPos().asLong());
+
+        for (int j = 0; j < nonNullList.size(); ++j)
+        {
+            ItemStack itemStack = nonNullList.get(j);
+            if (!itemStack.isEmpty())
+            {
+                ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
+                this.itemModelResolver.updateForTopItem(itemStackRenderState, itemStack, ItemDisplayContext.FIXED, archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity, i + j);
+                archeologyTableRenderState.items[j] = itemStackRenderState;
+            }
+            else
+            {
+                // Set to null for empty slots
+                archeologyTableRenderState.items[j] = null;
+            }
+        }
+    }
+
+    @Override
+    public void submit(ArcheologyTableRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState)
+    {
         //gets List of all Items in inventory and stores corresponding indexes
-        List<ItemStack> inventoryContents = pBlockEntity.getItems();
-        ItemStack brush = inventoryContents.get(0);
-        ItemStack unidentified = inventoryContents.get(1);
-        ItemStack identified = inventoryContents.get(2);
+        ItemStackRenderState brushRenderState = blockEntityRenderState.items[0];
+        ItemStackRenderState unidentifiedRenderState = blockEntityRenderState.items[1];
+        ItemStackRenderState identifiedRenderState = blockEntityRenderState.items[2];
 
         //BRUSH
-        //transform the items rotation, scale and position
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.35f, 1.025f, 0.7f);
-        pPoseStack.scale(0.65f, 0.65f, 0.65f);
-        pPoseStack.mulPose(Axis.XP.rotationDegrees(90));
+        if (brushRenderState != null && !brushRenderState.isEmpty())
+        {
+            //transform the items rotation, scale and position
+            poseStack.pushPose();
+            poseStack.translate(0.35f, 1.025f, 0.7f);
+            poseStack.scale(0.65f, 0.65f, 0.65f);
+            poseStack.mulPose(Axis.XP.rotationDegrees(90));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(180));
 
-        //display brush on top of the table
-        itemRenderer.renderStatic(brush, ItemDisplayContext.GUI, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos().above()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
+            if (unidentifiedRenderState != null ||  identifiedRenderState != null)
+                poseStack.mulPose(Axis.XP.rotationDegrees(-7.5f));
 
-        pPoseStack.popPose();
+            //display brush on top of the table
+            brushRenderState.submit(poseStack, submitNodeCollector, blockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+
+            poseStack.popPose();
+        }
 
         //ARTIFACTS
         //transform the items rotation, scale and position
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.55f, 1.025, 0.4f);
-        pPoseStack.scale(0.55f, 0.55f, 0.55f);
-        pPoseStack.mulPose(Axis.XP.rotationDegrees(90));
+        poseStack.pushPose();
+        poseStack.translate(0.55f, 1.025, 0.4f);
+        poseStack.scale(0.55f, 0.55f, 0.55f);
+        poseStack.mulPose(Axis.XP.rotationDegrees(90));
 
         //if there is no identified artifact in the output slot, render the unidentified one
-        if (identified.isEmpty())
+        if (identifiedRenderState == null || identifiedRenderState.isEmpty())
         {
-            itemRenderer.renderStatic(unidentified, ItemDisplayContext.GUI, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos().above()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
-        } else
+            if (unidentifiedRenderState != null && !unidentifiedRenderState.isEmpty())
+            {
+                unidentifiedRenderState.submit(poseStack, submitNodeCollector, blockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            }
+        }
+        else
         {
-            itemRenderer.renderStatic(identified, ItemDisplayContext.GUI, getLightLevel(Objects.requireNonNull(pBlockEntity.getLevel()), pBlockEntity.getBlockPos().above()), OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 1);
+            identifiedRenderState.submit(poseStack, submitNodeCollector, blockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         }
 
-        pPoseStack.popPose();
-    }
-
-    private int getLightLevel(Level world, BlockPos pos)
-    {
-        int bLight = world.getBrightness(LightLayer.BLOCK, pos);
-        int sLight = world.getBrightness(LightLayer.SKY, pos);
-        return LightTexture.pack(bLight, sLight);
+        poseStack.popPose();
     }
 }

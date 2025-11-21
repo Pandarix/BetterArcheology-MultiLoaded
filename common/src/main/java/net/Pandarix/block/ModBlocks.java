@@ -4,9 +4,13 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
 import net.Pandarix.block.custom.*;
+import net.Pandarix.item.HovertextBlockItem;
 import net.Pandarix.item.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
@@ -34,15 +38,33 @@ public class ModBlocks
 
     // BLOCKS ──────────────────────────────────────────────────────────────────────────
     // ─── SUSPICIOUS ──────────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlock("suspicious_red_sand", () -> new SusBlock(Blocks.RED_SAND,
-            propsWithId("suspicious_red_sand").mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
+    public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlock("suspicious_red_sand", () -> new SusBlock(
+            Blocks.RED_SAND, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED,
+            propsWithId("suspicious_red_sand")
+                    .mapColor(MapColor.SAND)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.25F)
+                    .sound(SoundType.SUSPICIOUS_SAND)
+                    .pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistrySupplier<Block> SUSPICIOUS_DIRT = registerBlock("suspicious_dirt", () -> new SusBlock(Blocks.DIRT, propsWithId("suspicious_dirt").mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY),
-            SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED));
+    public static final RegistrySupplier<Block> SUSPICIOUS_DIRT = registerBlock("suspicious_dirt", () -> new SusBlock(
+            Blocks.DIRT, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED,
+            propsWithId("suspicious_dirt")
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.25F)
+                    .sound(SoundType.SUSPICIOUS_GRAVEL)
+                    .pushReaction(PushReaction.DESTROY)));
 
     // ─── FOSSILIFEROUS ────────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Block> FOSSILIFEROUS_DIRT = registerBlock("fossiliferous_dirt", () -> new SusBlock(Blocks.DIRT,
-            propsWithId("fossiliferous_dirt").mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED));
+    public static final RegistrySupplier<Block> FOSSILIFEROUS_DIRT = registerBlock("fossiliferous_dirt", () -> new SusBlock(
+            Blocks.DIRT, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED,
+            propsWithId("fossiliferous_dirt")
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.25F)
+                    .sound(SoundType.SUSPICIOUS_GRAVEL)
+                    .pushReaction(PushReaction.DESTROY)));
 
     public static final RegistrySupplier<Block> CHISELED_BONE_BLOCK = registerBlock("chiseled_bone_block",
             () -> new RotatedPillarBlock(propsWithId("chiseled_bone_block").mapColor(MapColor.STONE).strength(0.3F).instrument(NoteBlockInstrument.XYLOPHONE).sound(SoundType.BONE_BLOCK)));
@@ -54,49 +76,49 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> VILLAGER_FOSSIL_HEAD = registerSkullBlock("villager_fossil_head", () -> new VillagerFossilHeadBlock(propsWithId("villager_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> VILLAGER_FOSSIL_BODY = registerRareBlock("villager_fossil_body", () -> new VillagerFossilBodyBlock(propsWithId("villager_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> VILLAGER_FOSSIL_BODY = registerBodyBlock("villager_fossil_body", () -> new VillagerFossilBodyBlock(propsWithId("villager_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Ocelot ────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> OCELOT_FOSSIL = registerRareBlock("ocelot_fossil", () -> new OcelotFossilBlock(propsWithId("ocelot_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> OCELOT_FOSSIL_HEAD = registerSkullBlock("ocelot_fossil_head", () -> new OcelotFossilHeadBlock(propsWithId("ocelot_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> OCELOT_FOSSIL_BODY = registerRareBlock("ocelot_fossil_body", () -> new OcelotFossilBodyBlock(propsWithId("ocelot_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> OCELOT_FOSSIL_BODY = registerBodyBlock("ocelot_fossil_body", () -> new OcelotFossilBodyBlock(propsWithId("ocelot_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Guardian ──────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> GUARDIAN_FOSSIL = registerRareBlock("guardian_fossil", () -> new GuardianFossilBlock(propsWithId("guardian_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> GUARDIAN_FOSSIL_HEAD = registerSkullBlock("guardian_fossil_head", () -> new GuardianFossilHeadBlock(propsWithId("guardian_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> GUARDIAN_FOSSIL_BODY = registerRareBlock("guardian_fossil_body", () -> new GuardianFossilBodyBlock(propsWithId("guardian_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> GUARDIAN_FOSSIL_BODY = registerBodyBlock("guardian_fossil_body", () -> new GuardianFossilBodyBlock(propsWithId("guardian_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Sheep ─────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> SHEEP_FOSSIL = registerRareBlock("sheep_fossil", () -> new SheepFossilBlock(propsWithId("sheep_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> SHEEP_FOSSIL_HEAD = registerSkullBlock("sheep_fossil_head", () -> new SheepFossilHeadBlock(propsWithId("sheep_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> SHEEP_FOSSIL_BODY = registerRareBlock("sheep_fossil_body", () -> new SheepFossilBodyBlock(propsWithId("sheep_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> SHEEP_FOSSIL_BODY = registerBodyBlock("sheep_fossil_body", () -> new SheepFossilBodyBlock(propsWithId("sheep_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Chicken ───────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> CHICKEN_FOSSIL = registerRareBlock("chicken_fossil", () -> new ChickenFossilBlock(propsWithId("chicken_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CHICKEN_FOSSIL_HEAD = registerSkullBlock("chicken_fossil_head", () -> new ChickenFossilHeadBlock(propsWithId("chicken_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> CHICKEN_FOSSIL_BODY = registerRareBlock("chicken_fossil_body", () -> new ChickenFossilBodyBlock(propsWithId("chicken_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> CHICKEN_FOSSIL_BODY = registerBodyBlock("chicken_fossil_body", () -> new ChickenFossilBodyBlock(propsWithId("chicken_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Creeper ───────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> CREEPER_FOSSIL = registerRareBlock("creeper_fossil", () -> new CreeperFossilBlock(propsWithId("creeper_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> CREEPER_FOSSIL_HEAD = registerSkullBlock("creeper_fossil_head", () -> new CreeperFossilHeadBlock(propsWithId("creeper_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> CREEPER_FOSSIL_BODY = registerRareBlock("creeper_fossil_body", () -> new CreeperFossilBodyBlock(propsWithId("creeper_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> CREEPER_FOSSIL_BODY = registerBodyBlock("creeper_fossil_body", () -> new CreeperFossilBodyBlock(propsWithId("creeper_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ────── Wolf ──────────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> WOLF_FOSSIL = registerRareBlock("wolf_fossil", () -> new WolfFossilBlock(propsWithId("wolf_fossil").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     public static final RegistrySupplier<Block> WOLF_FOSSIL_HEAD = registerSkullBlock("wolf_fossil_head", () -> new WolfFossilHeadBlock(propsWithId("wolf_fossil_head").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
-    public static final RegistrySupplier<Block> WOLF_FOSSIL_BODY = registerRareBlock("wolf_fossil_body", () -> new WolfFossilBodyBlock(propsWithId("wolf_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
+    public static final RegistrySupplier<Block> WOLF_FOSSIL_BODY = registerBodyBlock("wolf_fossil_body", () -> new WolfFossilBodyBlock(propsWithId("wolf_fossil_body").instrument(NoteBlockInstrument.SKELETON).strength(1.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.BONE_BLOCK)));
 
     // ─── Rotten Wood ──────────────────────────────────────────────────────────────────
     public static final WoodType ROTTEN_WOOD_TYPE = registerWoodType("rotten_wood");
@@ -119,7 +141,7 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> ROTTEN_DOOR = registerBlock("rotten_door", () -> new DoorBlock(ROTTEN_WOOD_BLOCKSET, propsWithId("rotten_door").mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(3.0F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY).sound(SoundType.STEM)));
 
-    public static final RegistrySupplier<Block> ROTTEN_PRESSURE_PLATE = registerBlock("rotten_pressure_plate", () -> new PressurePlateBlock(ROTTEN_WOOD_BLOCKSET, propsWithId("rotten_pressure_plate").mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY).sound(SoundType.STEM)));
+    public static final RegistrySupplier<Block> ROTTEN_PRESSURE_PLATE = registerBlock("rotten_pressure_plate", () -> new PressurePlateBlock(ROTTEN_WOOD_BLOCKSET, propsWithId("rotten_pressure_plate").mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY).sound(SoundType.STEM)));
 
     // ─── Mud Bricks ─────────────────────────────────────────────────────────────────
     public static final RegistrySupplier<Block> INFESTED_MUD_BRICKS = registerBlock("infested_mud_bricks", () -> new InfestedBlock(Blocks.MUD_BRICKS, propsWithId("infested_mud_bricks").mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 3.0F).sound(SoundType.MUD_BRICKS)));
@@ -148,11 +170,13 @@ public class ModBlocks
     public static final RegistrySupplier<Block> EVOKER_TRAP = registerBlock("evoker_trap", () -> new EvokerTrapBlock(propsWithId("evoker_trap").mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).pushReaction(PushReaction.BLOCK).strength(20f).requiresCorrectToolForDrops()));
 
     public static final RegistrySupplier<Block> GROWTH_TOTEM = registerRareBlock("growth_totem",
-            () -> new GrowthTotemBlock(MobEffects.GLOWING, 15,
-                    propsWithId("growth_totem").mapColor(MapColor.PLANT).noCollission().instabreak().pushReaction(PushReaction.DESTROY).sound(SoundType.AMETHYST).offsetType(BlockBehaviour.OffsetType.NONE).lightLevel((state) -> 15)));
+            () -> new GrowthTotemBlock(
+                    MobEffects.GLOWING, 15,
+                    propsWithId("growth_totem").mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.DESTROY).sound(SoundType.AMETHYST).offsetType(BlockBehaviour.OffsetType.NONE).lightLevel((state) -> 15)), ChatFormatting.DARK_GREEN);
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem",
-            () -> new RadianceTotemBlock(propsWithId("radiance_totem").mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            () -> new RadianceTotemBlock(
+                    propsWithId("radiance_totem").mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)), ChatFormatting.DARK_GREEN);
 
     // UTIL ─────────────────────────────────────────────────────────────────────────────
     public static boolean isFossil(Block block)
@@ -168,40 +192,68 @@ public class ModBlocks
         return BlockBehaviour.Properties.of().setId(BACommon.createRKey(Registries.BLOCK, id));
     }
 
+    private static <T extends Block> MutableComponent tooltipComponent(String name)
+    {
+        return Component.translatable(String.format("block.%s.%s_tooltip", BACommon.MOD_ID, name));
+    }
+
     // REGISTERING ─────────────────────────────────────────────────────────────────────
     private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block)
     {
-        return registerBlock(name, block, null, false);
+        return registerBlock(name, block, null, null, false);
     }
 
     private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block)
     {
-        return registerBlock(name, block, Rarity.UNCOMMON, false);
+        MutableComponent hoverText = tooltipComponent(name).withStyle(ChatFormatting.GRAY);
+        return registerBlock(name, block, Rarity.COMMON, hoverText, false);
+    }
+
+    private static <T extends Block> RegistrySupplier<T> registerRareBlock(String name, Supplier<T> block, ChatFormatting tooltipColor)
+    {
+        MutableComponent hoverText = tooltipComponent(name).withStyle(tooltipColor);
+        return registerBlock(name, block, Rarity.COMMON, hoverText, false);
     }
 
     private static <T extends Block> RegistrySupplier<T> registerSkullBlock(String name, Supplier<T> block)
     {
-        return registerBlock(name, block, Rarity.UNCOMMON, true);
+        MutableComponent hoverText = tooltipComponent(name).withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("block.betterarcheology.fossil_head_set").withStyle(ChatFormatting.BLUE));
+        return registerBlock(name, block, Rarity.COMMON, hoverText, true);
     }
 
-    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, @Nullable Rarity rarity, boolean isSkull)
+    private static <T extends Block> RegistrySupplier<T> registerBodyBlock(String name, Supplier<T> block)
+    {
+        MutableComponent hoverText = tooltipComponent(name).withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("block.betterarcheology.fossil_body_set").withStyle(ChatFormatting.BLUE));
+        return registerBlock(name, block, Rarity.COMMON, hoverText, true);
+    }
+
+    private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, @Nullable Rarity rarity, @Nullable MutableComponent component, boolean isSkull)
     {
         ResourceLocation loc = BACommon.createRLoc(name);
         RegistrySupplier<T> registeredBlock = BLOCKS.register(loc, block);
-        registerBlockItem(name, loc, registeredBlock, rarity, isSkull);
+        registerBlockItem(name, loc, registeredBlock, rarity, component, isSkull);
         return registeredBlock;
     }
 
-    private static <T extends Block> void registerBlockItem(String name, ResourceLocation loc, RegistrySupplier<T> block, @Nullable Rarity rarity, boolean isSkull)
+    private static <T extends Block> void registerBlockItem(String name, ResourceLocation loc, RegistrySupplier<T> block, @Nullable Rarity rarity, @Nullable MutableComponent component, boolean isSkull)
     {
-        Item.Properties properties = ModItems.propsWithId(name);
-        properties.useBlockDescriptionPrefix();
+        Item.Properties properties = ModItems.propsWithId(name).useBlockDescriptionPrefix();
+
         if (rarity != null)
             properties.rarity(rarity);
+
         if (isSkull)
             properties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(SoundEvents.ARMOR_EQUIP_TURTLE).setDamageOnHurt(false).build());
-        
-        ModItems.ITEMS.register(loc, () -> new BlockItem(block.get(), properties));
+
+        ModItems.ITEMS.register(loc, () ->
+        {
+            if (component != null)
+                return new HovertextBlockItem(block.get(), properties, component);
+
+            return new BlockItem(block.get(), properties);
+        });
     }
 
     private static WoodType registerWoodType(String id)

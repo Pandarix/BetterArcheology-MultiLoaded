@@ -15,9 +15,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -44,8 +41,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class RadianceTotemBlock extends BaseEntityBlock
 {
@@ -102,17 +97,14 @@ public class RadianceTotemBlock extends BaseEntityBlock
     public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult)
     {
         if (!pState.is(this))
-        {
             return InteractionResult.PASS;
-        }
 
         // if feature is disabled, notify the user and skip
         if (!BAConfig.radianceTotemEnabled || !BAConfig.totemsEnabled)
         {
             if (pLevel.isClientSide())
-            {
                 pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
-            }
+
             return InteractionResult.PASS;
         }
         BlockState newState = pState.cycle(SELECTOR);
@@ -130,8 +122,9 @@ public class RadianceTotemBlock extends BaseEntityBlock
                         pPos.getCenter().y() - 0.25 + randomDirectionModifier(random, 5),
                         pPos.getCenter().z() + randomDirectionModifier(random, 3), 0, -4, 0);
             }
+
         }
-        return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHitResult);
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     @Override
@@ -155,13 +148,6 @@ public class RadianceTotemBlock extends BaseEntityBlock
     private static float randomDirectionModifier(RandomSource pRandom, int pReduce)
     {
         return ((pRandom.nextFloat() / pReduce) * pRandom.nextIntBetweenInclusive(-1, 1));
-    }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pTooltipFlag)
-    {
-        super.appendHoverText(pStack, pContext, pTooltip, pTooltipFlag);
-        pTooltip.add(Component.translatable("block.betterarcheology.radiance_totem_tooltip").withStyle(ChatFormatting.DARK_GREEN));
     }
 
     @Nullable
