@@ -21,21 +21,21 @@ side = "BOTH"
 [[dependencies.betterarcheology]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.9,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.betterarcheology]]
 modId = "architectury"
 type = "required"
-versionRange = "[15.0.0,)"
+versionRange = "[18.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.betterarcheology]]
 modId = "resourcefulconfig"
 type = "required"
-versionRange = "[3.0.3,)"
+versionRange = "[3.9.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
