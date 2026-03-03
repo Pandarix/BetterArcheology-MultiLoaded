@@ -3,7 +3,6 @@
   "addition": "#minecraft:netherite_tool_materials",
   "base": "betterarcheology:diamond_brush",
   "result": {
-    "count": 1,
     "id": "betterarcheology:netherite_brush"
   },
   "template": "minecraft:netherite_upgrade_smithing_template"

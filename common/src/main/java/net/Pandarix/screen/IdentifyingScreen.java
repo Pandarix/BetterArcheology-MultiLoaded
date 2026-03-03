@@ -5,16 +5,16 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
 {
 
     //saves archeology_table_gui as TEXTURE
-    private static final ResourceLocation TEXTURE =
+    private static final Identifier TEXTURE =
             BACommon.createRLoc("textures/gui/container/archeology_table.png");
-    private static final ResourceLocation PROGRESS_TEXTURE =
+    private static final Identifier PROGRESS_TEXTURE =
             BACommon.createRLoc("container/archeology_table/brushing_progress");
 
     public IdentifyingScreen(IdentifyingMenu inventoryMenu, Inventory inventory, Component title)

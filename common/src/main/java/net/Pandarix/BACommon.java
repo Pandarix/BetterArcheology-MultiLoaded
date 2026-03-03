@@ -7,21 +7,21 @@ import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.block.entity.ModBlockEntities;
-import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.entity.ModEntityTypes;
 import net.Pandarix.events.ModEvents;
 import net.Pandarix.item.ModItemGroup;
 import net.Pandarix.item.ModItems;
+import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.screen.ModMenuTypes;
 import net.Pandarix.sound.ModSounds;
 import net.Pandarix.util.ModTags;
 import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,20 +62,20 @@ public final class BACommon
     // UTIL ────────────────────────────────────────────────────────────────────────────
 
     /**
-     * Creates a {@link ResourceLocation} with the "betterarcheology" mod-id prefix and the given path.
+     * Creates a {@link Identifier} with the "betterarcheology" mod-id prefix and the given path.
      *
-     * @param path Path of the {@link ResourceLocation} to be created
+     * @param path Path of the {@link Identifier} to be created
      * @return ResourceLocation of the format "betterarcheology:{@code path}"
      */
-    public static ResourceLocation createRLoc(String path)
+    public static Identifier createRLoc(String path)
     {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     /**
      * Creates a {@link ResourceKey} with the "betterarcheology" mod-id for the given registry.
      *
-     * @param path Path of the {@link ResourceLocation} to be created for the key
+     * @param path Path of the {@link Identifier} to be created for the key
      * @return ResourceKey of registry with the given path
      */
     public static <T> ResourceKey<T> createRKey(ResourceKey<? extends Registry<T>> registry, String path)
@@ -92,6 +92,6 @@ public final class BACommon
     public static void logRegistryEvent(Registrar<?> registry)
     {
         LOGGER.info("Registering {} for {}",
-                WordUtils.capitalize(registry.key().location().getPath().replace("_", " ") + "s"), MOD_NAME);
+                WordUtils.capitalize(registry.key().identifier().getPath().replace("_", " ") + "s"), MOD_NAME);
     }
 }

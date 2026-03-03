@@ -14,7 +14,7 @@ import net.Pandarix.block.ModBlocks;
 import net.Pandarix.item.ModItems;
 import net.Pandarix.recipe.IdentifyingRecipe;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -24,8 +24,8 @@ import java.util.List;
 
 public class IdentifyingCategory implements IRecipeCategory<RecipeHolder<IdentifyingRecipe>>
 {
-    public static final ResourceLocation UID = BACommon.createRLoc("identifying");
-    public static final ResourceLocation TEXTURE = BACommon.createRLoc(
+    public static final Identifier UID = BACommon.createRLoc("identifying");
+    public static final Identifier TEXTURE = BACommon.createRLoc(
             "textures/gui/archeology_table_overlay.png");
 
     public static final IRecipeHolderType<IdentifyingRecipe> IDENTIFYING_RECIPE_TYPE = IRecipeType.create(IdentifyingRecipe.Type.INSTANCE);
@@ -54,10 +54,13 @@ public class IdentifyingCategory implements IRecipeCategory<RecipeHolder<Identif
     }
 
     @Override
-    @NotNull
-    public IDrawable getBackground()
-    {
-        return this.background;
+    public int getWidth() {
+        return 176;
+    }
+
+    @Override
+    public int getHeight() {
+        return 85;
     }
 
     @Override
@@ -70,8 +73,13 @@ public class IdentifyingCategory implements IRecipeCategory<RecipeHolder<Identif
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IdentifyingRecipe> recipe, IFocusGroup focuses)
     {
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 20).addItemStacks(
-                List.of(Items.BRUSH.getDefaultInstance(), ModItems.IRON_BRUSH.get().getDefaultInstance(), ModItems.DIAMOND_BRUSH.get().getDefaultInstance(), ModItems.NETHERITE_BRUSH.get().getDefaultInstance()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 80, 20)
+                .addItemStacks(
+                        List.of(Items.BRUSH.getDefaultInstance(),
+                                ModItems.IRON_BRUSH.get().getDefaultInstance(),
+                                ModItems.DIAMOND_BRUSH.get().getDefaultInstance(),
+                                ModItems.NETHERITE_BRUSH.get().getDefaultInstance()))
+                .setBackground(this.background, -80, -20);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 26, 48).add(recipe.value().placementInfo().ingredients().getFirst());
 

@@ -1,6 +1,5 @@
 package net.Pandarix.compat.rei;
 
-/*
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -31,4 +30,3 @@ public class ReiClientPlugin implements REIClientPlugin
         registry.registerContainerClickArea(new Rectangle(51, 48, 74, 24), IdentifyingScreen.class, IdentifyingDisplay.CATEGORY);
     }
 }
-*/

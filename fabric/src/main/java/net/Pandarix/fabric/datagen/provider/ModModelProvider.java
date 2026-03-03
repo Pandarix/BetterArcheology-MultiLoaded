@@ -44,6 +44,14 @@ public class ModModelProvider extends FabricModelProvider
         itemModelGenerator.declareCustomModelItem(ModItems.BOMB_ITEM.get());
         itemModelGenerator.declareCustomModelItem(ModItems.DISC_SWINGS.get());
 
+        itemModelGenerator.declareCustomModelItem(ModBlocks.ARCHEOLOGY_TABLE.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.CHISELED_BONE_BLOCK.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.CRACKED_MUD_BRICK_SLAB.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.CRACKED_MUD_BRICK_STAIRS.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.CRACKED_MUD_BRICKS.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.EVOKER_TRAP.get().asItem());
+        itemModelGenerator.declareCustomModelItem(ModBlocks.INFESTED_MUD_BRICKS.get().asItem());
+
         itemModelGenerator.declareCustomModelItem(ModBlocks.VASE.get().asItem());
         itemModelGenerator.declareCustomModelItem(ModBlocks.VASE_GREEN.get().asItem());
         itemModelGenerator.declareCustomModelItem(ModBlocks.VASE_CREEPER.get().asItem());

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "betterarcheology:block/infested_mud_bricks"
+    "model": "betterarcheology:item/infested_mud_bricks"
   }
 }

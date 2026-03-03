@@ -11,7 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -231,13 +231,13 @@ public class ModBlocks
 
     private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> block, @Nullable Rarity rarity, @Nullable MutableComponent component, boolean isSkull)
     {
-        ResourceLocation loc = BACommon.createRLoc(name);
+        Identifier loc = BACommon.createRLoc(name);
         RegistrySupplier<T> registeredBlock = BLOCKS.register(loc, block);
         registerBlockItem(name, loc, registeredBlock, rarity, component, isSkull);
         return registeredBlock;
     }
 
-    private static <T extends Block> void registerBlockItem(String name, ResourceLocation loc, RegistrySupplier<T> block, @Nullable Rarity rarity, @Nullable MutableComponent component, boolean isSkull)
+    private static <T extends Block> void registerBlockItem(String name, Identifier loc, RegistrySupplier<T> block, @Nullable Rarity rarity, @Nullable MutableComponent component, boolean isSkull)
     {
         Item.Properties properties = ModItems.propsWithId(name).useBlockDescriptionPrefix();
 

@@ -4,7 +4,7 @@ import net.Pandarix.BACommon;
 import net.Pandarix.entity.BombEntity;
 import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,7 +22,7 @@ import java.util.Objects;
 public class BombItem extends Item
 {
     //gets id of advancement for having thrown a bomb which has the condition "impossible" because it needs to be triggered here
-    ResourceLocation ADVANCEMENT_ID = BACommon.createRLoc("used_bomb_item");
+    Identifier ADVANCEMENT_ID = BACommon.createRLoc("used_bomb_item");
 
     public BombItem(Properties pProperties)
     {

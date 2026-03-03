@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "betterarcheology:item/evoker_trap"
+    "model": "minecraft:item/suspicious_gravel"
   }
 }

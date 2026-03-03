@@ -6,7 +6,7 @@ import net.Pandarix.BACommon;
 import net.Pandarix.sound.ModSounds;
 import net.Pandarix.util.BetterBrushTiers;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
@@ -53,8 +53,8 @@ public class ModItems
     // REGISTERING ────────────────────────────────────────────────────────────────────
     private static <I extends Item> RegistrySupplier<I> registerItem(String id, Supplier<I> item)
     {
-        ResourceLocation loc = BACommon.createRLoc(id);
-        return ITEMS.register(loc, item);
+        Identifier identifier = BACommon.createRLoc(id);
+        return ITEMS.register(identifier, item);
     }
 
     // LOAD ────────────────────────────────────────────────────────────────────────────

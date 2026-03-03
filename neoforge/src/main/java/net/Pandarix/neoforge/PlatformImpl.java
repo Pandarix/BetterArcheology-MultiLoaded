@@ -2,7 +2,6 @@ package net.Pandarix.neoforge;
 
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.Registrar;
-//import io.wispforest.accessories.api.AccessoriesCapability;
 import net.Pandarix.BACommon;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
@@ -14,7 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -23,12 +22,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.EventHooks;
-/*import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;*/
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -63,20 +58,20 @@ public class PlatformImpl
             return;
         }
 
+        ItemStack copiedStack = stack.copy();
+
         if (serverPlayer.isCreative())
         {
-            performBreak(serverLevel, serverPlayer, blockPos, blockState, false);
+            performBreak(serverLevel, serverPlayer, copiedStack, blockPos, blockState, false);
         } else
         {
-            ItemStack copiedStack = stack.copy();
-
             if (stack.isEmpty() && !copiedStack.isEmpty())
             {
                 EventHooks.onPlayerDestroyItem(serverPlayer, copiedStack, InteractionHand.MAIN_HAND);
             }
 
             boolean canHarvest = blockState.canHarvestBlock(serverLevel, blockPos, serverPlayer);
-            boolean successfulBreak = performBreak(serverLevel, serverPlayer, blockPos, blockState, canHarvest);
+            boolean successfulBreak = performBreak(serverLevel, serverPlayer, copiedStack, blockPos, blockState, canHarvest);
 
             if (canHarvest && successfulBreak)
             {
@@ -87,9 +82,9 @@ public class PlatformImpl
     }
 
     // Performs the basic removal, no further calls needed if the player is just in creative
-    private static boolean performBreak(ServerLevel serverLevel, ServerPlayer player, BlockPos pos, BlockState blockState, boolean canHarvest)
+    private static boolean performBreak(ServerLevel serverLevel, ServerPlayer player, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean canHarvest)
     {
-        boolean removed = blockState.onDestroyedByPlayer(serverLevel, pos, player, canHarvest, serverLevel.getFluidState(pos));
+        boolean removed = blockState.onDestroyedByPlayer(serverLevel, pos, player, toolStack, canHarvest, serverLevel.getFluidState(pos));
 
         if (removed)
         {

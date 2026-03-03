@@ -2,7 +2,7 @@ package net.Pandarix;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 

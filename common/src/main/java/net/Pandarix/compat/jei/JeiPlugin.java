@@ -9,7 +9,7 @@ import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.screen.IdentifyingScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeMap;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +23,7 @@ public class JeiPlugin implements IModPlugin
 
     @Override
     @NotNull
-    public ResourceLocation getPluginUid()
+    public Identifier getPluginUid()
     {
         return BACommon.createRLoc("jei_plugin");
     }

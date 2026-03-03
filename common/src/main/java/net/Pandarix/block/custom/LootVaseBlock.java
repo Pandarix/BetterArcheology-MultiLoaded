@@ -6,7 +6,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -18,11 +18,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -35,7 +35,7 @@ public class LootVaseBlock extends Block
 {
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
     //advancement id for granting the advancement in onBreak, condition of advancement is "impossible" and needs to be executed here
-    ResourceLocation ADVANCEMENT_ID = BACommon.createRLoc("loot_vase_broken");
+    Identifier ADVANCEMENT_ID = BACommon.createRLoc("loot_vase_broken");
 
     public LootVaseBlock(Properties settings)
     {
@@ -73,7 +73,7 @@ public class LootVaseBlock extends Block
                     }
                 }
             }
-            if (level.getServer() != null && level.getServer().getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !hasSilkTouch)
+            if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRules.BLOCK_DROPS) && !hasSilkTouch)
             {
                 //4% chance of spawning a silverfish when breaking a loot vase
                 if (level.getRandom().nextInt(25) == 1)
@@ -88,7 +88,7 @@ public class LootVaseBlock extends Block
         super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack);
     }
 
-    //Similar code that also gets executed when InfestedBlock is brocke to spawn a SilverFish
+    //Similar code that also gets executed when InfestedBlock is broken to spawn a SilverFish
     private static void spawnSilverFish(Level level, BlockPos pos)
     {
         Silverfish silverfishEntity = EntityType.SILVERFISH.create(level, EntitySpawnReason.TRIGGERED);

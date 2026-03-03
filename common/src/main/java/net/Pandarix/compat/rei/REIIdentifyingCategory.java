@@ -1,6 +1,5 @@
 package net.Pandarix.compat.rei;
 
-/*
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -54,4 +53,3 @@ public class REIIdentifyingCategory implements DisplayCategory<IdentifyingDispla
         return widgets;
     }
 }
-*/
