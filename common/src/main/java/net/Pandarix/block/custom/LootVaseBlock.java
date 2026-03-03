@@ -72,7 +72,7 @@ public class LootVaseBlock extends Block
                     }
                 }
             }
-            if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !hasSilkTouch)
+            if (level.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) && !hasSilkTouch)
             {
                 //4% chance of spawning a silverfish when breaking a loot vase
                 if (level.getRandom().nextInt(25) == 1)
