@@ -69,7 +69,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider
 
         this.builder(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-this.builder(BlockTags.DIRT)
+        this.builder(BlockTags.SUPPORTS_BAMBOO)
+                .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
+        this.builder(BlockTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
 
         this.builder(BlockTags.LUSH_GROUND_REPLACEABLE)
