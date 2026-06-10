@@ -14,7 +14,7 @@ public class ModRecipes
     public static final Registrar<RecipeType<?>> RECIPE_TYPES = BACommon.REGISTRIES.get().get(Registries.RECIPE_TYPE);
 
     public static final RegistrySupplier<RecipeSerializer<IdentifyingRecipe>> IDENTIFYING_SERIALIZER =
-            SERIALIZERS.register(BACommon.createRLoc("identifying"), IdentifyingRecipeSerializer::new);
+            SERIALIZERS.register(BACommon.createRLoc("identifying"), IdentifyingRecipeSerializer::create);
     public static final RegistrySupplier<RecipeType<IdentifyingRecipe>> IDENTIFYING_RECIPE_TYPE =
             RECIPE_TYPES.register(BACommon.createRLoc("identifying"), () -> IdentifyingRecipe.Type.INSTANCE);
 

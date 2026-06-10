@@ -55,7 +55,7 @@ public class SoulTotemItem extends Item
         {
             if (pLevel.isClientSide())
             {
-                pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
+                pPlayer.sendOverlayMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"));
             }
             return InteractionResult.PASS;
         }

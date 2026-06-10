@@ -2,16 +2,16 @@ package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.util.ModTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
+public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider
 {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider)
+    public ModBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider)
     {
         super(output, lookupProvider);
     }
@@ -69,9 +69,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
         this.builder(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-        this.builder(BlockTags.BAMBOO_PLANTABLE_ON)
-                .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
-        this.builder(BlockTags.DIRT)
+this.builder(BlockTags.DIRT)
                 .add(ModBlocks.FOSSILIFEROUS_DIRT.getKey());
 
         this.builder(BlockTags.LUSH_GROUND_REPLACEABLE)

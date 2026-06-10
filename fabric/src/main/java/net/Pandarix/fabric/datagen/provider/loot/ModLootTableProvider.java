@@ -2,8 +2,8 @@ package net.Pandarix.fabric.datagen.provider.loot;
 
 import net.Pandarix.BACommon;
 import net.Pandarix.item.ModItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -22,9 +22,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class ModLootTableProvider extends SimpleFabricLootTableProvider
+public class ModLootTableProvider extends SimpleFabricLootTableSubProvider
 {
-    public ModLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup)
+    public ModLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup)
     {
         super(output, registryLookup, LootContextParamSets.BLOCK);
     }

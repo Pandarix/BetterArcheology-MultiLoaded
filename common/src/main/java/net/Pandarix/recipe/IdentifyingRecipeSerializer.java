@@ -1,11 +1,15 @@
 package net.Pandarix.recipe;
 
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 
-public class IdentifyingRecipeSerializer extends SingleItemRecipe.Serializer<IdentifyingRecipe>
+public class IdentifyingRecipeSerializer
 {
-    public IdentifyingRecipeSerializer()
+    public static RecipeSerializer<IdentifyingRecipe> create()
     {
-        super(IdentifyingRecipe::new);
+        return new RecipeSerializer<>(
+                SingleItemRecipe.simpleMapCodec(IdentifyingRecipe::new),
+                SingleItemRecipe.simpleStreamCodec(IdentifyingRecipe::new)
+        );
     }
 }

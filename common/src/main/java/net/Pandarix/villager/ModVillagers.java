@@ -1,13 +1,16 @@
 package net.Pandarix.villager;
 
 import com.google.common.collect.ImmutableSet;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.Pandarix.BACommon;
 import net.Pandarix.Platform;
 import net.Pandarix.block.ModBlocks;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.item.trading.TradeSet;
 
 import java.util.function.Supplier;
 
@@ -23,7 +26,8 @@ public class ModVillagers
                     entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
                     entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
                     ImmutableSet.of(), ImmutableSet.of(),
-                    SoundEvents.BRUSH_SAND
+                    SoundEvents.BRUSH_SAND,
+                    new Int2ObjectOpenHashMap<ResourceKey<TradeSet>>()
             )
     );
 

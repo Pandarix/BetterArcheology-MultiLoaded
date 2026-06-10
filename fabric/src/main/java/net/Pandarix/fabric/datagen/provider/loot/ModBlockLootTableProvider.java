@@ -1,8 +1,8 @@
 package net.Pandarix.fabric.datagen.provider.loot;
 
 import net.Pandarix.block.ModBlocks;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -14,9 +14,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModBlockLootTableProvider extends FabricBlockLootTableProvider
+public class ModBlockLootTableProvider extends FabricBlockLootSubProvider
 {
-    public ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup)
+    public ModBlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup)
     {
         super(dataOutput, registryLookup);
     }

@@ -85,9 +85,9 @@ public class GrowthTotemBlock extends FlowerBlock
                 {
                     if (cropBlock.isValidBonemealTarget(pLevel, pos, state))
                     {
-                        if (cropBlock.isBonemealSuccess(pLevel, pLevel.random, pos, state))
+                        if (cropBlock.isBonemealSuccess(pLevel, pLevel.getRandom(), pos, state))
                         {
-                            cropBlock.performBonemeal(pLevel, pLevel.random, pos, state);
+                            cropBlock.performBonemeal(pLevel, pLevel.getRandom(), pos, state);
                             if (pRandom.nextBoolean())
                                 pLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS);
                         }

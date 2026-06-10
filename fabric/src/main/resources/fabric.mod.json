@@ -23,21 +23,17 @@
     "fabric-datagen": [
       "net.Pandarix.fabric.datagen.ModDataGenerators"
     ],
-    "rei_common": [
-      "net.Pandarix.compat.rei.ReiPlugin"
-    ],
-    "rei_client": [
-      "net.Pandarix.compat.rei.ReiClientPlugin"
-    ]
+    "rei_common": [],
+    "rei_client": []
   },
   "mixins": [
     "betterarcheology.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.0",
-    "minecraft": ">=1.21.9",
-    "java": ">=21",
-    "architectury": ">=18.0.0",
+    "fabricloader": ">=0.19.3",
+    "minecraft": ">=26.1.2",
+    "java": ">=25",
+    "architectury": ">=20.0.0",
     "resourcefulconfig": ">=3.9.0",
     "fabric-api": "*"
   },

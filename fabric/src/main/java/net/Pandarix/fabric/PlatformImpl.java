@@ -3,7 +3,7 @@ package net.Pandarix.fabric;
 import com.google.common.collect.ImmutableSet;
 import net.Pandarix.BACommon;
 import net.Pandarix.enchantment.ModEnchantments;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
+import net.fabricmc.fabric.api.object.builder.v1.world.poi.PoiHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -34,7 +34,7 @@ public class PlatformImpl {
     }
 
     public static Supplier<PoiType> registerPoiType(String name, Supplier<Block> block) {
-        PoiType poi = PointOfInterestHelper.register(
+        PoiType poi = PoiHelper.register(
                 BACommon.createRLoc(name), 1, 1,
                 ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()));
         return () -> poi;

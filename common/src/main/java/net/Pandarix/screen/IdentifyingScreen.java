@@ -1,7 +1,7 @@
 package net.Pandarix.screen;
 
 import net.Pandarix.BACommon;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -10,8 +10,6 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
 {
-
-    //saves archeology_table_gui as TEXTURE
     private static final Identifier TEXTURE =
             BACommon.createRLoc("textures/gui/container/archeology_table.png");
     private static final Identifier PROGRESS_TEXTURE =
@@ -31,28 +29,15 @@ public class IdentifyingScreen extends AbstractContainerScreen<IdentifyingMenu>
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY)
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
-
-        renderProgressArrow(guiGraphics, x, y);
-    }
-
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y)
-    {
         if (menu.isCrafting())
         {
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_TEXTURE, 74, 17, 0, 0, x + 51, y + 48, menu.getScaledProgress(), 17);
         }
-    }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta)
-    {
-        renderBackground(guiGraphics, mouseX, mouseY, delta);
-        super.render(guiGraphics, mouseX, mouseY, delta);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTick);
     }
 }

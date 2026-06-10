@@ -2,7 +2,7 @@ package net.Pandarix.screen;
 
 import net.Pandarix.BACommon;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -26,18 +26,11 @@ public class FossilInventoryScreen extends AbstractContainerScreen<FossilInvento
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY)
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
-    }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta)
-    {
-        renderBackground(guiGraphics, mouseX, mouseY, delta);
-        super.render(guiGraphics, mouseX, mouseY, delta);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTick);
     }
 }

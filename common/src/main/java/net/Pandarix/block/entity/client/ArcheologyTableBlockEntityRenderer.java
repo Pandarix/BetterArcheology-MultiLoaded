@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -40,7 +40,7 @@ public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<A
     public void extractRenderState(@NotNull ArcheologyTableBlockEntity archeologyTableBlockEntity, @NotNull ArcheologyTableRenderState archeologyTableRenderState, float f, @NotNull Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
     {
         BlockEntityRenderer.super.extractRenderState(archeologyTableBlockEntity, archeologyTableRenderState, f, vec3, crumblingOverlay);
-        archeologyTableRenderState.lightCoords = archeologyTableBlockEntity.getLevel() != null ? LevelRenderer.getLightColor(archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity.getBlockPos().above()) : 15728880;
+        archeologyTableRenderState.lightCoords = archeologyTableBlockEntity.getLevel() != null ? LevelRenderer.getLightCoords(archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity.getBlockPos().above()) : 15728880;
         NonNullList<ItemStack> nonNullList = archeologyTableBlockEntity.getItems();
         int i = HashCommon.long2int(archeologyTableBlockEntity.getBlockPos().asLong());
 

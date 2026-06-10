@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.*;
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class IdentifyingRecipe extends SingleItemRecipe
 {
-    public IdentifyingRecipe(String string, Ingredient ingredient, ItemStack result)
+    public IdentifyingRecipe(Recipe.CommonInfo commonInfo, Ingredient ingredient, ItemStackTemplate result)
     {
-        super(string, ingredient, result);
+        super(commonInfo, ingredient, result);
     }
 
     @Override
@@ -24,10 +25,16 @@ public class IdentifyingRecipe extends SingleItemRecipe
         return true;
     }
 
+    @Override
+    public String group()
+    {
+        return "";
+    }
+
     public ItemStack getResult()
     {
         //Adding the Enchantment Tags
-        ItemStack item = this.result().copy();
+        ItemStack item = this.result().create();
         if (item.is(Items.ENCHANTED_BOOK))
         {
             //apply custom naming to the book

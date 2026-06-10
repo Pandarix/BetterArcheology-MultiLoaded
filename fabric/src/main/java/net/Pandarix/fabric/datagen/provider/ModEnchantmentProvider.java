@@ -2,7 +2,7 @@ package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.util.ModTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.minecraft.core.HolderGetter;
@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModEnchantmentProvider extends FabricDynamicRegistryProvider
 {
-    public ModEnchantmentProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
+    public ModEnchantmentProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
     {
         super(output, registriesFuture);
     }

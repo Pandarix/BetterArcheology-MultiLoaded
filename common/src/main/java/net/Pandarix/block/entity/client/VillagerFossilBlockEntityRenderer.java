@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -40,8 +40,8 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
     public void extractRenderState(@NotNull VillagerFossilBlockEntity villagerFossilBlockEntity, @NotNull VillagerFossilRenderState villagerFossilRenderState, float f, @NotNull Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
     {
         BlockEntityRenderer.super.extractRenderState(villagerFossilBlockEntity, villagerFossilRenderState, f, vec3, crumblingOverlay);
-        Direction facing = villagerFossilBlockEntity.getBlockState().getValue(VillagerFossilBlock.FACING);
-        villagerFossilRenderState.lightCoords = villagerFossilBlockEntity.getLevel() != null ? LevelRenderer.getLightColor(villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity.getBlockPos().relative(facing)) : 15728880;
+        villagerFossilRenderState.facing = villagerFossilBlockEntity.getBlockState().getValue(VillagerFossilBlock.FACING);
+        villagerFossilRenderState.lightCoords = villagerFossilBlockEntity.getLevel() != null ? LevelRenderer.getLightCoords(villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity.getBlockPos().relative(villagerFossilRenderState.facing)) : 15728880;
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
         this.itemModelResolver.updateForTopItem(itemStackRenderState, villagerFossilBlockEntity.getItem(0), ItemDisplayContext.FIXED, villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity, HashCommon.long2int(villagerFossilBlockEntity.getBlockPos().asLong()));
@@ -55,7 +55,7 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
 
         poseStack.pushPose();
 
-        Direction facing = villagerFossilRenderState.blockState.getValue(VillagerFossilBlock.FACING);
+        Direction facing = villagerFossilRenderState.facing;
 
         //rotation based on direction the Block ist facing
         switch (facing)

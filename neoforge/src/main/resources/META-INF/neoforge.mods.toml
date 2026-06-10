@@ -14,21 +14,21 @@ logoFile = "icon.png"
 [[dependencies.betterarcheology]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.0,)"
+versionRange = "[26.0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.betterarcheology]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.9,)"
+versionRange = "[26.1.2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.betterarcheology]]
 modId = "architectury"
 type = "required"
-versionRange = "[18.0.0,)"
+versionRange = "[20.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 

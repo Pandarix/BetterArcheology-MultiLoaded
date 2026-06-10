@@ -103,7 +103,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
         if (!BAConfig.radianceTotemEnabled || !BAConfig.totemsEnabled)
         {
             if (pLevel.isClientSide())
-                pPlayer.displayClientMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"), true);
+                pPlayer.sendOverlayMessage(Component.translatableWithFallback("config.notify.disabled", "This feature has been disabled in the config!"));
 
             return InteractionResult.PASS;
         }
@@ -112,7 +112,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
 
         if (pLevel.isClientSide())
         {
-            pPlayer.displayClientMessage(Component.translatable("block.betterarcheology.radiance_totem_message_" + newState.getValue(SELECTOR)).withStyle(ChatFormatting.GREEN), true);
+            pPlayer.sendOverlayMessage(Component.translatable("block.betterarcheology.radiance_totem_message_" + newState.getValue(SELECTOR)).withStyle(ChatFormatting.GREEN));
             pLevel.playLocalSound(pPos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.5f, 0.5f, false);
             RandomSource random = pLevel.getRandom();
             for (int i = 0; i <= 10; i++)

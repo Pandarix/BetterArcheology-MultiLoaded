@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow'
+    id 'com.gradleup.shadow'
 }
 
 architectury {
@@ -89,8 +89,11 @@ configurations {
 }
 loom {
     accessWidenerPath = project(":common").file("src/main/resources/betterarcheology.accessWidener")
+    noIntermediateMappings()
 }
 dependencies {
+    mappings loom.layered { }
+
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
@@ -102,22 +105,18 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    // Cardinal Components needed in 1.20.4 for trinkets to run in dev env
-    modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}")
-    modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}")
-
     //modImplementation("io.wispforest:accessories-fabric:${project.accessories_version}")
     //modImplementation "curse.maven:elytra-slot-317716:6677386"
 
     //CONFIG
-    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-${minecraft_version}:$rootProject.resourceful_config_version"
+    modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-${rootProject.resourceful_config_mc_version}:$rootProject.resourceful_config_version"
 
     // compile against the JEI API but do not include it at runtime
     modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
     // at runtime, use the full JEI jar for Fabric
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 }
 
 processResources {

@@ -138,7 +138,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         {
             case 0 -> Optional.empty();
             case 1 -> Optional.of(possibleRecipes.getFirst());
-            default -> Optional.of(possibleRecipes.get(serverLevel.random.nextInt(size)));
+            default -> Optional.of(possibleRecipes.get(serverLevel.getRandom().nextInt(size)));
         };
     }
 
@@ -157,7 +157,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
             Optional<RecipeHolder<IdentifyingRecipe>> recipeHolder = getRecipeOrRandomMatching(singleRecipeInput, serverLevel);
 
             // Reset and cancel
-            if (recipeHolder.isEmpty() || !canBrush(serverLevel.registryAccess(), recipeHolder.get(), singleRecipeInput, entity.items, entity.getMaxStackSize()))
+            if (recipeHolder.isEmpty() || !canBrush(recipeHolder.get(), singleRecipeInput, entity.items, entity.getMaxStackSize()))
             {
                 setBlockBrushing(world, blockPos, blockState, false);
                 entity.resetProgress();
@@ -212,7 +212,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
 
     private void craftItem(ServerLevel serverLevel, RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> contents)
     {
-        if (recipeHolder == null || !canBrush(serverLevel.registryAccess(), recipeHolder, singleRecipeInput, contents, this.getMaxStackSize()))
+        if (recipeHolder == null || !canBrush(recipeHolder, singleRecipeInput, contents, this.getMaxStackSize()))
             return;
 
         //remove input from slot
@@ -227,7 +227,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         serverLevel.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
         this.setRecipeUsed(recipeHolder);
 
-        ItemStack resultStack = recipeHolder.value().assemble(singleRecipeInput, serverLevel.registryAccess());
+        ItemStack resultStack = recipeHolder.value().assemble(singleRecipeInput);
         ItemStack stackInOutput = contents.get(2).copy();
 
         if (stackInOutput.isEmpty())
@@ -243,12 +243,12 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         this.setChanged();
     }
 
-    private static boolean canBrush(RegistryAccess registryAccess, @Nullable RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
+    private static boolean canBrush(@Nullable RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
     {
         if (nonNullList.getFirst().isEmpty() || recipeHolder == null)
             return false;
 
-        ItemStack potResult = recipeHolder.value().assemble(singleRecipeInput, registryAccess);
+        ItemStack potResult = recipeHolder.value().assemble(singleRecipeInput);
         if (potResult.isEmpty())
             return false;
 
