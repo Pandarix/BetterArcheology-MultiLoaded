@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.Pandarix.BACommon;
 import net.Pandarix.Platform;
 import net.Pandarix.block.ModBlocks;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -21,14 +22,20 @@ public class ModVillagers
             "archeology_table_poi", ModBlocks.ARCHEOLOGY_TABLE);
 
     public static final Supplier<VillagerProfession> ARCHEOLOGIST = Platform.registerProfession(
-            "archeologist", () -> new VillagerProfession(
-                    Component.translatable("entity.minecraft.villager.archeologist"),
-                    entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
-                    entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
-                    ImmutableSet.of(), ImmutableSet.of(),
-                    SoundEvents.BRUSH_SAND,
-                    new Int2ObjectOpenHashMap<ResourceKey<TradeSet>>()
-            )
+            "archeologist", () -> {
+                Int2ObjectOpenHashMap<ResourceKey<TradeSet>> trades = new Int2ObjectOpenHashMap<>();
+                for (int level = 1; level <= 5; level++) {
+                    trades.put(level, ResourceKey.create(Registries.TRADE_SET, BACommon.createRLoc("archeologist/level_" + level)));
+                }
+                return new VillagerProfession(
+                        Component.translatable("entity.minecraft.villager.archeologist"),
+                        entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
+                        entry -> entry.value().equals(ARCHEOLOGY_TABLE_POI.get()),
+                        ImmutableSet.of(), ImmutableSet.of(),
+                        SoundEvents.BRUSH_SAND,
+                        trades
+                );
+            }
     );
 
     // LOAD ────────────────────────────────────────────────────────────────────────────

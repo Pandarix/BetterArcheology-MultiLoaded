@@ -1,0 +1,13 @@
+{
+  "gives": {
+    "count": 6,
+    "id": "minecraft:cobweb"
+  },
+  "max_uses": 10.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 4.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 5.0
+}

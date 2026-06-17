@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "betterarcheology:archeologist/5/emerald_for_diamond_brush",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/5/emerald_for_artifact_shards",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/5/emerald_for_catacombs_map",
+      "required": false
+    }
+  ]
+}

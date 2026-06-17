@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "betterarcheology:archeologist/2/emerald_for_mud_bricks",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/2/emerald_for_lantern",
+      "required": false
+    }
+  ]
+}

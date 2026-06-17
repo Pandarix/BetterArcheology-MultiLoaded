@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "betterarcheology:archeologist/1/emerald_for_rotten_planks",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/1/emerald_for_brush",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/1/bones_for_emerald",
+      "required": false
+    }
+  ]
+}

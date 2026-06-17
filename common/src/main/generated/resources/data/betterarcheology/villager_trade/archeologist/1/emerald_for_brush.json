@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "id": "minecraft:brush"
+  },
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 5.0
+}

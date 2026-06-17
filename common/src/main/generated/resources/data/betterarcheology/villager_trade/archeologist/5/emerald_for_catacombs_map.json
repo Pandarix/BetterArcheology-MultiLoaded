@@ -1,0 +1,29 @@
+{
+  "additional_wants": {
+    "id": "minecraft:compass"
+  },
+  "given_item_modifiers": [
+    {
+      "destination": "betterarcheology:on_catacombs_explorer_map",
+      "function": "minecraft:exploration_map",
+      "skip_existing_chunks": false
+    },
+    {
+      "function": "minecraft:set_name",
+      "name": {
+        "translate": "filled_map.catacombs"
+      },
+      "target": "item_name"
+    }
+  ],
+  "gives": {
+    "id": "minecraft:map"
+  },
+  "max_uses": 12.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 24.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 5.0
+}

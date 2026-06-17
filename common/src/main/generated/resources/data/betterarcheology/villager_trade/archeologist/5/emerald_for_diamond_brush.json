@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "id": "betterarcheology:diamond_brush"
+  },
+  "reputation_discount": 0.03,
+  "wants": {
+    "count": 13.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

@@ -1,0 +1,13 @@
+{
+  "gives": {
+    "count": 3,
+    "id": "betterarcheology:bomb"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 8.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

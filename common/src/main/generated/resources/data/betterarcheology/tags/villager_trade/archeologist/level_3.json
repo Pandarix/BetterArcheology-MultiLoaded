@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "betterarcheology:archeologist/3/emerald_for_cobweb",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/3/emerald_for_iron_brush",
+      "required": false
+    }
+  ]
+}

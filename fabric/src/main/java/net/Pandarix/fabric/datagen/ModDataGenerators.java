@@ -22,10 +22,13 @@ public class ModDataGenerators implements DataGeneratorEntrypoint
 
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModVillagerTradeTagProvider::new);
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModBlockLootTableProvider::new);
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModEnchantmentProvider::new);
+        pack.addProvider(ModVillagerTradeProvider::new);
+        pack.addProvider(ModTradeSetProvider::new);
     }
 }

@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "betterarcheology:archeologist/4/emerald_for_vase",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/4/emerald_for_vase_creeper",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/4/emerald_for_vase_green",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/4/emerald_for_spyglass",
+      "required": false
+    },
+    {
+      "id": "betterarcheology:archeologist/4/emerald_for_bomb",
+      "required": false
+    }
+  ]
+}
