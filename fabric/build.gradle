@@ -113,7 +113,7 @@ dependencies {
     // at runtime, use the full JEI jar for Fabric
     runtimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    runtimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 }
 
 processResources {

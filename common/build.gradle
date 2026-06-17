@@ -5,7 +5,6 @@ architectury {
 sourceSets {
     main {
         java {
-            exclude 'net/Pandarix/compat/rei/**'
         }
     }
 }
@@ -27,5 +26,5 @@ dependencies {
     //implementation "io.wispforest:accessories-common:${project.accessories_version}"
 
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rei_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api:${rei_version}"
 }
