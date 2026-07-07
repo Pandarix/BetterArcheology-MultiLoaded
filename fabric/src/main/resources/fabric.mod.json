@@ -31,7 +31,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.19.3",
-    "minecraft": ">=26.1.2",
+    "minecraft": ">=26.1",
     "java": ">=25",
     "architectury": ">=20.0.0",
     "resourcefulconfig": ">=3.9.0",
