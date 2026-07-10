@@ -133,6 +133,7 @@ shadowJar {
 }
 
 jar {
-    from shadowJar
+    from(zipTree(shadowJar.archiveFile))
     dependsOn shadowJar
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
