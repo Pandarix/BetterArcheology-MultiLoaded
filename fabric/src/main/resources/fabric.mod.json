@@ -8,7 +8,9 @@
     "${authors}"
   ],
   "contact": {
-    "issues": "https://github.com/Pandarix/BetterArcheologyMultiLoaded/issues"
+    "homepage": "https://modrinth.com/mod/better-archeology",
+    "sources": "https://github.com/Pandarix/BetterArcheology-MultiLoaded",
+    "issues": "https://github.com/Pandarix/BetterArcheology-MultiLoaded/issues"
   },
   "license": "MIT",
   "icon": "assets/betterarcheology/icon.png",
@@ -40,8 +42,5 @@
     "architectury": ">=13.0.2",
     "resourcefulconfig": ">=3.0.3",
     "fabric-api": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

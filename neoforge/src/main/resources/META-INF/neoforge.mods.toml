@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-issueTrackerURL = "https://github.com/Pandarix/BetterArcheologyMultiLoaded/issues"
+issueTrackerURL = "https://github.com/Pandarix/BetterArcheology-MultiLoaded/issues"
 license = "MIT"
 
 [[mods]]
