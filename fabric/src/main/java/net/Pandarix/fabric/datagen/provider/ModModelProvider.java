@@ -1,5 +1,6 @@
 package net.Pandarix.fabric.datagen.provider;
 
+import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
@@ -10,8 +11,10 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BrushableBlock;
+import org.jspecify.annotations.NonNull;
 
 public class ModModelProvider extends FabricModelProvider
 {
@@ -28,7 +31,7 @@ public class ModModelProvider extends FabricModelProvider
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerators itemModelGenerator)
+    public void generateItemModels(@NonNull ItemModelGenerators itemModelGenerator)
     {
         basicItem(itemModelGenerator, ModItems.ARTIFACT_SHARDS.get());
         basicItem(itemModelGenerator, ModBlocks.GROWTH_TOTEM.get().asItem());
@@ -62,8 +65,15 @@ public class ModModelProvider extends FabricModelProvider
         itemModelGenerator.itemModelOutput.accept(ModBlocks.LOOT_VASE_CREEPER.get().asItem(),
                 ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(ModBlocks.VASE_CREEPER.get().asItem())));
 
+        // Registrar#forEach iterates the whole block registry, so vanilla blocks have to be filtered out
+        // to avoid emitting models into the minecraft namespace that override vanilla ones.
         ModBlocks.BLOCKS.forEach((block) ->
         {
+            Identifier id = ModBlocks.BLOCKS.getId(block);
+
+            if (id == null || !id.getNamespace().equals(BACommon.MOD_ID))
+                return;
+
             if (ModBlocks.isFossil(block) || block instanceof BrushableBlock) {
                 itemModelGenerator.declareCustomModelItem(block.asItem());
             }
