@@ -46,8 +46,12 @@ repositories {
         url = "https://modmaven.dev"
     }
     maven {
-        name = "OctoStudios"
-        url = uri("https://maven.octo-studios.com/releases")
+        // Curios/Caelus moved here after maven.octo-studios.com went offline
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
 }
 
@@ -60,11 +64,11 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    implementation "maven.modrinth:curios:${curios_version}+${minecraft_version}"
     //implementation("io.wispforest:accessories-neoforge:${project.accessories_version}")
     implementation "curse.maven:elytra-slot-317716:6801976"
-    runtimeOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}"
-    compileOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}:api"
+    // dev-runtime only (nothing compiles against it); full jar since Modrinth hosts no -api classifier
+    runtimeOnly "maven.modrinth:caelus:${caelus_version}+${minecraft_version}"
 
     // Config library
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-$minecraft_version:$rootProject.resourceful_config_version"
