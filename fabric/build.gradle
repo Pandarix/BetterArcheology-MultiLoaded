@@ -147,7 +147,15 @@ publishMods {
     // loom-no-remap: the plain jar is the final artifact (no remapJar on this branch)
     file = tasks.jar.archiveFile
     version = "${rootProject.publish_series}-${rootProject.mod_version}"
-    changelog = providers.environmentVariable("PUBLISH_CHANGELOG").getOrElse("No changelog provided.")
+    // changelog: dispatch input wins (literal \n unescaped, since the form is single-line);
+    // otherwise the newest section of CHANGELOG.md
+    def rawChangelog = providers.environmentVariable("PUBLISH_CHANGELOG").getOrElse("")
+    def clText = rootProject.file("CHANGELOG.md").exists() ? rootProject.file("CHANGELOG.md").text : ""
+    def clStart = clText.indexOf("## ")
+    def clEnd = clText.indexOf("\n## ", clStart + 1)
+    changelog = !rawChangelog.isBlank()
+            ? rawChangelog.replace("\\n", "\n")
+            : (clStart >= 0 ? clText.substring(clStart, clEnd > 0 ? clEnd : clText.length()).trim() : "No changelog provided.")
     modLoaders.add("fabric")
 
     def channel = providers.environmentVariable("PUBLISH_RELEASE_TYPE").getOrElse("release")
