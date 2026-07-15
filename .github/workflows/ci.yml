@@ -3,6 +3,8 @@
 # This file is intended to be byte-identical on every version branch;
 # the per-branch JDK lives in .java-version, per-branch publish data in gradle.properties.
 name: CI
+# label manual publish runs distinctly; push/PR runs keep their default (commit message) name
+run-name: ${{ github.event_name == 'workflow_dispatch' && format('Publish {0} ({1}){2}', github.ref_name, inputs.release_type, inputs.dry_run && ' — dry run' || '') || '' }}
 
 on:
   push:
