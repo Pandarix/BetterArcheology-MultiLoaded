@@ -1,0 +1,105 @@
+# Build on every push/PR; publishing to Modrinth + CurseForge is ONLY reachable
+# via manual dispatch (Actions tab -> CI -> "Run workflow", or `gh workflow run`).
+# This file is intended to be byte-identical on every version branch;
+# the per-branch JDK lives in .java-version, per-branch publish data in gradle.properties.
+name: CI
+# label manual publish runs distinctly; push/PR runs keep their default (commit message) name
+run-name: ${{ github.event_name == 'workflow_dispatch' && format('Publish {0} ({1}){2}', github.ref_name, inputs.release_type, inputs.dry_run && ' — dry run' || '') || '' }}
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      changelog:
+        description: "Changelog (markdown, shown on Modrinth/CurseForge)"
+        required: true
+        type: string
+      display_name:
+        description: "Upload title; [FABRIC]/[NEOFORGE] is appended per file. Empty = '<name> <mod_version> for <series>'"
+        required: false
+        type: string
+      release_type:
+        description: "Release channel"
+        required: true
+        type: choice
+        default: release
+        options:
+          - release
+          - beta
+          - alpha
+      dry_run:
+        description: "Dry run: validate and stage everything, upload nothing"
+        required: true
+        type: boolean
+        default: true
+
+concurrency:
+  group: ci-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' }}
+  # supersede stale push builds, but never cancel a running publish
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version-file: .java-version
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Build (fabric + neoforge)
+        run: ./gradlew build
+
+      - name: Upload jars
+        uses: actions/upload-artifact@v7
+        with:
+          name: jars
+          path: |
+            fabric/build/libs/*.jar
+            neoforge/build/libs/*.jar
+            !**/*-dev-shadow.jar
+            !**/*-sources.jar
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    # push/pull_request can never reach this job
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # optional second gate: add required reviewers to the 'publish' environment
+    # in repo Settings -> Environments and move the tokens there
+    environment: publish
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version-file: .java-version
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Publish (dry_run=${{ inputs.dry_run }})
+        run: ./gradlew publishMods
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          PUBLISH_CHANGELOG: ${{ inputs.changelog }}
+          PUBLISH_DISPLAY_NAME: ${{ inputs.display_name }}
+          PUBLISH_RELEASE_TYPE: ${{ inputs.release_type }}
+          PUBLISH_DRY_RUN: ${{ inputs.dry_run }}
+
+      - name: Upload dry-run staging output
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: publish-dry-run
+          path: "*/build/publishMods/**"
+          if-no-files-found: warn

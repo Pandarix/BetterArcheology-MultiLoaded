@@ -1,5 +1,6 @@
 plugins {
     id 'com.github.johnrengelman.shadow'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 architectury {
@@ -109,4 +110,41 @@ remapJar {
     atAccessWideners.add(loom.accessWidenerPath.get().asFile.name)
     input.set shadowJar.archiveFile
     dependsOn shadowJar
+}
+
+publishMods {
+    // Real upload only when CI explicitly sets PUBLISH_DRY_RUN=false;
+    // every other invocation (local IDE/CLI included) is a rehearsal.
+    dryRun = providers.environmentVariable("PUBLISH_DRY_RUN").getOrElse("true") != "false"
+
+    file = remapJar.archiveFile
+    version = "${rootProject.publish_series}-${rootProject.mod_version}"
+    changelog = providers.environmentVariable("PUBLISH_CHANGELOG").getOrElse("No changelog provided.")
+    modLoaders.add("neoforge")
+
+    def channel = providers.environmentVariable("PUBLISH_RELEASE_TYPE").getOrElse("release")
+    type = channel == "alpha" ? ALPHA : channel == "beta" ? BETA : STABLE
+
+    def baseName = providers.environmentVariable("PUBLISH_DISPLAY_NAME")
+            .map { it.isBlank() ? null : it }
+            .getOrElse("${rootProject.display_name} ${rootProject.mod_version} for ${rootProject.publish_series}")
+    displayName = "${baseName} [NEOFORGE]"
+
+    def mcVersions = rootProject.supported_minecraft_versions.split(',')*.trim()
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = rootProject.modrinth_id
+        minecraftVersions.addAll(mcVersions)
+        requires("architectury-api", "resourceful-config")
+    }
+
+    curseforge {
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        projectId = rootProject.curseforge_id
+        minecraftVersions.addAll(mcVersions)
+        clientRequired = true
+        serverRequired = true
+        requires("architectury-api", "resourceful-config")
+    }
 }
