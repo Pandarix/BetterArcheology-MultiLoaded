@@ -24,7 +24,9 @@ public enum BetterBrushTiers
 
     public String getSpeedFactor()
     {
+        // percentage increase over the vanilla brush (10 ticks per progress step),
+        // e.g. netherite at 3 ticks: 10/3 = 3.33x total speed = +233%
         DecimalFormat df = new DecimalFormat("###");
-        return df.format(10f / getBrushTickRate() * 100f);
+        return df.format((10f / getBrushTickRate() - 1f) * 100f);
     }
 }
