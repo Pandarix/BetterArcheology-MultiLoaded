@@ -38,6 +38,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
         this.tag(ModTags.Items.ELYTRAS)
                 .add(Items.ELYTRA.builtInRegistryHolder().key());
 
+        this.tag(ModTags.Items.MUSIC_DISCS)
+                .add(ModItems.DISC_SWINGS.getKey());
+
         this.tag(ModTags.Items.ROTTEN_LOGS)
                 .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
 
