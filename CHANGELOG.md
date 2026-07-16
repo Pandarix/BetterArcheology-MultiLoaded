@@ -8,7 +8,7 @@ and everything until the next one) is uploaded.
 
 - Fixed the Rusty Bomb entity showing an untranslated name (#8)
 - Music disc now tagged `c:music_discs` for cross-mod compatibility (#30)
-- Updated worldgen biome compatibility for the current Biomes We've Got (BWG) — old `byg:` entries kept for legacy modpacks, `biomeswevegone:` entries added for the current biome roster (#33)
+- Updated worldgen biome compatibility for the current Biomes We've Gone (BWG) — old `byg:` entries kept for legacy modpacks, `biomeswevegone:` entries added for the current biome roster (#33)
 
 ## Better Archeology 1.3.6
 
