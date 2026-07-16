@@ -6,7 +6,10 @@ import net.Pandarix.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +27,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider
         this(output, completableFuture, null);
     }
 
+    private static ResourceKey<Item> keyOf(Item item)
+    {
+        return BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow();
+    }
+
     @Override
     protected void addTags(HolderLookup.Provider pProvider)
     {
@@ -36,50 +44,50 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider
                 .addOptionalTag(ItemTags.HOES);
 
         this.builder(ModTags.Items.ELYTRAS)
-                .add(Items.ELYTRA.builtInRegistryHolder().key());
+                .add(keyOf(Items.ELYTRA));
 
         this.builder(ModTags.Items.MUSIC_DISCS)
                 .add(ModItems.DISC_SWINGS.getKey());
 
         this.builder(ModTags.Items.ROTTEN_LOGS)
-                .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_LOG.get().asItem()));
 
         this.builder(ModTags.Items.BRUSHES)
-                .add(Items.BRUSH.builtInRegistryHolder().key(), ModItems.IRON_BRUSH.getKey(), ModItems.DIAMOND_BRUSH.getKey(), ModItems.NETHERITE_BRUSH.getKey());
+                .add(keyOf(Items.BRUSH), ModItems.IRON_BRUSH.getKey(), ModItems.DIAMOND_BRUSH.getKey(), ModItems.NETHERITE_BRUSH.getKey());
 
         this.builder(ItemTags.DIRT)
-                .add(ModBlocks.FOSSILIFEROUS_DIRT.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.FOSSILIFEROUS_DIRT.get().asItem()));
 
         this.builder(ItemTags.SMALL_FLOWERS)
-                .add(ModBlocks.GROWTH_TOTEM.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.GROWTH_TOTEM.get().asItem()));
 
         this.builder(ItemTags.DOORS)
-                .add(ModBlocks.ROTTEN_DOOR.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_DOOR.get().asItem()));
         this.builder(ItemTags.WOODEN_DOORS)
-                .add(ModBlocks.ROTTEN_DOOR.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_DOOR.get().asItem()));
         this.builder(ItemTags.FENCE_GATES)
-                .add(ModBlocks.ROTTEN_FENCE_GATE.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_FENCE_GATE.get().asItem()));
         this.builder(ItemTags.FENCES)
-                .add(ModBlocks.ROTTEN_FENCE.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_FENCE.get().asItem()));
         this.builder(ItemTags.WOODEN_FENCES)
-                .add(ModBlocks.ROTTEN_FENCE.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_FENCE.get().asItem()));
         this.builder(ItemTags.LOGS)
-                .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_LOG.get().asItem()));
         this.builder(ItemTags.LOGS_THAT_BURN)
-                .add(ModBlocks.ROTTEN_LOG.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_LOG.get().asItem()));
         this.builder(ItemTags.PLANKS)
-                .add(ModBlocks.ROTTEN_PLANKS.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_PLANKS.get().asItem()));
         this.builder(ItemTags.WOODEN_PRESSURE_PLATES)
-                .add(ModBlocks.ROTTEN_PRESSURE_PLATE.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_PRESSURE_PLATE.get().asItem()));
         this.builder(ItemTags.SLABS)
-                .add(ModBlocks.ROTTEN_SLAB.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_SLAB.get().asItem()));
         this.builder(ItemTags.WOODEN_SLABS)
-                .add(ModBlocks.ROTTEN_SLAB.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_SLAB.get().asItem()));
         this.builder(ItemTags.STAIRS)
-                .add(ModBlocks.ROTTEN_STAIRS.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_STAIRS.get().asItem()));
         this.builder(ItemTags.TRAPDOORS)
-                .add(ModBlocks.ROTTEN_TRAPDOOR.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_TRAPDOOR.get().asItem()));
         this.builder(ItemTags.WOODEN_TRAPDOORS)
-                .add(ModBlocks.ROTTEN_TRAPDOOR.get().asItem().builtInRegistryHolder().key());
+                .add(keyOf(ModBlocks.ROTTEN_TRAPDOOR.get().asItem()));
     }
 }
