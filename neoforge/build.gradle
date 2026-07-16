@@ -65,10 +65,15 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     implementation "maven.modrinth:curios:${curios_version}+${minecraft_version}"
-    implementation("io.wispforest:accessories-neoforge:${project.accessories_version}")
+    // Dev-runtime compat-test mod only (no code compiles against it). Disabled: its
+    // owo-lib dependency crashes the dev client on every available build (ScreenMixin
+    // targets a lambda by compiled name, which the loom-remapped dev jar renumbers).
+    // Test accessories compat in a real launcher instead.
+    //implementation("io.wispforest:accessories-neoforge:${project.accessories_version}")
     implementation "curse.maven:elytra-slot-317716:5778461"
     // dev-runtime only (nothing compiles against it); full jar since Modrinth hosts no -api classifier
-    runtimeOnly "maven.modrinth:caelus:${caelus_version}+${minecraft_version}"
+    // caelus_version is a Modrinth version ID, see gradle.properties
+    runtimeOnly "maven.modrinth:caelus:${caelus_version}"
 
     // Config library
     modImplementation "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21:$rootProject.resourceful_config_version"
