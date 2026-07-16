@@ -22,8 +22,12 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.EventHooks;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -125,7 +129,7 @@ public class PlatformImpl
                 }
             }*/
 
-/*            // CURIOS
+            // CURIOS
             if (ModList.get().isLoaded("curios"))
             {
                 Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(player);
@@ -138,7 +142,7 @@ public class PlatformImpl
                                     (slotResult) -> slotResult.stack().getComponents().has(DataComponents.GLIDER)
                                             && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, slotResult.stack()) >= 1)).orElse(false);
                 }
-            }*/
+            }
         } catch (Exception e)
         {
             BACommon.LOGGER.error("Could not find enchantment in registries: " + ModEnchantments.SOARING_WINDS_KEY, e);
