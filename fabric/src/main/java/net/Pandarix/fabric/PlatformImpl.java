@@ -68,9 +68,12 @@ public class PlatformImpl
             {
                 AccessoriesCapability capability = AccessoriesCapability.get(player);
 
+                // check glider and enchantment on the equipped accessory itself,
+                // not the chest slot (an enchanted elytra in an accessory slot
+                // never triggered otherwise)
                 if (capability != null &&
-                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)) &&
-                        EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
+                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)
+                                && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, itemStack) >= 1))
                 {
                     return true;
                 }
