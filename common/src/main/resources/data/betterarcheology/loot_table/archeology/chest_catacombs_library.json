@@ -28,6 +28,7 @@
 				},
 				{
 					"type": "minecraft:item",
+					"weight": 2,
 					"name": "minecraft:book",
 					"functions": [
 						{
@@ -36,7 +37,8 @@
 								"type": "minecraft:uniform",
 								"min": 20,
 								"max": 30
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
