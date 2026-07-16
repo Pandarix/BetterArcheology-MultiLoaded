@@ -6,13 +6,14 @@ import net.Pandarix.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
@@ -48,10 +49,13 @@ public class PlatformImpl {
         try {
             Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
 
-            //  VANILLA
-            if (player.getItemBySlot(EquipmentSlot.CHEST).getComponents().has(DataComponents.GLIDER)
-                    && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1) {
-                return true;
+            //  VANILLA - any equipment slot with a usable glider, mirroring LivingEntity#canGlide
+            for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+                ItemStack stack = player.getItemBySlot(slot);
+                if (LivingEntity.canGlideUsing(stack, slot)
+                        && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, stack) >= 1) {
+                    return true;
+                }
             }
 
             // ACCESSORIES - disabled for 1.21.11 until it updates

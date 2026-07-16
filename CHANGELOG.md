@@ -12,6 +12,7 @@ and everything until the next one) is uploaded.
 - Chest loot enchanted books/gear now draw from the `on_random_loot` enchantment tag instead of the entire enchantment registry, so unrelated/debug enchantments from other mods can no longer roll on our loot (#37)
 - Dispensers can now brush armadillos with the modded brushes, matching the vanilla brush (#26)
 - Soaring Winds now also checks Curios back slots for an enchanted elytra on NeoForge (the check was disabled during porting)
+- Soaring Winds now works with a usable glider in any equipment slot and respects durability, matching vanilla gliding rules
 
 ## Better Archeology 1.3.6
 
