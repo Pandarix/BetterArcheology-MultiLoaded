@@ -7,9 +7,13 @@ import net.Pandarix.sound.ModSounds;
 import net.Pandarix.util.BetterBrushTiers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.DispenserBlock;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ModItems
@@ -61,5 +65,28 @@ public class ModItems
     public static void register()
     {
         BACommon.logRegistryEvent(ITEMS);
+        registerDispenseBehaviors();
+    }
+
+    /**
+     * Registers the vanilla armadillo-brushing dispense behavior for the modded
+     * brushes. Vanilla only registers it for {@code minecraft:brush} (dispense
+     * behaviors are per item instance), so dispensers ignore modded brushes
+     * without this.
+     */
+    private static void registerDispenseBehaviors()
+    {
+        Consumer<Item> registerBrushBehavior = item -> {
+            DispenseItemBehavior brushBehavior = DispenserBlock.DISPENSER_REGISTRY.get(Items.BRUSH);
+            if (brushBehavior == null)
+            {
+                BACommon.LOGGER.warn("No dispense behavior registered for minecraft:brush; skipping dispenser support for {}", item);
+                return;
+            }
+            DispenserBlock.registerBehavior(item, brushBehavior);
+        };
+        IRON_BRUSH.listen(registerBrushBehavior);
+        DIAMOND_BRUSH.listen(registerBrushBehavior);
+        NETHERITE_BRUSH.listen(registerBrushBehavior);
     }
 }
