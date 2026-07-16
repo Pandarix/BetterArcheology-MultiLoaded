@@ -116,6 +116,7 @@
 
   "entity.minecraft.villager.archeologist": "Archeologist",
   "entity.minecraft.villager.betterarcheology.archeologist": "Archeologist",
+  "entity.betterarcheology.bombentity": "Rusty Bomb",
 
   "enchantment.betterarcheology.penetrating_strike": "Penetrating Strike",
   "enchantment.betterarcheology.penetrating_strike.desc": "Partially ignores effects of Protection Enchantments",
