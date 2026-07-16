@@ -12,6 +12,7 @@ and everything until the next one) is uploaded.
 - Chest loot enchanted books/gear now draw from the `on_random_loot` enchantment tag instead of the entire enchantment registry, so unrelated/debug enchantments from other mods can no longer roll on our loot (#37)
 - Dispensers can now brush armadillos with the modded brushes, matching the vanilla brush (#26)
 - Soaring Winds now triggers with an enchanted elytra in an Accessories slot — the check previously looked at the chestplate slot
+- Soaring Winds now works with a usable glider in any equipment slot and respects durability, matching vanilla gliding rules
 
 ## Better Archeology 1.3.6
 

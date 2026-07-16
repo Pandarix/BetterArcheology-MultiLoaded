@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
@@ -109,11 +110,15 @@ public class PlatformImpl
         {
             Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
 
-            //  VANILLA
-            if (player.getItemBySlot(EquipmentSlot.CHEST).getComponents().has(DataComponents.GLIDER)
-                    && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
+            //  VANILLA - any equipment slot with a usable glider, mirroring LivingEntity#canGlide
+            for (EquipmentSlot slot : EquipmentSlot.VALUES)
             {
-                return true;
+                ItemStack stack = player.getItemBySlot(slot);
+                if (LivingEntity.canGlideUsing(stack, slot)
+                        && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, stack) >= 1)
+                {
+                    return true;
+                }
             }
 
             /* Disabled until compat layer is out for 1.21.4
