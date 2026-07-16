@@ -72,7 +72,8 @@
 					"name": "minecraft:book",
 					"functions": [
 						{
-							"function": "minecraft:enchant_randomly"
+							"function": "minecraft:enchant_randomly",
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -240,7 +241,8 @@
 								"min": 1,
 								"max": 20
 							},
-							"treasure": false
+							"treasure": false,
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -254,7 +256,8 @@
 							"levels": {
 								"min": 5,
 								"max": 20
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -268,7 +271,8 @@
 							"levels": {
 								"min": 5,
 								"max": 20
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				}

@@ -101,7 +101,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -116,7 +117,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -131,7 +133,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -146,7 +149,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -161,7 +165,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -176,7 +181,8 @@
 								"type": "minecraft:uniform",
 								"min": 15,
 								"max": 25
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -190,7 +196,8 @@
 							"levels": {
 								"min": 20,
 								"max": 30
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},

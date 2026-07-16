@@ -177,7 +177,8 @@
 								"type": "minecraft:uniform",
 								"min": 5,
 								"max": 10
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -191,7 +192,8 @@
 								"type": "minecraft:uniform",
 								"min": 5,
 								"max": 10
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -205,7 +207,8 @@
 								"type": "minecraft:uniform",
 								"min": 5,
 								"max": 10
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
@@ -219,7 +222,8 @@
 								"type": "minecraft:uniform",
 								"min": 5,
 								"max": 10
-							}
+							},
+							"options": "#minecraft:on_random_loot"
 						}
 					]
 				},
