@@ -21,6 +21,8 @@ public class ModTags {
 
         public static final TagKey<Item> ELYTRAS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "elytras"));
 
+        public static final TagKey<Item> MUSIC_DISCS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "music_discs"));
+
         public static final TagKey<Item> ROTTEN_LOGS = tag("rotten_logs");
 
         public static final TagKey<Item> TUNNELING_ITEMS = tag("tunneling_items");
