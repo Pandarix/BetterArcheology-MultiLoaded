@@ -25,6 +25,10 @@
     {
       "id": "#forge:is_desert",
       "required": false
+    },
+    {
+      "id": "biomeswevegone:atacama_outback",
+      "required": false
     }
   ]
 }
