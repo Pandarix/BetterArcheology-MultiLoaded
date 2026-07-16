@@ -15,5 +15,6 @@ and everything until the next one) is uploaded.
 ## Better Archeology 1.3.6
 
 - Fixed brush tooltips: now show the real speed increase — +43% Iron, +100% Diamond, +233% Netherite (#48)
+- Identifying at the Archeology Table now actually picks a random artifact — a caching bug made it always produce the same enchanted book (Soaring Winds) (#41)
 - Fixed dead issue tracker link in the mod menu
 - Curios/Caelus now resolve from the Modrinth maven (old maven host went offline)
