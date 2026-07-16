@@ -10,6 +10,7 @@ and everything until the next one) is uploaded.
 - Music disc now tagged `c:music_discs` for cross-mod compatibility (#30)
 - Updated worldgen biome compatibility for the current Biomes We've Gone (BWG) — old `byg:` entries kept for legacy modpacks, `biomeswevegone:` entries added for the current biome roster (#33)
 - Chest loot enchanted books/gear now draw from the `on_random_loot` enchantment tag instead of the entire enchantment registry, so unrelated/debug enchantments from other mods can no longer roll on our loot (#37)
+- Dispensers can now brush armadillos with the modded brushes, matching the vanilla brush (#26)
 
 ## Better Archeology 1.3.6
 
