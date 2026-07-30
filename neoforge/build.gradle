@@ -84,6 +84,9 @@ dependencies {
     // at runtime, use the full JEI jar for Forge
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
+    // The plugin discovery annotation (me.shedaniel.rei.forge.REIPluginClient) only ships in the
+    // NeoForge jar, so the loader specific plugin wrapper needs it on the compile classpath too.
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transitive dependencies request 6.0+
