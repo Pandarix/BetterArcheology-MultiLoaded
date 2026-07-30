@@ -46,7 +46,7 @@ public class GrowthTotemBlock extends FlowerBlock
                     {
                         SpellParticleOption particleOption = SpellParticleOption.create(ParticleTypes.INSTANT_EFFECT, ARGB.white(1), 0);
 
-                        Vec3 center = pPos.offset(i, 0, j).getCenter();
+                        Vec3 center = Vec3.atCenterOf(pPos.offset(i, 0, j));
                         pLevel.addParticle(particleOption,
                                 center.x + randomDirectionModifier(pRandom, 3),
                                 pPos.getY(),

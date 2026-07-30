@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.HashCommon;
 import net.Pandarix.block.custom.VillagerFossilBlock;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.Pandarix.block.entity.state.VillagerFossilRenderState;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -41,7 +41,7 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
     {
         BlockEntityRenderer.super.extractRenderState(villagerFossilBlockEntity, villagerFossilRenderState, f, vec3, crumblingOverlay);
         villagerFossilRenderState.facing = villagerFossilBlockEntity.getBlockState().getValue(VillagerFossilBlock.FACING);
-        villagerFossilRenderState.lightCoords = villagerFossilBlockEntity.getLevel() != null ? LevelRenderer.getLightCoords(villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity.getBlockPos().relative(villagerFossilRenderState.facing)) : 15728880;
+        villagerFossilRenderState.lightCoords = villagerFossilBlockEntity.getLevel() != null ? LightCoordsUtil.getLightCoords(villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity.getBlockPos().relative(villagerFossilRenderState.facing)) : 15728880;
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
         this.itemModelResolver.updateForTopItem(itemStackRenderState, villagerFossilBlockEntity.getItem(0), ItemDisplayContext.FIXED, villagerFossilBlockEntity.getLevel(), villagerFossilBlockEntity, HashCommon.long2int(villagerFossilBlockEntity.getBlockPos().asLong()));

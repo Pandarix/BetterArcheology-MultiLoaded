@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
     "betterarcheology:villager_fossil_head",

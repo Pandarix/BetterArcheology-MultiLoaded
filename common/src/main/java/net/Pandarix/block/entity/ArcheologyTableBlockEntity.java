@@ -416,7 +416,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public Vec3 position()
     {
-        return this.getBlockPos().getCenter();
+        return Vec3.atCenterOf(this.getBlockPos());
     }
 
     @Override

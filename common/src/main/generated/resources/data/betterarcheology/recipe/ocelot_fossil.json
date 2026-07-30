@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "ba_fossils",
   "ingredients": [
     "betterarcheology:ocelot_fossil_head",

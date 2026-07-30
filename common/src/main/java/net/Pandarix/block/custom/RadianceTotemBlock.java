@@ -39,6 +39,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,9 +87,9 @@ public class RadianceTotemBlock extends BaseEntityBlock
         if (pRandom.nextBoolean() && pLevel.isClientSide())
         {
             pLevel.addParticle(ParticleTypes.GLOW,
-                    pPos.getCenter().x() + randomDirectionModifier(pRandom, 3),
-                    pPos.getCenter().y() - 0.25 + randomDirectionModifier(pRandom, 5),
-                    pPos.getCenter().z() + randomDirectionModifier(pRandom, 3), 0, -4, 0);
+                    Vec3.atCenterOf(pPos).x() + randomDirectionModifier(pRandom, 3),
+                    Vec3.atCenterOf(pPos).y() - 0.25 + randomDirectionModifier(pRandom, 5),
+                    Vec3.atCenterOf(pPos).z() + randomDirectionModifier(pRandom, 3), 0, -4, 0);
         }
     }
 
@@ -118,9 +119,9 @@ public class RadianceTotemBlock extends BaseEntityBlock
             for (int i = 0; i <= 10; i++)
             {
                 pLevel.addParticle(ParticleTypes.GLOW,
-                        pPos.getCenter().x() + randomDirectionModifier(random, 3),
-                        pPos.getCenter().y() - 0.25 + randomDirectionModifier(random, 5),
-                        pPos.getCenter().z() + randomDirectionModifier(random, 3), 0, -4, 0);
+                        Vec3.atCenterOf(pPos).x() + randomDirectionModifier(random, 3),
+                        Vec3.atCenterOf(pPos).y() - 0.25 + randomDirectionModifier(random, 5),
+                        Vec3.atCenterOf(pPos).z() + randomDirectionModifier(random, 3), 0, -4, 0);
             }
 
         }

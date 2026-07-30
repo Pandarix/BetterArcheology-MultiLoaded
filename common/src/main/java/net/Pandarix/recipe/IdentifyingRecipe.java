@@ -40,7 +40,7 @@ public class IdentifyingRecipe extends SingleItemRecipe
             //apply custom naming to the book
             item.set(DataComponents.ITEM_NAME, Component.translatable("item.betterarcheology.identified_artifact"));
             item.set(DataComponents.LORE,
-                    new ItemLore(List.of(Component.translatable("item.betterarcheology.identified_artifact_info").withColor(ChatFormatting.AQUA.getColor()))));
+                    new ItemLore(List.of(Component.translatable("item.betterarcheology.identified_artifact_info").withStyle(ChatFormatting.AQUA))));
         }
         return item;
     }

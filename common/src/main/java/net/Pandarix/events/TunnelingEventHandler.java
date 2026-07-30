@@ -1,7 +1,6 @@
 package net.Pandarix.events;
 
 import dev.architectury.event.EventResult;
-import dev.architectury.utils.value.IntValue;
 import net.Pandarix.BACommon;
 import net.Pandarix.config.BAConfig;
 import net.Pandarix.enchantment.ModEnchantments;
@@ -20,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class TunnelingEventHandler
 {
-    public static EventResult handleTunneling(Level level, BlockPos blockPos, BlockState blockState, ServerPlayer serverPlayer, IntValue intValue)
+    public static EventResult handleTunneling(Level level, BlockPos blockPos, BlockState blockState, ServerPlayer serverPlayer)
     {
         if (level instanceof ServerLevel serverLevel && serverPlayer != null)
         {

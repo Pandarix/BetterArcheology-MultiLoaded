@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RadianceTotemBlockEntity extends BlockEntity
         {
             //get all entities in a 10 block radius
             int totemRadius = BAConfig.radianceTotemRadius * 2;
-            List<LivingEntity> livingEntities = world.getEntitiesOfClass(LivingEntity.class, AABB.ofSize(pos.getCenter(), totemRadius, totemRadius, totemRadius));
+            List<LivingEntity> livingEntities = world.getEntitiesOfClass(LivingEntity.class, AABB.ofSize(Vec3.atCenterOf(pos), totemRadius, totemRadius, totemRadius));
             applyGlowingEffect(livingEntities, state);
 
             //damages every hostile monster with a chance of 1/(configValue*2), resulting in an average damage tick every configValue seconds

@@ -5,6 +5,7 @@ import net.Pandarix.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -93,7 +94,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider
                 .add(ModBlocks.ROTTEN_FENCE.getKey());
         this.builder(BlockTags.LOGS)
                 .add(ModBlocks.ROTTEN_LOG.getKey());
-        this.builder(BlockTags.LOGS_THAT_BURN)
+        this.builder(BlockItemTags.LOGS_THAT_BURN.block())
                 .add(ModBlocks.ROTTEN_LOG.getKey());
         this.builder(BlockTags.PLANKS)
                 .add(ModBlocks.ROTTEN_PLANKS.getKey());

@@ -54,7 +54,7 @@ public class CreeperFossilBlock extends FossilBaseBlock
         super.animateTick(blockState, level, pos, random);
 
         ParticleOptions particle = random.nextBoolean() ? ParticleTypes.SMALL_FLAME : ParticleTypes.SMOKE; //50:50 chance for either spawning Smoke or Flames
-        Vec3 center = pos.getCenter();
+        Vec3 center = Vec3.atCenterOf(pos);
 
         if (level.isClientSide())
         {

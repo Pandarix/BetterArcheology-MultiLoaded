@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.block.entity.state.ArcheologyTableRenderState;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -40,7 +40,7 @@ public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<A
     public void extractRenderState(@NotNull ArcheologyTableBlockEntity archeologyTableBlockEntity, @NotNull ArcheologyTableRenderState archeologyTableRenderState, float f, @NotNull Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
     {
         BlockEntityRenderer.super.extractRenderState(archeologyTableBlockEntity, archeologyTableRenderState, f, vec3, crumblingOverlay);
-        archeologyTableRenderState.lightCoords = archeologyTableBlockEntity.getLevel() != null ? LevelRenderer.getLightCoords(archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity.getBlockPos().above()) : 15728880;
+        archeologyTableRenderState.lightCoords = archeologyTableBlockEntity.getLevel() != null ? LightCoordsUtil.getLightCoords(archeologyTableBlockEntity.getLevel(), archeologyTableBlockEntity.getBlockPos().above()) : 15728880;
         NonNullList<ItemStack> nonNullList = archeologyTableBlockEntity.getItems();
         int i = HashCommon.long2int(archeologyTableBlockEntity.getBlockPos().asLong());
 

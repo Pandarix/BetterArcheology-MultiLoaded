@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
@@ -91,7 +91,7 @@ public class LootVaseBlock extends Block
     //Similar code that also gets executed when InfestedBlock is broken to spawn a SilverFish
     private static void spawnSilverFish(Level level, BlockPos pos)
     {
-        Silverfish silverfishEntity = EntityType.SILVERFISH.create(level, EntitySpawnReason.TRIGGERED);
+        Silverfish silverfishEntity = EntityTypes.SILVERFISH.create(level, EntitySpawnReason.TRIGGERED);
         if (silverfishEntity != null)
         {
             silverfishEntity.snapTo((double) pos.getX() + 0.5, (double) pos.getY(), (double) pos.getZ() + 0.5, 0.0F, 0.0F);

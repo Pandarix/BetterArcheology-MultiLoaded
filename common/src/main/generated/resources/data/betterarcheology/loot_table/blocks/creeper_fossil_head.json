@@ -1,8 +1,7 @@
 {
-  "type": "minecraft:block",
+  "type": "minecraft:blofor thck",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"

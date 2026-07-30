@@ -49,11 +49,11 @@ public class FleeBlockGoal<T extends BlockEntity> extends Goal
             return false;
         } else
         {
-            Vec3 vec3d = DefaultRandomPos.getPosAway(this.mob, 16, 7, this.targetBlock.getBlockPos().getCenter());
+            Vec3 vec3d = DefaultRandomPos.getPosAway(this.mob, 16, 7, Vec3.atCenterOf(this.targetBlock.getBlockPos()));
             if (vec3d == null)
             {
                 return false;
-            } else if (vec3d.distanceToSqr(targetBlock.getBlockPos().getX(), targetBlock.getBlockPos().getY(), targetBlock.getBlockPos().getZ()) < this.mob.distanceToSqr(this.targetBlock.getBlockPos().getCenter()))
+            } else if (vec3d.distanceToSqr(targetBlock.getBlockPos().getX(), targetBlock.getBlockPos().getY(), targetBlock.getBlockPos().getZ()) < this.mob.distanceToSqr(Vec3.atCenterOf(this.targetBlock.getBlockPos())))
             {
                 return false;
             } else
@@ -128,7 +128,7 @@ public class FleeBlockGoal<T extends BlockEntity> extends Goal
 
     public void tick()
     {
-        if (this.targetBlock != null && this.mob.distanceToSqr(this.targetBlock.getBlockPos().getCenter()) < 49.0D)
+        if (this.targetBlock != null && this.mob.distanceToSqr(Vec3.atCenterOf(this.targetBlock.getBlockPos())) < 49.0D)
         {
             this.mob.getNavigation().setSpeedModifier(this.fastSpeed);
         } else

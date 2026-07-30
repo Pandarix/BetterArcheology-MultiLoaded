@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ChickenFossilBlockEntity extends BlockEntity
             return;
         }
         //get players in bounding box of 10 blocks
-        List<Player> playersInRange = world.getEntitiesOfClass(Player.class, AABB.ofSize(pos.getCenter(), 10, 10, 10));
+        List<Player> playersInRange = world.getEntitiesOfClass(Player.class, AABB.ofSize(Vec3.atCenterOf(pos), 10, 10, 10));
 
         //give every player in range slow-falling for 10 seconds, particles are not being displayed for ux
         for (Player player : playersInRange)
