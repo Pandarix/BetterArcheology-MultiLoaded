@@ -10,8 +10,6 @@ import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class IdentifyingRecipe extends SingleItemRecipe
 {
     public IdentifyingRecipe(Recipe.CommonInfo commonInfo, Ingredient ingredient, ItemStackTemplate result)
@@ -31,17 +29,36 @@ public class IdentifyingRecipe extends SingleItemRecipe
         return "";
     }
 
+    /**
+     * Names an identified book. The enchantment's own description is deliberately left out: this
+     * mod ships the ".desc" translation keys that Enchantment Descriptions reads, so that mod
+     * already puts the text on the tooltip and a lore line here would duplicate it.
+     */
+    private static ItemStack decorate(ItemStack stack)
+    {
+        if (stack.is(Items.ENCHANTED_BOOK))
+        {
+            stack.set(DataComponents.ITEM_NAME, Component.translatable("item.betterarcheology.identified_artifact"));
+        }
+
+        return stack;
+    }
+
+    @Override
+    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput input)
+    {
+        return decorate(super.assemble(input));
+    }
+
+    /**
+     * Output as shown by JEI/REI. Same item {@link #assemble} produces, plus a note that identifying
+     * picks one artifact at random, which would be nonsense on the item a player actually holds.
+     */
     public ItemStack getResult()
     {
-        //Adding the Enchantment Tags
-        ItemStack item = this.result().create();
-        if (item.is(Items.ENCHANTED_BOOK))
-        {
-            //apply custom naming to the book
-            item.set(DataComponents.ITEM_NAME, Component.translatable("item.betterarcheology.identified_artifact"));
-            item.set(DataComponents.LORE,
-                    new ItemLore(List.of(Component.translatable("item.betterarcheology.identified_artifact_info").withColor(ChatFormatting.AQUA.getColor()))));
-        }
+        ItemStack item = decorate(this.result().create());
+        item.set(DataComponents.LORE, item.getOrDefault(DataComponents.LORE, ItemLore.EMPTY)
+                .withLineAdded(Component.translatable("item.betterarcheology.identified_artifact_info").withStyle(ChatFormatting.AQUA)));
         return item;
     }
 
