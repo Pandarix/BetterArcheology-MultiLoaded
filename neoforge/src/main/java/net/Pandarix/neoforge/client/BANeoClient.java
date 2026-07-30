@@ -12,6 +12,7 @@ import net.Pandarix.screen.FossilInventoryScreen;
 import net.Pandarix.screen.IdentifyingScreen;
 import net.Pandarix.screen.ModMenuTypes;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -55,7 +56,8 @@ public class BANeoClient
     {
         if (ModList.get().isLoaded("jei"))
         {
-            JeiPlugin.recipeMap = event.getRecipeMap();
+            RecipeMap recipeMap = event.getRecipeMap();
+            JeiPlugin.identifyingRecipes = () -> recipeMap.byType(IdentifyingRecipe.Type.INSTANCE);
         }
     }
 
