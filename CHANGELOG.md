@@ -4,6 +4,10 @@ This file is the default publish changelog: when the Publish workflow's
 changelog input is left empty, the newest section (the first `##` heading
 and everything until the next one) is uploaded.
 
+## Better Archeology 1.3.8
+
+- Artifacts identified at the Archeology Table are called "Identified Artifact" again. The name was silently lost when identifying became recipe driven
+
 ## Better Archeology 1.3.7
 
 - Fixed the Rusty Bomb entity showing an untranslated name (#8)
