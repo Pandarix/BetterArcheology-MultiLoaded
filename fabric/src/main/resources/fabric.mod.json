@@ -26,7 +26,8 @@
       "net.Pandarix.fabric.datagen.ModDataGenerators"
     ],
     "rei_common": ["net.Pandarix.compat.rei.ReiPlugin"],
-    "rei_client": ["net.Pandarix.compat.rei.ReiClientPlugin"]
+    "rei_client": ["net.Pandarix.compat.rei.ReiClientPlugin"],
+    "jei_mod_plugin": ["net.Pandarix.compat.jei.JeiPlugin"]
   },
   "mixins": [
     "betterarcheology.mixins.json"

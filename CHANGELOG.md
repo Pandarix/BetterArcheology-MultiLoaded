@@ -7,6 +7,8 @@ and everything until the next one) is uploaded.
 ## Better Archeology 1.3.8
 
 - Artifacts identified at the Archeology Table are called "Identified Artifact" again. The name was silently lost when identifying became recipe driven
+- JEI lists the Archeology Table's identifying recipes again on Fabric. Its plugin entrypoint was dropped during the 1.21.4 port, and since 1.21.2 the recipes also have to be synced to the client explicitly
+- REI lists those recipes on NeoForge too. Its plugin was only ever registered on Fabric
 
 ## Better Archeology 1.3.7
 
