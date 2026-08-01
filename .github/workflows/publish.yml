@@ -1,6 +1,6 @@
 # Manual-only publishing to Modrinth + CurseForge (Actions tab -> Publish ->
 # "Run workflow", or `gh workflow run publish.yml --ref <branch>`).
-# Reuses build.yml for the build, then uploads after the environment gate.
+# Builds via publishMods itself, uploads after the environment gate.
 # This file is intended to be byte-identical on every version branch;
 # per-branch publish data lives in gradle.properties, the changelog in CHANGELOG.md.
 name: Publish
@@ -37,11 +37,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-
+  # No separate build job: publishMods runs the full build itself, so a
+  # prior build.yml call would just build everything twice on two runners.
   publish:
-    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # gate: requires approval per the 'publish' environment's protection rules
@@ -55,6 +53,16 @@ jobs:
           java-version-file: .java-version
 
       - uses: gradle/actions/setup-gradle@v6
+
+      # setup-gradle only caches ~/.gradle; Loom's expensive per-checkout work
+      # (minecraft merge/patch jars) lives in .gradle/loom-cache and would be
+      # redone from scratch every run without this.
+      - name: Cache Loom project cache
+        uses: actions/cache@v4
+        with:
+          path: .gradle/loom-cache
+          key: loom-${{ runner.os }}-${{ hashFiles('gradle.properties', 'build.gradle') }}
+          restore-keys: loom-${{ runner.os }}-
 
       - name: Publish (dry_run=${{ inputs.dry_run }})
         run: ./gradlew publishMods
