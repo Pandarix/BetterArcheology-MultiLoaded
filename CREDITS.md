@@ -24,3 +24,4 @@ The following users are in no particular order.
 - TheLegendofSaram / Adam
 - Linguardium
 - Austerlitz_Enthusiast
+- Texaliuz
