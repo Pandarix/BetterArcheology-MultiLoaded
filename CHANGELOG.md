@@ -8,6 +8,7 @@ and everything until the next one) is uploaded.
 
 - Artifacts identified at the Archeology Table are called "Identified Artifact" again. The name was silently lost when identifying became recipe driven
 - REI lists the Archeology Table's identifying recipes on NeoForge. Its plugin was only ever registered on Fabric
+- Added an Argentine Spanish translation, contributed by Texaliuz
 
 ## Better Archeology 1.3.7
 
