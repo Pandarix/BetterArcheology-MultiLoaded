@@ -28,6 +28,16 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
 
+      # setup-gradle only caches ~/.gradle; Loom's expensive per-checkout work
+      # (minecraft merge/patch jars) lives in .gradle/loom-cache and would be
+      # redone from scratch every run without this.
+      - name: Cache Loom project cache
+        uses: actions/cache@v4
+        with:
+          path: .gradle/loom-cache
+          key: loom-${{ runner.os }}-${{ hashFiles('gradle.properties', 'build.gradle') }}
+          restore-keys: loom-${{ runner.os }}-
+
       - name: Build (fabric + neoforge)
         run: ./gradlew build
 
