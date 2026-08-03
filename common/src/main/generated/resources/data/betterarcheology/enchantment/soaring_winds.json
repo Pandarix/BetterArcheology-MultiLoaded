@@ -15,6 +15,6 @@
   "slots": [
     "any"
   ],
-  "supported_items": "#c:elytras",
+  "supported_items": "#betterarcheology:soaring_winds_items",
   "weight": 2
 }

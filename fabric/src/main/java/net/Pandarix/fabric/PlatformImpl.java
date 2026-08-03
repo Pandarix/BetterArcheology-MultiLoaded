@@ -7,6 +7,7 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.Pandarix.BACommon;
 import net.Pandarix.enchantment.ModEnchantments;
 import net.Pandarix.util.ModTags;
+import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Holder;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ElytraItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
@@ -62,11 +64,11 @@ public class PlatformImpl
         {
             Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
 
-            if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ElytraItem
-                    && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
-            {
+            // if there is a usable glider in the chestslot and it has the enchantment
+            ItemStack chestStack = player.getItemBySlot(EquipmentSlot.CHEST);
+
+            if (canGlideWith(player, chestStack) && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, chestStack) >= 1)
                 return true;
-            }
 
             // If trinkets is installed, check for back-slot
             if (FabricLoader.getInstance().isModLoaded("trinkets"))
@@ -82,11 +84,11 @@ public class PlatformImpl
                         Optional<TrinketComponent> trinketData = TrinketsApi.getTrinketComponent(player);
                         if (trinketData.isPresent())
                         {
-                            // check for a trinkets slot named "cape" with an ElytraItem with Soaring winds on it
+                            // check for a trinkets slot named "cape" with a usable glider with Soaring Winds on it
                             return trinketData.get().getAllEquipped().stream().anyMatch((pair) ->
                                     Objects.equals(pair.getA().inventory().getSlotType().getName(), "cape")
-                                            && pair.getB().is(ModTags.Items.ELYTRAS) && ElytraItem.isFlyEnabled(pair.getB())
                                             && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, pair.getB()) >= 1
+                                            && canGlideWith(player, pair.getB())
                             );
                         }
                     }
@@ -98,5 +100,15 @@ public class PlatformImpl
         }
         // if nothing succeeded, false
         return false;
+    }
+
+    // NeoForge asks the item itself through canElytraFly. Fabric has no such call, so mods supplying
+    // their own glider implement FabricElytraItem instead - passing false only asks, it does not tick
+    private static boolean canGlideWith(Player player, ItemStack stack)
+    {
+        if (stack.getItem() instanceof FabricElytraItem customElytra)
+            return customElytra.useCustomElytra(player, stack, false);
+
+        return stack.is(ModTags.Items.ELYTRAS) && ElytraItem.isFlyEnabled(stack);
     }
 }
