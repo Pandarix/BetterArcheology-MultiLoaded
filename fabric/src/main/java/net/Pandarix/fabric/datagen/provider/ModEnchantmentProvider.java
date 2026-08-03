@@ -53,7 +53,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider
 
         register(entries, ModEnchantments.SOARING_WINDS_KEY, new Enchantment.Builder(
                 Enchantment.definition(
-                        itemLookup.getOrThrow(ModTags.Items.ELYTRAS),
+                        itemLookup.getOrThrow(ModTags.Items.SOARING_WINDS_ITEMS),
                         2, // probability of showing up in the enchantment table - will be ignored due to it being treasure
                         1, // max level
                         Enchantment.dynamicCost(1, 10), // cost per level (base)
