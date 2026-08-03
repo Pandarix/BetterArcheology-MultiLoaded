@@ -117,7 +117,8 @@ public final class BAConfig
     public static double torrentTotemBoost = 1d;
 
     @ConfigEntry(id = "torrentTotemUpwardsBoost", type = EntryType.BOOLEAN, translation = "config.betterarcheology.torrentTotemUpwardsBoost")
-    public static boolean torrentTotemUpwardsBoost = false;
+    @Comment("Lets the Totem of Torrents dash up and down as well, following where the player aims. Disable to restrict the dash to the horizontal plane.")
+    public static boolean torrentTotemUpwardsBoost = true;
 
     // ──────── SOUL ───────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "soulTotemEnabled", type = EntryType.BOOLEAN, translation = "config.betterarcheology.soulTotemEnabled")
