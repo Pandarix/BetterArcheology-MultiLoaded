@@ -30,6 +30,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider
         this.tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .addOptionalTag(ModTags.Items.BRUSHES.location());
 
+        // own tag instead of #c:elytras directly, so packs can widen it to modded gliding chestplates
+        this.tag(ModTags.Items.SOARING_WINDS_ITEMS)
+                .addOptionalTag(ModTags.Items.ELYTRAS.location());
+
         this.tag(ModTags.Items.TUNNELING_ITEMS)
                 .addOptionalTag(ItemTags.PICKAXES.location())
                 .addOptionalTag(ItemTags.SHOVELS.location())

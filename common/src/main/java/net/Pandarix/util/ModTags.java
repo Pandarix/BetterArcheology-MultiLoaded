@@ -29,6 +29,8 @@ public class ModTags
 
         public static final TagKey<Item> ROTTEN_LOGS = tag("rotten_logs");
 
+        public static final TagKey<Item> SOARING_WINDS_ITEMS = tag("soaring_winds_items");
+
         public static final TagKey<Item> TUNNELING_ITEMS = tag("tunneling_items");
 
         private static TagKey<Item> tag(String name)

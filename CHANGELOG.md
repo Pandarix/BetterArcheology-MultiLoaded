@@ -9,6 +9,7 @@ and everything until the next one) is uploaded.
 - Artifacts identified at the Archeology Table are called "Identified Artifact" again. The name was silently lost when identifying became recipe driven
 - REI lists the Archeology Table's identifying recipes on NeoForge. Its plugin was only ever registered on Fabric
 - The Totem of Torrents now dashes where you aim, up and down included, like a riptide trident. The dash is equally strong in every direction and has been retuned to Riptide II strength, which makes the horizontal dash slightly shorter than before. Dashing off the ground lifts you clear of the floor first, so it no longer scrapes along the terrain you were standing on. Vertical dashing is on by default; the "Upwards Boosting" config option restricts the dash to the horizontal plane again (#28)
+- Soaring Winds can now be applied to modded gliding chestplates. It draws from the `betterarcheology:soaring_winds_items` item tag instead of `c:elytras` directly, so packs can widen it — e.g. to an Apotheosis chestplate with the elytra flight augment (#4)
 - Added an Argentine Spanish translation, contributed by Texaliuz
 
 ## Better Archeology 1.3.7
