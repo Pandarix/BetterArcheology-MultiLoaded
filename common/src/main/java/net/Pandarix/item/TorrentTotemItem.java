@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,13 @@ import java.util.function.Consumer;
 
 public class TorrentTotemItem extends Item
 {
+    // blocks per tick added on use, matching Riptide II. vanilla scales the same way:
+    // spin attack strength is 1.5 at Riptide I and 0.75 more per level after that
+    private static final double DASH_SPEED = 2.25D;
+
+    // blocks the player is lifted when dashing off the ground, same value vanilla riptide uses
+    private static final double GROUND_LIFT = 1.1999999284744263D;
+
     public TorrentTotemItem(Properties pProperties)
     {
         super(pProperties);
@@ -43,17 +51,21 @@ public class TorrentTotemItem extends Item
             return InteractionResult.PASS;
         }
 
-        Vec3 rotationVector = pPlayer.getLookAngle();
-        Vec3 velocity = pPlayer.getDeltaMovement();
-        double boostX = 2 * BAConfig.torrentTotemBoost;
-        double boostY = BAConfig.torrentTotemUpwardsBoost ? 0.5 * BAConfig.torrentTotemBoost : 0;
+        Vec3 direction = pPlayer.getLookAngle();
 
-        pPlayer.setDeltaMovement(velocity.add(
-                rotationVector.x * 0.1D + (rotationVector.x * 1.5D - velocity.x) * boostX,
-                (rotationVector.y * 0.1D + (rotationVector.y * 1.5D - velocity.y)) * boostY,
-                rotationVector.z * 0.1D + (rotationVector.z * 1.5D - velocity.z) * boostX)
-        );
+        // packs that want the old horizontal-only dash flatten the aim before it is scaled,
+        // so looking up still dashes forward at full strength instead of fizzling out
+        if (!BAConfig.torrentTotemUpwardsBoost) direction = new Vec3(direction.x, 0, direction.z);
+
+        // one speed for every direction, like vanilla riptide: aim picks where the dash goes, never how hard it is
+        Vec3 dash = direction.normalize().scale(DASH_SPEED * BAConfig.torrentTotemBoost);
+
+        pPlayer.setDeltaMovement(pPlayer.getDeltaMovement().add(dash));
         pPlayer.startAutoSpinAttack(8, 2, itemStack);
+
+        // vanilla riptide lifts the player off the floor first, so a dash started on the ground
+        // does not immediately scrape along the terrain it is standing on
+        if (pPlayer.onGround()) pPlayer.move(MoverType.SELF, new Vec3(0.0D, GROUND_LIFT, 0.0D));
 
         //sounds
         pLevel.playSound(null, pPlayer, SoundEvents.WATER_AMBIENT, SoundSource.NEUTRAL, 0.1f, (float) pLevel.getRandom().nextDouble() * 0.5f + 0.5f);
