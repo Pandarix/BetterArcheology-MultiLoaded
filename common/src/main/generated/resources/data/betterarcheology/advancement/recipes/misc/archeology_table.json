@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:archeology_table"
+        "recipes": "betterarcheology:archeology_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,11 +84,11 @@ public class GrowthTotemBlock extends FlowerBlock
 
                 if (state.getBlock() instanceof CropBlock cropBlock)
                 {
-                    if (cropBlock.isValidBonemealTarget(pLevel, pos, state))
+                    if (cropBlock.isValidBonemealTarget(pLevel, pos, state, BonemealSource.INTERACTION))
                     {
-                        if (cropBlock.isBonemealSuccess(pLevel, pLevel.getRandom(), pos, state))
+                        if (cropBlock.isBonemealSuccess(pLevel, pLevel.getRandom(), pos, state, BonemealSource.INTERACTION))
                         {
-                            cropBlock.performBonemeal(pLevel, pLevel.getRandom(), pos, state);
+                            cropBlock.performBonemeal(pLevel, pLevel.getRandom(), pos, state, BonemealSource.INTERACTION);
                             if (pRandom.nextBoolean())
                                 pLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS);
                         }

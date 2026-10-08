@@ -12,8 +12,8 @@
             "block": "betterarcheology:suspicious_dirt"
           },
           "output_state": {
-            "Name": "betterarcheology:suspicious_dirt",
-            "Properties": {
+            "id": "betterarcheology:suspicious_dirt",
+            "properties": {
               "dusted": "0"
             }
           },

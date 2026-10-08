@@ -63,7 +63,9 @@ dependencies {
     common(project(path: ':common')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    implementation "maven.modrinth:curios:${curios_version}+${minecraft_version}"
+    // curios 17.0.0-beta.2 targets FML's pre-rename ModConfig.Type.COMMON and crashes on current NeoForge 26.3 betas,
+    // so only compile against it until upstream catches up; the compat path is guarded by ModList.isLoaded("curios")
+    compileOnly "maven.modrinth:curios:${curios_version}+${minecraft_version}"
     //implementation("io.wispforest:accessories-neoforge:${project.accessories_version}")
     //implementation "curse.maven:elytra-slot-317716:6801976"
     //runtimeOnly "com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}+${minecraft_version}"

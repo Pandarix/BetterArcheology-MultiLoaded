@@ -17,12 +17,10 @@
 					"name": "minecraft:dune_armor_trim_smithing_template"
 				}
 			],
-			"conditions": [
-				{
-					"condition": "minecraft:random_chance",
-					"chance": 0.5
-				}
-			]
+			"condition": {
+				"type": "minecraft:random_chance",
+				"chance": 0.5
+			}
 		},
 		{
 			"rolls": 1,
@@ -30,27 +28,25 @@
 				{
 					"type": "minecraft:item",
 					"name": "betterarcheology:bomb",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 3
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 3
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:tipped_arrow",
-					"functions": [
+					"modifier": [
 						{
-							"function": "minecraft:set_potion",
+							"type": "minecraft:set_potion",
 							"id": "minecraft:harming"
 						},
 						{
-							"function": "minecraft:set_count",
+							"type": "minecraft:set_count",
 							"count": {
 								"type": "minecraft:uniform",
 								"min": 2,
@@ -62,13 +58,13 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:tipped_arrow",
-					"functions": [
+					"modifier": [
 						{
-							"function": "minecraft:set_potion",
+							"type": "minecraft:set_potion",
 							"id": "minecraft:weakness"
 						},
 						{
-							"function": "minecraft:set_count",
+							"type": "minecraft:set_count",
 							"count": {
 								"type": "minecraft:uniform",
 								"min": 2,
@@ -85,31 +81,27 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:experience_bottle",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:book",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 15,
-								"max": 30
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 15,
+							"max": 30
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				}
 			]
 		},
@@ -119,101 +111,91 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:cooked_cod",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:cooked_rabbit",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:cooked_salmon",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:potato",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:suspicious_stew",
-					"functions": [
-						{
-							"function": "minecraft:set_stew_effect",
-							"effects": [
-								{
-									"type": "minecraft:levitation",
-									"duration": 2
-								},
-								{
-									"type": "minecraft:wither",
-									"duration": 1
-								},
-								{
-									"type": "minecraft:strength",
-									"duration": 7
-								},
-								{
-									"type": "minecraft:speed",
-									"duration": 3
-								},
-								{
-									"type": "minecraft:invisibility",
-									"duration": 8
-								},
-								{
-									"type": "minecraft:blindness",
-									"duration": 5
-								},
-								{
-									"type": "minecraft:glowing",
-									"duration": 12
-								},
-								{
-									"type": "minecraft:absorption",
-									"duration": 5
-								}
-							]
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_stew_effect",
+						"effects": [
+							{
+								"type": "minecraft:levitation",
+								"duration": 2
+							},
+							{
+								"type": "minecraft:wither",
+								"duration": 1
+							},
+							{
+								"type": "minecraft:strength",
+								"duration": 7
+							},
+							{
+								"type": "minecraft:speed",
+								"duration": 3
+							},
+							{
+								"type": "minecraft:invisibility",
+								"duration": 8
+							},
+							{
+								"type": "minecraft:blindness",
+								"duration": 5
+							},
+							{
+								"type": "minecraft:glowing",
+								"duration": 12
+							},
+							{
+								"type": "minecraft:absorption",
+								"duration": 5
+							}
+						]
+					}
 				}
 			]
 		},
@@ -223,86 +205,74 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:bone",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:string",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:rotten_flesh",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:spider_eye",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 3
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 3
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:bone_meal",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:rabbit_hide",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 4,
-								"max": 7
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 4,
+							"max": 7
 						}
-					]
+					}
 				}
 			]
 		},
@@ -313,87 +283,75 @@
 					"type": "minecraft:item",
 					"weight": 1,
 					"name": "minecraft:diamond",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": 1
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": 1
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:redstone",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 5,
-								"max": 9
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 5,
+							"max": 9
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:glowstone_dust",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 5,
-								"max": 9
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 5,
+							"max": 9
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 3,
 					"name": "minecraft:gunpowder",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:raw_gold",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:emerald",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				}
 			]
 		}

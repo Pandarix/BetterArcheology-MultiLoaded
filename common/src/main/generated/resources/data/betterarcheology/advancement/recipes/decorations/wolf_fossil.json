@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:wolf_fossil"
+        "recipes": "betterarcheology:wolf_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

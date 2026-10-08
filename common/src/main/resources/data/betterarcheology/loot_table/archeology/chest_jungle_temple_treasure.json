@@ -13,46 +13,40 @@
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:emerald",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:gold_ingot",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 2,
 					"name": "minecraft:iron_ingot",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 4,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 4,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -107,62 +101,54 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:book",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 15,
-								"max": 25
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 15,
+							"max": 25
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:diamond_sword",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 10,
-								"max": 15
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 10,
+							"max": 15
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:diamond_axe",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 5,
-								"max": 15
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 5,
+							"max": 15
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:diamond_shovel",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 5,
-								"max": 15
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 5,
+							"max": 15
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				}
 			]
 		},
@@ -194,16 +180,14 @@
 					"name": "minecraft:sugar"
 				}
 			],
-			"functions": [
-				{
-					"function": "minecraft:set_count",
-					"count": {
-						"type": "minecraft:uniform",
-						"min": 3,
-						"max": 5
-					}
+			"modifier": {
+				"type": "minecraft:set_count",
+				"count": {
+					"type": "minecraft:uniform",
+					"min": 3,
+					"max": 5
 				}
-			]
+			}
 		}
 	]
 }

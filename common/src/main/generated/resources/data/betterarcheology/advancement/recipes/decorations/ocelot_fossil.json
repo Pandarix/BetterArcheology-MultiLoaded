@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:ocelot_fossil"
+        "recipes": "betterarcheology:ocelot_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

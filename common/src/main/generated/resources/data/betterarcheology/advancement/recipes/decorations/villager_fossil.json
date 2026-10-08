@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:villager_fossil"
+        "recipes": "betterarcheology:villager_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

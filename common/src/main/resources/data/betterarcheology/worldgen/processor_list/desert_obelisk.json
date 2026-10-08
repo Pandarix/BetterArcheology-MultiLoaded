@@ -12,8 +12,8 @@
             "block": "minecraft:suspicious_sand"
           },
           "output_state": {
-            "Name": "minecraft:suspicious_sand",
-            "Properties": {
+            "id": "minecraft:suspicious_sand",
+            "properties": {
               "dusted": "0"
             }
           },
@@ -31,9 +31,7 @@
             "block": "minecraft:cut_sandstone",
             "probability": 0.15
           },
-          "output_state": {
-            "Name": "minecraft:sandstone"
-          }
+          "output_state": "minecraft:sandstone"
         }
       ]
     }

@@ -16,31 +16,27 @@
 					"type": "minecraft:item",
 					"weight": 4,
 					"name": "minecraft:golden_carrot",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 5,
 					"name": "minecraft:spectral_arrow",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -50,16 +46,14 @@
 					"type": "minecraft:item",
 					"weight": 5,
 					"name": "minecraft:bread",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				}
 			]
 		},
@@ -96,16 +90,14 @@
 					"type": "minecraft:item",
 					"weight": 4,
 					"name": "minecraft:book",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 4,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 4,
+							"max": 6
 						}
-					]
+					}
 				}
 			]
 		},

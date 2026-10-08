@@ -12,8 +12,8 @@
             "block": "betterarcheology:suspicious_red_sand"
           },
           "output_state": {
-            "Name": "betterarcheology:suspicious_red_sand",
-            "Properties": {
+            "id": "betterarcheology:suspicious_red_sand",
+            "properties": {
               "dusted": "0"
             }
           },

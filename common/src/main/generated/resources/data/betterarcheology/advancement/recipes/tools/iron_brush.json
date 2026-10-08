@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:iron_brush"
+        "recipes": "betterarcheology:iron_brush"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

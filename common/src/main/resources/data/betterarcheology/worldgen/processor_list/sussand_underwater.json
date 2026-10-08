@@ -12,8 +12,8 @@
             "block": "minecraft:suspicious_sand"
           },
           "output_state": {
-            "Name": "betterarcheology:fossiliferous_dirt",
-            "Properties": {
+            "id": "betterarcheology:fossiliferous_dirt",
+            "properties": {
               "dusted": "0"
             }
           },
@@ -30,9 +30,7 @@
             "predicate_type": "minecraft:block_match",
             "block": "minecraft:barrel"
           },
-          "output_state": {
-            "Name": "minecraft:barrel"
-          },
+          "output_state": "minecraft:barrel",
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
             "loot_table": "betterarcheology:archeology/chest_underwater"

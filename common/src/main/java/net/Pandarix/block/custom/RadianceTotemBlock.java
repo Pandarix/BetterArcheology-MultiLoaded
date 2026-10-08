@@ -1,6 +1,5 @@
 package net.Pandarix.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.block.entity.RadianceTotemBlockEntity;
 import net.Pandarix.config.BAConfig;
@@ -48,8 +47,6 @@ public class RadianceTotemBlock extends BaseEntityBlock
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty SELECTOR = IntegerProperty.create("selector", 0, 3);
-    public static final MapCodec<RadianceTotemBlock> CODEC = simpleCodec(RadianceTotemBlock::new);
-
     protected static final VoxelShape AABB = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D));
     protected static final VoxelShape HANGING_AABB = Shapes.or(Block.box(5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D), Block.box(6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
@@ -220,12 +217,5 @@ public class RadianceTotemBlock extends BaseEntityBlock
     protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType)
     {
         return false;
-    }
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
     }
 }

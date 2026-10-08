@@ -13,12 +13,10 @@
 					"name": "betterarcheology:torrent_totem"
 				}
 			],
-			"conditions": [
-				{
-					"condition": "minecraft:random_chance",
-					"chance": 0.5
-				}
-			]
+			"condition": {
+				"type": "minecraft:random_chance",
+				"chance": 0.5
+			}
 		},
 		{
 			"rolls": 1,
@@ -26,17 +24,15 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:book",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 15,
-								"max": 25
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 15,
+							"max": 25
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -45,17 +41,15 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:fishing_rod",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 15,
-								"max": 25
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 15,
+							"max": 25
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				}
 			]
 		},
@@ -65,135 +59,119 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:suspicious_stew",
-					"functions": [
-						{
-							"function": "minecraft:set_stew_effect",
-							"effects": [
-								{
-									"type": "minecraft:water_breathing",
-									"duration": 10
-								},
-								{
-									"type": "minecraft:instant_health",
-									"duration": 1
-								},
-								{
-									"type": "minecraft:glowing",
-									"duration": 5
-								},
-								{
-									"type": "minecraft:levitation",
-									"duration": 2
-								},
-								{
-									"type": "minecraft:night_vision",
-									"duration": 8
-								},
-								{
-									"type": "minecraft:nausea",
-									"duration": 5
-								}
-							]
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_stew_effect",
+						"effects": [
+							{
+								"type": "minecraft:water_breathing",
+								"duration": 10
+							},
+							{
+								"type": "minecraft:instant_health",
+								"duration": 1
+							},
+							{
+								"type": "minecraft:glowing",
+								"duration": 5
+							},
+							{
+								"type": "minecraft:levitation",
+								"duration": 2
+							},
+							{
+								"type": "minecraft:night_vision",
+								"duration": 8
+							},
+							{
+								"type": "minecraft:nausea",
+								"duration": 5
+							}
+						]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:rotten_flesh",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:dried_kelp",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:poisonous_potato",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 3
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 3
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:apple",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:bone",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:salmon",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:cod",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 3,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 3,
+							"max": 6
 						}
-					]
+					}
 				}
 			]
 		},
@@ -204,31 +182,27 @@
 					"type": "minecraft:item",
 					"weight": 3,
 					"name": "minecraft:prismarine_crystals",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 3,
 					"name": "minecraft:prismarine_shard",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -244,16 +218,14 @@
 					"type": "minecraft:item",
 					"weight": 3,
 					"name": "minecraft:turtle_scute",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 2
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 2
 						}
-					]
+					}
 				}
 			]
 		},
@@ -277,16 +249,14 @@
 					"name": "minecraft:gold_nugget"
 				}
 			],
-			"functions": [
-				{
-					"function": "minecraft:set_count",
-					"count": {
-						"type": "minecraft:uniform",
-						"min": 3,
-						"max": 6
-					}
+			"modifier": {
+				"type": "minecraft:set_count",
+				"count": {
+					"type": "minecraft:uniform",
+					"min": 3,
+					"max": 6
 				}
-			]
+			}
 		}
 	]
 }

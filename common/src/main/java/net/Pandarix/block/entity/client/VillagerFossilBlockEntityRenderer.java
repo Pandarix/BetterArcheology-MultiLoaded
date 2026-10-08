@@ -63,20 +63,20 @@ public class VillagerFossilBlockEntityRenderer implements BlockEntityRenderer<Vi
             case EAST ->
             {
                 poseStack.translate(0.75f, 0.95f, 0.5f);
-                poseStack.mulPose(Axis.YP.rotationDegrees(-90));
+                poseStack.rotateDegrees(Axis.YP, -90);
             }
             case WEST ->
             {
                 poseStack.translate(0.25f, 0.95f, 0.5f);
-                poseStack.mulPose(Axis.YP.rotationDegrees(90));
+                poseStack.rotateDegrees(Axis.YP, 90);
             }
             case NORTH -> poseStack.translate(0.5f, 0.95f, 0.25f);
             case SOUTH ->
             {
                 poseStack.translate(0.5f, 0.95f, 0.75f);
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                poseStack.rotateDegrees(Axis.YP, 180);
             }
-            default -> poseStack.mulPose(Axis.YP.rotationDegrees(-90));
+            default -> poseStack.rotateDegrees(Axis.YP, -90);
         }
 
         //scale item to 0.5x size

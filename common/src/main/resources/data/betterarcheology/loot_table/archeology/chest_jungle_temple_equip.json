@@ -11,34 +11,28 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:tipped_arrow",
-					"functions": [
-						{
-							"function": "minecraft:set_potion",
-							"id": "minecraft:poison"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_potion",
+						"id": "minecraft:poison"
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:tipped_arrow",
-					"functions": [
-						{
-							"function": "minecraft:set_potion",
-							"id": "minecraft:weakness"
-						}
-					]
-				}
-			],
-			"functions": [
-				{
-					"function": "minecraft:set_count",
-					"count": {
-						"type": "minecraft:uniform",
-						"min": 5,
-						"max": 10
+					"modifier": {
+						"type": "minecraft:set_potion",
+						"id": "minecraft:weakness"
 					}
 				}
-			]
+			],
+			"modifier": {
+				"type": "minecraft:set_count",
+				"count": {
+					"type": "minecraft:uniform",
+					"min": 5,
+					"max": 10
+				}
+			}
 		},
 		{
 			"rolls": 1,
@@ -58,35 +52,29 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:potion",
-					"functions": [
-						{
-							"function": "minecraft:set_potion",
-							"id": "minecraft:swiftness"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_potion",
+						"id": "minecraft:swiftness"
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:potion",
-					"functions": [
-						{
-							"function": "minecraft:set_potion",
-							"id": "minecraft:healing"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_potion",
+						"id": "minecraft:healing"
+					}
 				}
 			],
-			"functions": [
-				{
-					"function": "minecraft:enchant_with_levels",
-					"levels": {
-						"type": "minecraft:uniform",
-						"min": 10,
-						"max": 20
-					},
-					"options": "#minecraft:on_random_loot"
-				}
-			]
+			"modifier": {
+				"type": "minecraft:enchant_with_levels",
+				"levels": {
+					"type": "minecraft:uniform",
+					"min": 10,
+					"max": 20
+				},
+				"options": "#minecraft:on_random_loot"
+			}
 		},
 		{
 			"rolls": 1,
@@ -94,16 +82,14 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:tnt",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 3
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 3
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -120,17 +106,15 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:iron_pickaxe",
-					"functions": [
-						{
-							"function": "minecraft:enchant_with_levels",
-							"levels": {
-								"type": "minecraft:uniform",
-								"min": 10,
-								"max": 15
-							},
-							"options": "#minecraft:on_random_loot"
-						}
-					]
+					"modifier": {
+						"type": "minecraft:enchant_with_levels",
+						"levels": {
+							"type": "minecraft:uniform",
+							"min": 10,
+							"max": 15
+						},
+						"options": "#minecraft:on_random_loot"
+					}
 				}
 			]
 		}

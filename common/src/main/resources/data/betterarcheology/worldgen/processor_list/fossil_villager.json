@@ -12,8 +12,8 @@
             "block": "betterarcheology:fossiliferous_dirt"
           },
           "output_state": {
-            "Name": "betterarcheology:fossiliferous_dirt",
-            "Properties": {
+            "id": "betterarcheology:fossiliferous_dirt",
+            "properties": {
               "dusted": "0"
             }
           },
@@ -36,9 +36,7 @@
             "block": "minecraft:cobblestone",
             "probability": 0.5
           },
-          "output_state": {
-            "Name": "minecraft:mossy_cobblestone"
-          }
+          "output_state": "minecraft:mossy_cobblestone"
         }
       ]
     }

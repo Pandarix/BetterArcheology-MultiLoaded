@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:rotten_fence_gate"
+        "recipes": "betterarcheology:rotten_fence_gate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

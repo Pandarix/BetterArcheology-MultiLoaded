@@ -1,6 +1,5 @@
 package net.Pandarix.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.item.BetterBrushItem;
@@ -32,15 +31,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class ArchelogyTable extends BaseEntityBlock
 {
-    public static final MapCodec<ArchelogyTable> CODEC = simpleCodec(ArchelogyTable::new);
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
-
     //indicates if the table is currently "crafting" the identified artifact
     //triggers particle creation
     public static final BooleanProperty DUSTING = BooleanProperty.create("dusting");

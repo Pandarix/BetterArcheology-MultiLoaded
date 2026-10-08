@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "${displayName}"
 authors = "${authors}"
 description = "${modDescription}"
-logoFile = "icon.png"
+iconFile = "icon.png"
 
 [[dependencies.betterarcheology]]
 modId = "neoforge"

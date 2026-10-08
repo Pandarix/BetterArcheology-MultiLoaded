@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:diamond_brush"
+        "recipes": "betterarcheology:diamond_brush"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

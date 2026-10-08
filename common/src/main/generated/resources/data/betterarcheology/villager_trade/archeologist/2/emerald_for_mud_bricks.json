@@ -2,10 +2,10 @@
   "gives": {
     "id": "minecraft:mud_bricks"
   },
-  "max_uses": 14.0,
+  "max_uses": 14,
   "reputation_discount": 0.02,
   "wants": {
     "id": "minecraft:emerald"
   },
-  "xp": 5.0
+  "xp": 5
 }

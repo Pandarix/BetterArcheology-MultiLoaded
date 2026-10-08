@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:creeper_fossil"
+        "recipes": "betterarcheology:creeper_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

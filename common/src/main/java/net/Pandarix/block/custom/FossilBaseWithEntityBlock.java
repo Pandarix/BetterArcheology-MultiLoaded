@@ -1,6 +1,5 @@
 package net.Pandarix.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -20,15 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class FossilBaseWithEntityBlock extends BaseEntityBlock
 {
-    public static final MapCodec<FossilBaseWithEntityBlock> CODEC = simpleCodec(FossilBaseWithEntityBlock::new);
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
-
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     protected FossilBaseWithEntityBlock(Properties settings)

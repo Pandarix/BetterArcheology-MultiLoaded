@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:guardian_fossil"
+        "recipes": "betterarcheology:guardian_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

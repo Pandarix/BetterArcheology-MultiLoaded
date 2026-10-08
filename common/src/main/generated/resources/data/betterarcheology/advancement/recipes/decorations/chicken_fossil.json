@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:chicken_fossil"
+        "recipes": "betterarcheology:chicken_fossil"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

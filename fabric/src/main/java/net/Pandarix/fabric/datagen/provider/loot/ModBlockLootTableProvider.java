@@ -1,24 +1,30 @@
 package net.Pandarix.fabric.datagen.provider.loot;
 
 import net.Pandarix.block.ModBlocks;
+import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockLootTableProvider extends FabricBlockLootSubProvider
 {
+    private final CompletableFuture<HolderLookup.Provider> registryLookup;
+
     public ModBlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup)
     {
         super(dataOutput, registryLookup);
+        this.registryLookup = registryLookup;
     }
 
     @Override
@@ -47,7 +53,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider
         this.add(ModBlocks.INFESTED_MUD_BRICKS.get(), block ->
                 createSilkTouchOnlyTable(ModBlocks.INFESTED_MUD_BRICKS.get()));
         this.add(ModBlocks.CHISELED_BONE_BLOCK.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.BONE, UniformGenerator.between(2, 3)));
+                this.createSingleItemTableWithSilkTouch(block, Items.BONE, ContextIntProviders.between(2, 3)));
         this.add(ModBlocks.SUSPICIOUS_DIRT.get(), LootTable.lootTable());
         this.add(ModBlocks.SUSPICIOUS_RED_SAND.get(), LootTable.lootTable());
         this.dropOther(ModBlocks.FOSSILIFEROUS_DIRT.get(), Items.BONE);
@@ -56,48 +62,54 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider
         this.add(ModBlocks.ROTTEN_DOOR.get(), block ->
                 this.createDoorTable(ModBlocks.ROTTEN_DOOR.get()));
         this.add(ModBlocks.ROTTEN_FENCE.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(4)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(4)));
         this.add(ModBlocks.ROTTEN_FENCE_GATE.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(2)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(2)));
         this.add(ModBlocks.ROTTEN_LOG.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(8)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(8)));
         this.add(ModBlocks.ROTTEN_PLANKS.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(2)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(2)));
         this.add(ModBlocks.ROTTEN_PRESSURE_PLATE.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(1)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(1)));
         this.add(ModBlocks.ROTTEN_SLAB.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(2)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(2)));
         this.add(ModBlocks.ROTTEN_STAIRS.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(3)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(3)));
         this.add(ModBlocks.ROTTEN_TRAPDOOR.get(), block ->
-                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ConstantValue.exactly(4)));
+                this.createSingleItemTableWithSilkTouch(block, Items.STICK, ContextIntProviders.exactly(4)));
 
         //VASES
         this.add(ModBlocks.LOOT_VASE.get(), block ->
                 LootTable.lootTable()
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE.get()).when(hasSilkTouch())))
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.TREASURE_LOOTTABLE_KEY))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE.get()).when(hasSilkTouch())))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY)))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.TREASURE_LOOTTABLE_KEY)))
                                 .when(doesNotHaveSilkTouch()))
         );
 
         this.add(ModBlocks.LOOT_VASE_CREEPER.get(), block ->
                 LootTable.lootTable()
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE_CREEPER.get()).when(hasSilkTouch())))
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.TREASURE_LOOTTABLE_KEY))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE_CREEPER.get()).when(hasSilkTouch())))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY)))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.TREASURE_LOOTTABLE_KEY)))
                                 .when(doesNotHaveSilkTouch()))
         );
 
         this.add(ModBlocks.LOOT_VASE_GREEN.get(), block ->
                 LootTable.lootTable()
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE_GREEN.get()).when(hasSilkTouch())))
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY))
-                                .add(NestedLootTable.lootTableReference(ModLootTableProvider.GREEN_TREASURE_LOOTTABLE_KEY))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1)).add(LootItem.lootTableItem(ModBlocks.VASE_GREEN.get()).when(hasSilkTouch())))
+                        .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.SUPPLY_LOOTTABLE_KEY)))
+                                .add(NestedLootTable.lootTableReference(lootTable(ModLootTableProvider.GREEN_TREASURE_LOOTTABLE_KEY)))
                                 .when(doesNotHaveSilkTouch()))
         );
+    }
+
+    //the vase tables are generated by ModLootTableProvider, so reference them by key instead of registering them here
+    private Holder<LootTable> lootTable(ResourceKey<LootTable> key)
+    {
+        return Holder.Reference.createStandAlone(ModDataGenerators.serializableOwner(this.registryLookup.join().lookupOrThrow(Registries.LOOT_TABLE)), key);
     }
 }

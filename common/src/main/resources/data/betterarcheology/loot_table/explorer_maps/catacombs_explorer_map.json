@@ -7,16 +7,16 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:map",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:exploration_map",
-              "destination": "betterarcheology:on_catacombs_explorer_map",
+              "type": "minecraft:exploration_map",
+              "destination": "#betterarcheology:on_catacombs_explorer_map",
               "decoration": "mansion",
               "zoom": 4,
               "skip_existing_chunks": false
             },
             {
-              "function": "minecraft:set_name",
+              "type": "minecraft:set_name",
               "name": {
                 "translate": "filled_map.catacombs"
               }

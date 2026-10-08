@@ -1,6 +1,5 @@
 package net.Pandarix.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -22,15 +21,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class EvokerTrapBlock extends HorizontalDirectionalBlock
 {
-    public static final MapCodec<EvokerTrapBlock> CODEC = simpleCodec(EvokerTrapBlock::new);
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
-    }
-
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
     private static final int fangCooldown = 40; //cooldown used to prevent Fang-spamming

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:rotten_trapdoor"
+        "recipes": "betterarcheology:rotten_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

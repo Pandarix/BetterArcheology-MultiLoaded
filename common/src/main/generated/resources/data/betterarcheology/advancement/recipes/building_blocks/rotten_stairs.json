@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:rotten_stairs"
+        "recipes": "betterarcheology:rotten_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

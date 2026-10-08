@@ -2,10 +2,12 @@ package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.BACommon;
 import net.Pandarix.block.ModBlocks;
+import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -17,13 +19,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ModVillagerTradeProvider extends FabricDynamicRegistryProvider
@@ -73,7 +74,7 @@ public class ModVillagerTradeProvider extends FabricDynamicRegistryProvider
                 simpleTrade(Items.EMERALD, 13, ModItems.DIAMOND_BRUSH.get(), 1, 4, 10, 0.03f));
         entries.add(trade("archeologist/5/emerald_for_artifact_shards"),
                 simpleTrade(Items.EMERALD, 24, ModItems.ARTIFACT_SHARDS.get(), 1, 3, 30, 0.1f));
-        entries.add(trade("archeologist/5/emerald_for_catacombs_map"), catacombsMapTrade());
+        entries.add(trade("archeologist/5/emerald_for_catacombs_map"), catacombsMapTrade(registries));
     }
 
     private static VillagerTrade simpleTrade(ItemLike wants, int wantsCount, ItemLike gives, int givesCount,
@@ -83,37 +84,24 @@ public class ModVillagerTradeProvider extends FabricDynamicRegistryProvider
         ItemStackTemplate givesTemplate = givesCount == 1
                 ? new ItemStackTemplate(givesItem)
                 : new ItemStackTemplate(givesItem, givesCount);
-        return new VillagerTrade(
-                new TradeCost(wants, wantsCount),
-                givesTemplate,
-                maxUses, xp, reputationDiscount,
-                Optional.empty(), List.of()
-        );
+        return VillagerTrade.builder(new TradeCost(wants, wantsCount), givesTemplate, maxUses, xp, reputationDiscount).build();
     }
 
-    private static VillagerTrade catacombsMapTrade()
+    private static VillagerTrade catacombsMapTrade(HolderLookup.Provider registries)
     {
-        return new VillagerTrade(
-                new TradeCost(Items.EMERALD, 24),
-                Optional.of(new TradeCost(Items.COMPASS, 1)),
-                new ItemStackTemplate(Items.MAP),
-                12, 5, 0.05f,
-                Optional.empty(),
-                List.of(
-                        ExplorationMapFunction.makeExplorationMap()
-                                .setDestination(TagKey.create(Registries.STRUCTURE,
-                                        Identifier.fromNamespaceAndPath("betterarcheology", "on_catacombs_explorer_map")))
-                                .setMapDecoration(MapDecorationTypes.WOODLAND_MANSION)
-                                .setZoom((byte) 2)
-                                .setSearchRadius(50)
-                                .setSkipKnownStructures(false)
-                                .build(),
-                        SetNameFunction.setName(
-                                Component.translatable("filled_map.catacombs"),
-                                SetNameFunction.Target.ITEM_NAME
-                        ).build()
-                )
-        );
+        //the structure tag is our own data file, so it is not bound in the datagen lookup - reference it by key
+        HolderSet<Structure> destination = HolderSet.emptyNamed(ModDataGenerators.serializableOwner(registries.lookupOrThrow(Registries.STRUCTURE)),
+                TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("betterarcheology", "on_catacombs_explorer_map")));
+        return VillagerTrade.builder(new TradeCost(Items.EMERALD, 24), new TradeCost(Items.COMPASS, 1), new ItemStackTemplate(Items.MAP), 12, 5, 0.05f)
+                .addModifier(ExplorationMapFunction.makeExplorationMap(destination)
+                        .setMapDecoration(MapDecorationTypes.WOODLAND_MANSION)
+                        .setZoom((byte) 2)
+                        .setSearchRadius(50)
+                        .setSkipKnownStructures(false))
+                .addModifier(SetNameFunction.setName(
+                        Component.translatable("filled_map.catacombs"),
+                        SetNameFunction.Target.ITEM_NAME))
+                .build();
     }
 
     private static ResourceKey<VillagerTrade> trade(String path)

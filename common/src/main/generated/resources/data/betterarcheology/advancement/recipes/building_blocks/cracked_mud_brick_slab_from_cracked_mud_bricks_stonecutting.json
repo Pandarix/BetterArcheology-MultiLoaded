@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:cracked_mud_brick_slab_from_cracked_mud_bricks_stonecutting"
+        "recipes": "betterarcheology:cracked_mud_brick_slab_from_cracked_mud_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

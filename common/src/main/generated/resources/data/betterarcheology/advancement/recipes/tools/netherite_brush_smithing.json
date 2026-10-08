@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:netherite_brush_smithing"
+        "recipes": "betterarcheology:netherite_brush_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

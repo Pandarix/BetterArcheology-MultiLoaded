@@ -1,7 +1,6 @@
 package net.Pandarix.block.custom;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.MapCodec;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
 import net.Pandarix.util.ServerPlayerHelper;
 import net.minecraft.core.BlockPos;
@@ -31,15 +30,6 @@ import java.util.Map;
 
 public class VillagerFossilBlock extends FossilBaseWithEntityBlock
 {
-    public static final MapCodec<ArchelogyTable> CODEC = simpleCodec(ArchelogyTable::new);
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
-
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty INVENTORY_LUMINANCE = IntegerProperty.create("inventory_luminance", 0, 15); //used to store the amount of light that the item in its inventory would emit and to emit that luminance itself
 

@@ -76,11 +76,11 @@ public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<A
             poseStack.pushPose();
             poseStack.translate(0.35f, 1.025f, 0.7f);
             poseStack.scale(0.65f, 0.65f, 0.65f);
-            poseStack.mulPose(Axis.XP.rotationDegrees(90));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(180));
+            poseStack.rotateDegrees(Axis.XP, 90);
+            poseStack.rotateDegrees(Axis.ZP, 180);
 
             if (unidentifiedRenderState != null ||  identifiedRenderState != null)
-                poseStack.mulPose(Axis.XP.rotationDegrees(-7.5f));
+                poseStack.rotateDegrees(Axis.XP, -7.5f);
 
             //display brush on top of the table
             brushRenderState.submit(poseStack, submitNodeCollector, blockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
@@ -93,7 +93,7 @@ public class ArcheologyTableBlockEntityRenderer implements BlockEntityRenderer<A
         poseStack.pushPose();
         poseStack.translate(0.55f, 1.025, 0.4f);
         poseStack.scale(0.55f, 0.55f, 0.55f);
-        poseStack.mulPose(Axis.XP.rotationDegrees(90));
+        poseStack.rotateDegrees(Axis.XP, 90);
 
         //if there is no identified artifact in the output slot, render the unidentified one
         if (identifiedRenderState == null || identifiedRenderState.isEmpty())

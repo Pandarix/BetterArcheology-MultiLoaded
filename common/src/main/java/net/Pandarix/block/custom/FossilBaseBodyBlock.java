@@ -1,6 +1,5 @@
 package net.Pandarix.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -19,15 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class FossilBaseBodyBlock extends HorizontalDirectionalBlock
 {
-    public static final MapCodec<FossilBaseBodyBlock> CODEC = simpleCodec(FossilBaseBodyBlock::new);
-
-    @Override
-    @NotNull
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
-    }
-
     public static EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public FossilBaseBodyBlock(Properties settings)

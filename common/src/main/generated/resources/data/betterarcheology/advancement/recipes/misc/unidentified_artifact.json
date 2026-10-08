@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "betterarcheology:unidentified_artifact"
+        "recipes": "betterarcheology:unidentified_artifact"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

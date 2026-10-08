@@ -43,16 +43,14 @@
 					"type": "minecraft:item",
 					"weight": 20,
 					"name": "minecraft:book",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				}
 			]
 		},
@@ -61,10 +59,13 @@
 			"bonus_rolls": 2,
 			"entries": [
 				{
-					"type": "minecraft:tag",
+					"type": "minecraft:item",
 					"weight": 4,
-					"name": "minecraft:instrument/regular_goat_horns",
-					"expand": true
+					"name": "minecraft:goat_horn",
+					"modifier": {
+						"type": "minecraft:set_instrument",
+						"options": "#minecraft:regular_goat_horns"
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -85,16 +86,14 @@
 					"type": "minecraft:item",
 					"weight": 6,
 					"name": "betterarcheology:bomb",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 2
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 2
 						}
-					]
+					}
 				}
 			]
 		},
@@ -110,33 +109,29 @@
 					"type": "minecraft:item",
 					"weight": 5,
 					"name": "minecraft:iron_ingot",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:gold_ingot",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 6
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 6
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -147,112 +142,98 @@
 					"type": "minecraft:item",
 					"weight": 20,
 					"name": "minecraft:wheat",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 15,
 					"name": "minecraft:redstone",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 15,
 					"name": "minecraft:coal",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 1,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 1,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:melon_seeds",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:pumpkin_seeds",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:beetroot_seeds",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:flint",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				}
 			]
 		},
@@ -264,80 +245,70 @@
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:bone",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 8
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 8
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:gunpowder",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 8
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 8
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:rotten_flesh",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 8
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 8
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 10,
 					"name": "minecraft:string",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 8
-							},
-							"add": false
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 8
+						},
+						"add": false
+					}
 				},
 				{
 					"type": "minecraft:item",
 					"weight": 7,
 					"name": "minecraft:leather",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 4
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 4
 						}
-					]
+					}
 				}
 			]
 		},
@@ -360,12 +331,10 @@
 					"name": "betterarcheology:diamond_brush"
 				}
 			],
-			"conditions": [
-				{
-					"condition": "minecraft:random_chance",
-					"chance": 0.15
-				}
-			]
+			"condition": {
+				"type": "minecraft:random_chance",
+				"chance": 0.15
+			}
 		}
 	]
 }

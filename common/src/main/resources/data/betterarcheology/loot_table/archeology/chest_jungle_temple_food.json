@@ -21,16 +21,14 @@
 					"name": "minecraft:poisonous_potato"
 				}
 			],
-			"functions": [
-				{
-					"function": "minecraft:set_count",
-					"count": {
-						"type": "minecraft:uniform",
-						"min": 3,
-						"max": 7
-					}
+			"modifier": {
+				"type": "minecraft:set_count",
+				"count": {
+					"type": "minecraft:uniform",
+					"min": 3,
+					"max": 7
 				}
-			]
+			}
 		},
 		{
 			"rolls": 1,
@@ -39,16 +37,14 @@
 					"type": "minecraft:item",
 					"weight": 50,
 					"name": "minecraft:leather",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"type": "minecraft:uniform",
-								"min": 2,
-								"max": 5
-							}
+					"modifier": {
+						"type": "minecraft:set_count",
+						"count": {
+							"type": "minecraft:uniform",
+							"min": 2,
+							"max": 5
 						}
-					]
+					}
 				},
 				{
 					"type": "minecraft:item",
@@ -63,37 +59,35 @@
 				{
 					"type": "minecraft:item",
 					"name": "minecraft:suspicious_stew",
-					"functions": [
-						{
-							"function": "minecraft:set_stew_effect",
-							"effects": [
-								{
-									"type": "minecraft:speed",
-									"duration": 5
-								},
-								{
-									"type": "minecraft:jump_boost",
-									"duration": 5
-								},
-								{
-									"type": "minecraft:wither",
-									"duration": 1
-								},
-								{
-									"type": "minecraft:poison",
-									"duration": 3
-								},
-								{
-									"type": "minecraft:blindness",
-									"duration": 4
-								},
-								{
-									"type": "minecraft:haste",
-									"duration": 7
-								}
-							]
-						}
-					]
+					"modifier": {
+						"type": "minecraft:set_stew_effect",
+						"effects": [
+							{
+								"type": "minecraft:speed",
+								"duration": 5
+							},
+							{
+								"type": "minecraft:jump_boost",
+								"duration": 5
+							},
+							{
+								"type": "minecraft:wither",
+								"duration": 1
+							},
+							{
+								"type": "minecraft:poison",
+								"duration": 3
+							},
+							{
+								"type": "minecraft:blindness",
+								"duration": 4
+							},
+							{
+								"type": "minecraft:haste",
+								"duration": 7
+							}
+						]
+					}
 				}
 			]
 		},
@@ -113,16 +107,14 @@
 					"name": "minecraft:cooked_salmon"
 				}
 			],
-			"functions": [
-				{
-					"function": "minecraft:set_count",
-					"count": {
-						"type": "minecraft:uniform",
-						"min": 3,
-						"max": 5
-					}
+			"modifier": {
+				"type": "minecraft:set_count",
+				"count": {
+					"type": "minecraft:uniform",
+					"min": 3,
+					"max": 5
 				}
-			]
+			}
 		}
 	]
 }
