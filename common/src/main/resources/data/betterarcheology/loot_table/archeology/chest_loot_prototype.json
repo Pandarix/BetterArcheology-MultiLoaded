@@ -77,10 +77,15 @@
 			"bonus_rolls": 2,
 			"entries": [
 				{
-					"type": "minecraft:tag",
+					"type": "minecraft:item",
 					"weight": 4,
-					"name": "minecraft:instrument/regular_goat_horns",
-					"expand": true
+					"name": "minecraft:goat_horn",
+					"functions": [
+						{
+							"function": "minecraft:set_instrument",
+							"options": "#minecraft:regular_goat_horns"
+						}
+					]
 				},
 				{
 					"type": "minecraft:item",
