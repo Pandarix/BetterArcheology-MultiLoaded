@@ -4,6 +4,11 @@ This file is the default publish changelog: when the Publish workflow's
 changelog input is left empty, the newest section (the first `##` heading
 and everything until the next one) is uploaded.
 
+## Better Archeology 1.3.9
+
+- Updated to Minecraft 26.3
+- Jungle temple chests can now contain goat horns. They always should have, but the loot entry pointed at a tag that doesn't exist
+
 ## Better Archeology 1.3.8
 
 - Updated to Minecraft 26.2
