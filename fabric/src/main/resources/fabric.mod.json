@@ -12,7 +12,7 @@
     "sources": "https://github.com/Pandarix/BetterArcheology-MultiLoaded",
     "issues": "https://github.com/Pandarix/BetterArcheology-MultiLoaded/issues"
   },
-  "license": "MIT",
+  "license": "MIT (code), All Rights Reserved (art)",
   "icon": "assets/betterarcheology/icon.png",
   "environment": "*",
   "entrypoints": {
