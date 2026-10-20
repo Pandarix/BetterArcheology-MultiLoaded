@@ -13,7 +13,8 @@
     "ElytraStartupMixin",
     "FasterBrushingMixin",
     "PenetratingStrikeMixin",
-    "TorrentTotemItemTickMixin"
+    "TorrentTotemItemTickMixin",
+    "WardingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

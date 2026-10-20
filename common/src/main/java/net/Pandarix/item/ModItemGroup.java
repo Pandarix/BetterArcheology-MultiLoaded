@@ -93,6 +93,7 @@ public class ModItemGroup
                                     ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.TUNNELING_KEY));
                                     ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.PENETRATING_STRIKE_KEY));
                                     ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.SOARING_WINDS_KEY));
+                                    ModEnchantments.registerEnchantedBookWith(output, getter.getOrThrow(ModEnchantments.WARDING_KEY));
                                 } catch (Exception e)
                                 {
                                     BACommon.LOGGER.error("Could not add Enchanted Book to creative tab!", e);

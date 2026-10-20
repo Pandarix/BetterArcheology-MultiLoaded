@@ -4,6 +4,10 @@ This file is the default publish changelog: when the Publish workflow's
 changelog input is left empty, the newest section (the first `##` heading
 and everything until the next one) is uploaded.
 
+## Better Archeology 1.4.0
+
+- Added Warding, a helmet enchantment found by identifying artifacts. Each level gives a 12.5% chance to ward off an attack a shield could block, with a wall of enchanting glyphs between you and the attacker. It does nothing while you hold a shield
+
 ## Better Archeology 1.3.9
 
 - Updated to Minecraft 26.3

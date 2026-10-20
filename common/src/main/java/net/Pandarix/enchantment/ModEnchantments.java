@@ -19,6 +19,7 @@ public class ModEnchantments
     public static final ResourceKey<Enchantment> PENETRATING_STRIKE_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createRLoc("penetrating_strike"));
     public static final ResourceKey<Enchantment> SOARING_WINDS_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createRLoc("soaring_winds"));
     public static final ResourceKey<Enchantment> TUNNELING_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createRLoc("tunneling"));
+    public static final ResourceKey<Enchantment> WARDING_KEY = ResourceKey.create(Registries.ENCHANTMENT, BACommon.createRLoc("warding"));
 
     // UTIL ───────────────────────────────────────────────────────────────────────
     public static void registerEnchantedBookWith(CreativeModeTab.Output output, Holder<Enchantment> enchantmentEntry)

@@ -61,6 +61,17 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider
                         7, // anvil applying cost
                         EquipmentSlotGroup.ANY
                 )));
+
+        register(entries, ModEnchantments.WARDING_KEY, new Enchantment.Builder(
+                Enchantment.definition(
+                        itemLookup.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE),
+                        2, // probability of showing up in the enchantment table - will be ignored due to it being treasure
+                        3, // max level
+                        Enchantment.dynamicCost(1, 10), // cost per level (base)
+                        Enchantment.dynamicCost(1, 15), // cost per level (max)
+                        7, // anvil applying cost
+                        EquipmentSlotGroup.HEAD
+                )));
     }
 
     private static void register(Entries entries, ResourceKey<Enchantment> key, Enchantment.Builder builder, ResourceCondition... resourceConditions)

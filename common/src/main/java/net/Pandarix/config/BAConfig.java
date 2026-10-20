@@ -77,6 +77,16 @@ public final class BAConfig
     @Comment("The difference of hardness between the two blocks to break that is allowed. Per default, this prevents e.g. mining Obsidian below when mining stone, but allows for ores below to be mined. For reference: Stone has 1.5.")
     public static double tunnelingTolerance = 3.75;
 
+    // ──────── WARDING ────────────────────────────────────────────────────────────────
+    @ConfigEntry(id = "wardingEnabled", translation = "config.betterarcheology.wardingEnabled")
+    public static boolean wardingEnabled = true;
+
+    @ConfigEntry(id = "wardingChancePerLevel", translation = "config.betterarcheology.wardingChancePerLevel")
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 0d, max = 1d)
+    @Comment("Chance per enchantment level that Warding wards off an attack. Level III triggers at three times this chance.")
+    public static double wardingChancePerLevel = .125d;
+
     // TOTEMS ───────────────────────────────────────────────────────────────────────────
     @ConfigOption.Separator(
             value = "Totems"

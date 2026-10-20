@@ -1,0 +1,13 @@
+{
+  "type": "betterarcheology:identifying",
+  "ingredient": "betterarcheology:unidentified_artifact",
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "betterarcheology:warding": 1
+      }
+    }
+  }
+}

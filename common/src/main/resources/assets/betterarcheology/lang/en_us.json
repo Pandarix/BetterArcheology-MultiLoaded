@@ -123,6 +123,8 @@
   "enchantment.betterarcheology.soaring_winds": "Soaring Winds",
   "enchantment.betterarcheology.soaring_winds.desc": "Harnesses winds to give a startup-boost when using an Elytra",
   "enchantment.betterarcheology.tunneling": "Tunneling",
+  "enchantment.betterarcheology.warding": "Warding",
+  "enchantment.betterarcheology.warding.desc": "Chance to ward off an attack with a wall of glyphs. Does not work while holding a shield",
   "enchantment.betterarcheology.tunneling.desc": "Also breaks the Block below the mined block. Hold [SHIFT] to disable effects",
 
   "filled_map.catacombs": "Catacombs Explorer Map",
@@ -142,6 +144,8 @@
   "config.betterarcheology.tunnelingEffectiveTool": "'Tunneling' Effective Tool Only",
   "config.betterarcheology.tunnelingTolerance": "'Tunneling' Hardness Tolerance",
   "config.betterarcheology.tunnelingAxeEnabled": "'Tunneling' for Axes",
+  "config.betterarcheology.wardingEnabled": "'Warding' Effects",
+  "config.betterarcheology.wardingChancePerLevel": "'Warding' Chance per Level",
   "config.betterarcheology.totemsEnabled": "Totem Effects",
   "config.betterarcheology.radianceTotemEnabled": "'Totem of Radiance' Effects",
   "config.betterarcheology.radianceTotemDamageEnabled": "'Totem of Radiance' Damaging",
