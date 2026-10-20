@@ -46,14 +46,14 @@ public abstract class WardingMixin
         if (source.is(DamageTypeTags.BYPASSES_SHIELD)) return;
         if (betterarcheology$holdsShield(player)) return;
 
-        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        int wardingLevel = betterarcheology$getWardingLevel(level, helmet);
+        ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
+        int wardingLevel = betterarcheology$getWardingLevel(level, chestplate);
         if (wardingLevel < 1) return;
         if (player.getRandom().nextFloat() >= wardingLevel * BAConfig.wardingChancePerLevel) return;
 
         betterarcheology$spawnGlyphWall(level, player, source);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 1.4f);
-        helmet.hurtAndBreak(1, player, EquipmentSlot.HEAD);
+        chestplate.hurtAndBreak(1, player, EquipmentSlot.CHEST);
 
         cir.setReturnValue(false);
     }
@@ -65,14 +65,14 @@ public abstract class WardingMixin
     }
 
     @Unique
-    private static int betterarcheology$getWardingLevel(ServerLevel level, ItemStack helmet)
+    private static int betterarcheology$getWardingLevel(ServerLevel level, ItemStack chestplate)
     {
-        if (!helmet.isEnchanted()) return 0;
+        if (!chestplate.isEnchanted()) return 0;
 
         try
         {
             Holder.Reference<Enchantment> warding = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.WARDING_KEY);
-            return EnchantmentHelper.getItemEnchantmentLevel(warding, helmet);
+            return EnchantmentHelper.getItemEnchantmentLevel(warding, chestplate);
         } catch (Exception e)
         {
             BACommon.LOGGER.error("Could not test for Warding because EnchantmentEntry could not be found", e);
