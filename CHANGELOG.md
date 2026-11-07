@@ -11,7 +11,7 @@ and everything until the next one) is uploaded.
 - Chicken, guardian, ocelot, villager and wolf fossils now turn with the rest of a structure that is rotated or mirrored, instead of always keeping their saved facing
 - The sheep fossil plays its goat horn from a redstone signal again
 - Right-clicking a chicken, guardian, ocelot or wolf fossil no longer swallows the click, so blocks can be placed against them
-- The Archeologist's catacombs explorer map now finds catacombs. Catacombs generate in their own structure set, about as often as before but evenly spread, and the map searches as far as a woodland mansion map. Already generated chunks keep their structures
+- The Archeologist's catacombs explorer map now finds catacombs. Catacombs generate in their own structure set with the same placement as woodland mansions: about as often as before, but evenly spread. The map searches as far as a woodland mansion map. Already generated chunks keep their structures
 - Tunneling no longer breaks unbreakable blocks such as bedrock, or command and structure blocks, below the mined block. This could happen when the "effective tool only" option was turned off
 
 ## Better Archeology 1.3.9

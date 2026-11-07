@@ -20,9 +20,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModStructureSetProvider extends FabricDynamicRegistryProvider
 {
-    // Catacombs get their own set so the explorer map (100 chunk search) reliably finds one;
-    // in the shared archeology_sites set they were often thousands of blocks apart.
-    private static final int CATACOMBS_SPACING = 40;
+    // Catacombs get their own set so the explorer map (100 chunk search) can find one; in the shared
+    // archeology_sites set they were often thousands of blocks apart. Same placement as vanilla's
+    // woodland mansion, which keeps them about as rare as before but evenly spread.
+    private static final int CATACOMBS_SPACING = 80;
     private static final int CATACOMBS_SEPARATION = 20;
     private static final int CATACOMBS_SALT = 1876240577;
 
@@ -40,7 +41,7 @@ public class ModStructureSetProvider extends FabricDynamicRegistryProvider
                 BACommon.createRKey(Registries.STRUCTURE, "catacombs"));
 
         entries.add(BACommon.createRKey(Registries.STRUCTURE_SET, "catacombs"), new StructureSet(catacombs,
-                new RandomSpreadStructurePlacement(CATACOMBS_SPACING, CATACOMBS_SEPARATION, RandomSpreadType.LINEAR, CATACOMBS_SALT)));
+                new RandomSpreadStructurePlacement(CATACOMBS_SPACING, CATACOMBS_SEPARATION, RandomSpreadType.TRIANGULAR, CATACOMBS_SALT)));
     }
 
     @Override
