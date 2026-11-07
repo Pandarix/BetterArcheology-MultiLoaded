@@ -3,7 +3,7 @@ package net.Pandarix.fabric.datagen.provider;
 import net.Pandarix.block.ModBlocks;
 import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.Pandarix.item.ModItems;
-import net.Pandarix.util.ModTags;
+import net.Pandarix.tag.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancements.Advancement;

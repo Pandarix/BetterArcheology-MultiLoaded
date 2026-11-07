@@ -2,7 +2,7 @@ package net.Pandarix.block.custom;
 
 import com.google.common.collect.ImmutableMap;
 import net.Pandarix.block.entity.VillagerFossilBlockEntity;
-import net.Pandarix.util.ServerPlayerHelper;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -74,7 +74,8 @@ public class VillagerFossilBlock extends FossilEntityBlock
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if (entity instanceof VillagerFossilBlockEntity)
             {
-                ServerPlayerHelper.tryOpenScreen(pPlayer, (VillagerFossilBlockEntity) entity);
+                if (pPlayer instanceof ServerPlayer serverPlayer)
+                    serverPlayer.openMenu((VillagerFossilBlockEntity) entity);
             } else
             {
                 throw new IllegalStateException("VillagerFossilBlockEntity Container provider is missing!");

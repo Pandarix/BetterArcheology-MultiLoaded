@@ -11,6 +11,7 @@ and everything until the next one) is uploaded.
 - Chicken, guardian, ocelot, villager and wolf fossils now turn with the rest of a structure that is rotated or mirrored, instead of always keeping their saved facing
 - The sheep fossil plays its goat horn from a redstone signal again
 - Right-clicking a chicken, guardian, ocelot or wolf fossil no longer swallows the click, so blocks can be placed against them
+- Tunneling no longer breaks unbreakable blocks such as bedrock, or command and structure blocks, below the mined block. This could happen when the "effective tool only" option was turned off
 
 ## Better Archeology 1.3.9
 

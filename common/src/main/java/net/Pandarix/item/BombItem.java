@@ -2,7 +2,7 @@ package net.Pandarix.item;
 
 import net.Pandarix.BACommon;
 import net.Pandarix.entity.BombEntity;
-import net.Pandarix.util.ServerPlayerHelper;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -50,8 +50,8 @@ public class BombItem extends Item
             AdvancementHolder advancement = Objects.requireNonNull(pLevel.getServer()).getAdvancements().get(ADVANCEMENT_ID);
             if (advancement != null)
             {
-                ServerPlayerHelper.tryGetServerPlayer(pPlayer)
-                        .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
+                if (pPlayer instanceof ServerPlayer serverPlayer)
+                    serverPlayer.getAdvancements().award(advancement, "criteria");
             }
         }
 

@@ -4,9 +4,7 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.Pandarix.BACommon;
 import net.Pandarix.sound.ModSounds;
-import net.Pandarix.util.BetterBrushTiers;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -14,7 +12,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public class ModItems
 {
@@ -22,30 +20,30 @@ public class ModItems
     public static final Registrar<Item> ITEMS = BACommon.REGISTRIES.get().get(Registries.ITEM);
 
     // ITEMS ──────────────────────────────────────────────────────────────────────────
-    // ──────── BRUSHES ───────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Item> DISC_SWINGS = registerItem("music_disc_swings", () -> new Item(propsWithId("music_disc_swings")
+    // ──────── MUSIC DISCS ───────────────────────────────────────────────────────────
+    public static final RegistrySupplier<Item> DISC_SWINGS = registerItem("music_disc_swings", props -> new Item(props
             .jukeboxPlayable(ModSounds.SWINGS_SONG_KEY).stacksTo(1).rarity(Rarity.RARE)));
 
     // ──────── BRUSHES ───────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Item> IRON_BRUSH = registerItem("iron_brush", () -> new BetterBrushItem(propsWithId("iron_brush")
+    public static final RegistrySupplier<Item> IRON_BRUSH = registerItem("iron_brush", props -> new BetterBrushItem(props
             .durability(128), BetterBrushTiers.IRON));
-    public static final RegistrySupplier<Item> DIAMOND_BRUSH = registerItem("diamond_brush", () -> new BetterBrushItem(propsWithId("diamond_brush")
+    public static final RegistrySupplier<Item> DIAMOND_BRUSH = registerItem("diamond_brush", props -> new BetterBrushItem(props
             .durability(512), BetterBrushTiers.DIAMOND));
-    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", () -> new BetterBrushItem(propsWithId("netherite_brush")
+    public static final RegistrySupplier<Item> NETHERITE_BRUSH = registerItem("netherite_brush", props -> new BetterBrushItem(props
             .durability(1024).fireResistant(), BetterBrushTiers.NETHERITE));
 
     // ──────── ARTIFACTS ─────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Item> ARTIFACT_SHARDS = registerItem("artifact_shards", () -> new Item(propsWithId("artifact_shards")
+    public static final RegistrySupplier<Item> ARTIFACT_SHARDS = registerItem("artifact_shards", props -> new Item(props
             .rarity(Rarity.UNCOMMON)));
-    public static final RegistrySupplier<Item> UNIDENTIFIED_ARTIFACT = registerItem("unidentified_artifact", () -> new Item(propsWithId("unidentified_artifact")
+    public static final RegistrySupplier<Item> UNIDENTIFIED_ARTIFACT = registerItem("unidentified_artifact", props -> new Item(props
             .rarity(Rarity.UNCOMMON)));
 
     // ──────── LOOT ITEMS ────────────────────────────────────────────────────────────
-    public static final RegistrySupplier<Item> BOMB_ITEM = registerItem("bomb", () -> new BombItem(propsWithId("bomb")
+    public static final RegistrySupplier<Item> BOMB_ITEM = registerItem("bomb", props -> new BombItem(props
             .rarity(Rarity.COMMON).stacksTo(16)));
-    public static final RegistrySupplier<Item> TORRENT_TOTEM = registerItem("torrent_totem", () -> new TorrentTotemItem(propsWithId("torrent_totem")
+    public static final RegistrySupplier<Item> TORRENT_TOTEM = registerItem("torrent_totem", props -> new TorrentTotemItem(props
             .rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
-    public static final RegistrySupplier<Item> SOUL_TOTEM = registerItem("soul_totem", () -> new SoulTotemItem(propsWithId("soul_totem")
+    public static final RegistrySupplier<Item> SOUL_TOTEM = registerItem("soul_totem", props -> new SoulTotemItem(props
             .rarity(Rarity.UNCOMMON).stacksTo(1).durability(32)));
 
     // UTIL ───────────────────────────────────────────────────────────────────────────
@@ -55,10 +53,9 @@ public class ModItems
     }
 
     // REGISTERING ────────────────────────────────────────────────────────────────────
-    private static <I extends Item> RegistrySupplier<I> registerItem(String id, Supplier<I> item)
+    private static <I extends Item> RegistrySupplier<I> registerItem(String id, Function<Item.Properties, I> item)
     {
-        Identifier identifier = BACommon.createRLoc(id);
-        return ITEMS.register(identifier, item);
+        return ITEMS.register(BACommon.createRLoc(id), () -> item.apply(propsWithId(id)));
     }
 
     // LOAD ────────────────────────────────────────────────────────────────────────────

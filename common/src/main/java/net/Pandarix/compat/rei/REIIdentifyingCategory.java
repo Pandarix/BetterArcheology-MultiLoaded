@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.Pandarix.block.ModBlocks;
-import net.Pandarix.util.ModTags;
+import net.Pandarix.tag.ModTags;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;

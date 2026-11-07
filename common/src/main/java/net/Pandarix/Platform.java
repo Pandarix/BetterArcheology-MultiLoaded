@@ -4,9 +4,11 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This class defines methods that are implemented platform-specific in the subprojects in PlatformImpl classes.
@@ -29,8 +31,9 @@ public class Platform
         throw new AssertionError();
     }
 
+    /** Gliders worn in loader-specific accessory slots (e.g. the Curios back slot); empty if none. */
     @ExpectPlatform
-    public static boolean hasSoaringWinds(Player player)
+    public static Stream<ItemStack> gliderAccessories(Player player)
     {
         throw new AssertionError();
     }

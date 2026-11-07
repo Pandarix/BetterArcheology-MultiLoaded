@@ -1,4 +1,4 @@
-package net.Pandarix.util;
+package net.Pandarix.block.entity;
 
 import net.Pandarix.config.BAConfig;
 import net.minecraft.core.BlockPos;

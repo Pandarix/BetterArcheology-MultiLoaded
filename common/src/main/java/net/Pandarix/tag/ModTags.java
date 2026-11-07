@@ -1,4 +1,4 @@
-package net.Pandarix.util;
+package net.Pandarix.tag;
 
 import net.Pandarix.BACommon;
 import net.minecraft.core.registries.Registries;

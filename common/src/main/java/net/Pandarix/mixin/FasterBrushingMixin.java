@@ -2,6 +2,7 @@ package net.Pandarix.mixin;
 
 import net.Pandarix.BACommon;
 import net.Pandarix.item.BetterBrushItem;
+import net.minecraft.world.item.BrushItem;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +25,7 @@ public abstract class FasterBrushingMixin
             if ((Object) this instanceof BrushableBlockEntity ba$brushableBlockEntity
                     && livingEntity.getUseItem().getItem() instanceof BetterBrushItem ba$brushItem)
             {
-                ba$brushableBlockEntity.coolDownEndsAtTick += (long) (-10 + ba$brushItem.getBrushingSpeed());
+                ba$brushableBlockEntity.coolDownEndsAtTick += (long) (ba$brushItem.getTickRate() - BrushItem.ANIMATION_DURATION);
             }
         } catch (Exception e)
         {

@@ -1,7 +1,7 @@
 package net.Pandarix.fabric.datagen.provider;
 
 import net.Pandarix.enchantment.ModEnchantments;
-import net.Pandarix.util.ModTags;
+import net.Pandarix.tag.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;

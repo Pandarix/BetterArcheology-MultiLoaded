@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -152,14 +153,17 @@ public class ModBlocks
 
     public static final RegistrySupplier<Block> EVOKER_TRAP = registerBlock("evoker_trap", () -> new EvokerTrapBlock(propsWithId("evoker_trap").mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).pushReaction(PushReaction.IMMOVEABLE).strength(20f).requiresCorrectToolForDrops()));
 
+    // Glowing effect length of suspicious stew made with the growth totem
+    private static final int GROWTH_TOTEM_STEW_EFFECT_SECONDS = 15;
+
     public static final RegistrySupplier<Block> GROWTH_TOTEM = registerRareBlock("growth_totem",
             () -> new GrowthTotemBlock(
-                    MobEffects.GLOWING, 15,
-                    propsWithId("growth_totem").mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.POPPED).sound(SoundType.AMETHYST).offsetType(BlockBehaviour.OffsetType.NONE).lightLevel((state) -> 15)), ChatFormatting.DARK_GREEN);
+                    MobEffects.GLOWING, GROWTH_TOTEM_STEW_EFFECT_SECONDS,
+                    propsWithId("growth_totem").mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.POPPED).sound(SoundType.AMETHYST).offsetType(BlockBehaviour.OffsetType.NONE).lightLevel(state -> LightEngine.MAX_LEVEL)), ChatFormatting.DARK_GREEN);
 
     public static final RegistrySupplier<Block> RADIANCE_TOTEM = registerRareBlock("radiance_totem",
             () -> new RadianceTotemBlock(
-                    propsWithId("radiance_totem").mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.POPPED)), ChatFormatting.DARK_GREEN);
+                    propsWithId("radiance_totem").mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(state -> LightEngine.MAX_LEVEL).noOcclusion().pushReaction(PushReaction.POPPED)), ChatFormatting.DARK_GREEN);
 
     // FOSSIL SETS ──────────────────────────────────────────────────────────────────────
     /** The three blocks of one fossil animal: the assembled fossil and its two wearable parts. */

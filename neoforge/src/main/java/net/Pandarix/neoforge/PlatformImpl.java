@@ -3,33 +3,19 @@ package net.Pandarix.neoforge;
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.Registrar;
 import net.Pandarix.BACommon;
-import net.Pandarix.enchantment.ModEnchantments;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.event.EventHooks;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This class implements methods that are defined in the common {@link net.Pandarix.Platform} class for specifically for NeoForge.
@@ -53,106 +39,14 @@ public class PlatformImpl
     {
         return POI_TYPES.register(BACommon.createRLoc(name), () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), 1, 1));
     }
-
-    public static void performTunneling(ServerLevel serverLevel, BlockPos blockPos, BlockState blockState, Block block, ServerPlayer serverPlayer, ItemStack stack)
+    public static Stream<ItemStack> gliderAccessories(Player player)
     {
-        GameType type = serverPlayer.gameMode.getGameModeForPlayer();
+        // Accessories is disabled until it updates past 1.21.1; Curios is the only accessory API here.
+        if (!ModList.get().isLoaded("curios")) return Stream.empty();
 
-        if (serverPlayer.blockActionRestricted(serverLevel, blockPos, type))
-        {
-            return;
-        }
-
-        ItemStack copiedStack = stack.copy();
-
-        if (serverPlayer.isCreative())
-        {
-            performBreak(serverLevel, serverPlayer, copiedStack, blockPos, blockState, false);
-        } else
-        {
-            if (stack.isEmpty() && !copiedStack.isEmpty())
-            {
-                EventHooks.onPlayerDestroyItem(serverPlayer, copiedStack, InteractionHand.MAIN_HAND);
-            }
-
-            boolean canHarvest = blockState.canHarvestBlock(serverLevel, blockPos, serverPlayer);
-            boolean successfulBreak = performBreak(serverLevel, serverPlayer, copiedStack, blockPos, blockState, canHarvest);
-
-            if (canHarvest && successfulBreak)
-            {
-                BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos);
-                block.playerDestroy(serverLevel, serverPlayer, blockPos, blockState, blockEntity, copiedStack);
-            }
-        }
-    }
-
-    // Performs the basic removal, no further calls needed if the player is just in creative
-    private static boolean performBreak(ServerLevel serverLevel, ServerPlayer player, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean canHarvest)
-    {
-        boolean removed = blockState.onDestroyedByPlayer(serverLevel, pos, player, toolStack, canHarvest, serverLevel.getFluidState(pos));
-
-        if (removed)
-        {
-            blockState.getBlock().destroy(serverLevel, pos, blockState);
-        }
-        return removed;
-    }
-
-    public static boolean hasSoaringWinds(Player player)
-    {
-        if (player == null)
-        {
-            return false;
-        }
-
-        try
-        {
-            Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
-
-            //  VANILLA - any equipment slot with a usable glider, mirroring LivingEntity#canGlide
-            for (EquipmentSlot slot : EquipmentSlot.VALUES)
-            {
-                ItemStack stack = player.getItemBySlot(slot);
-                if (LivingEntity.canGlideUsing(stack, slot)
-                        && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, stack) >= 1)
-                {
-                    return true;
-                }
-            }
-
-            /* Disabled until compat layer is out for 1.21.4
-            // ACCESSORIES
-            if (ModList.get().isLoaded("accessories"))
-            {
-                AccessoriesCapability capability = AccessoriesCapability.get(player);
-
-                if (capability != null &&
-                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)) &&
-                        EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
-                {
-                    return true;
-                }
-            }*/
-
-            // CURIOS
-            if (ModList.get().isLoaded("curios"))
-            {
-                Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(player);
-
-                if (curios.isPresent())
-                {
-                    // searching the backslot for the Elytra
-                    return curios.map((itemHandler) ->
-                            curios.get().findCurios("back").stream().anyMatch(
-                                    (slotResult) -> slotResult.stack().getComponents().has(DataComponents.GLIDER)
-                                            && EnchantmentHelper.getTagEnchantmentLevel(soaringWinds, slotResult.stack()) >= 1)).orElse(false);
-                }
-            }
-        } catch (Exception e)
-        {
-            BACommon.LOGGER.error("Could not find enchantment in registries: " + ModEnchantments.SOARING_WINDS_KEY, e);
-        }
-
-        return false;
+        return CuriosApi.getCuriosInventory(player).stream()
+                .flatMap(curios -> curios.findCurios("back").stream())
+                .map(SlotResult::stack)
+                .filter(stack -> stack.has(DataComponents.GLIDER));
     }
 }

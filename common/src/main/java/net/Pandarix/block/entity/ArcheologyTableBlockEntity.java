@@ -64,14 +64,17 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     // PROGRESS ──────────────────────────────────────────────────────────────────────────
     //synchronises Ints between server and client
     protected final ContainerData data;
+    // Progress needed to identify an artifact; each tick adds more the faster the brush in the table is.
+    private static final int MAX_PROGRESS = 72;
+    public static final float BRUSH_SOUND_VOLUME = 0.25f;
+    public static final float BRUSH_SOUND_PITCH = 1f;
     private int progress = 0;
-    private int maxProgress = 72;
 
     public ArcheologyTableBlockEntity(BlockPos pos, BlockState state)
     {
         super(ModBlockEntities.ARCHEOLOGY_TABLE.get(), pos, state);
         this.items = NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
-        //getter und setter für PropertyDelegate based on index (progress, maxProgress)
+        // Syncs progress (index 0) and the fixed max progress (index 1) to the open screen.
         this.data = new ContainerData()
         {
             @Override
@@ -80,7 +83,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
                 return switch (index)
                 {
                     case 0 -> ArcheologyTableBlockEntity.this.progress;
-                    case 1 -> ArcheologyTableBlockEntity.this.maxProgress;
+                    case 1 -> MAX_PROGRESS;
                     default -> 0;
                 };
             }
@@ -88,11 +91,8 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
             @Override
             public void set(int index, int value)
             {
-                switch (index)
-                {
-                    case 0 -> ArcheologyTableBlockEntity.this.progress = value;
-                    case 1 -> ArcheologyTableBlockEntity.this.maxProgress = value;
-                }
+                if (index == 0)
+                    ArcheologyTableBlockEntity.this.progress = value;
             }
 
             @Override
@@ -164,20 +164,20 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
                 return;
             }
 
-            int brushSpeed = brushSlotContent.getItem() instanceof BetterBrushItem betterBrushItem ? betterBrushItem.getBrushingSpeed() : 10;
+            int brushSpeed = BetterBrushItem.tickRateOf(brushSlotContent);
 
-            //play sound every 10th tick
+            //play sound once per brush stroke
             if (entity.progress % brushSpeed == 0)
-                world.playSound(null, entity.worldPosition, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 0.25f, 1f);
+                world.playSound(null, entity.worldPosition, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, BRUSH_SOUND_VOLUME, BRUSH_SOUND_PITCH);
 
             //if the recipe is inside, set state to dusting
-            int progressStep = (int) Math.ceil(10f / brushSpeed);
+            int progressStep = (int) Math.ceil((float) BrushItem.ANIMATION_DURATION / brushSpeed);
             entity.progress += progressStep; //increase progress
             setBlockBrushing(world, blockPos, blockState, true);
             setChanged(world, blockPos, blockState);
 
             //if crafting progress is bigger or as big as the maxProgress, then craft the Item, else reset the timer
-            if (entity.progress >= entity.maxProgress)
+            if (entity.progress >= MAX_PROGRESS)
                 entity.craftItem(serverLevel, recipeHolder.get(), singleRecipeInput, entity.items);
         } else
         {
@@ -324,6 +324,7 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
             this.setChanged();
     }
 
+    @Override
     public int getContainerSize()
     {
         return this.items.size();

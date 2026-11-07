@@ -17,6 +17,10 @@ import java.util.Map;
 
 public class CreeperFossilBlock extends FossilBlock
 {
+    // Higher divisor = slower drift of the ambient particles.
+    private static final float PARTICLE_HORIZONTAL_SPEED_DIVISOR = 50f;
+    private static final float PARTICLE_VERTICAL_SPEED_DIVISOR = 30f;
+
     //Map of hitboxes for every direction the model can be facing
     private static final Map<Direction, VoxelShape> CREEPER_SHAPES_FOR_DIRECTION = ImmutableMap.of(
             Direction.NORTH, Shapes.or(
@@ -60,9 +64,9 @@ public class CreeperFossilBlock extends FossilBlock
                     center.x() + random.nextFloat() * getRandomSign(random),
                     center.y() + random.nextFloat() * getRandomSign(random),
                     center.z() + random.nextFloat() * getRandomSign(random),
-                    random.nextFloat() / 50f * getRandomSign(random),
-                    random.nextFloat() / 30f,
-                    random.nextFloat() / 50f * getRandomSign(random)
+                    random.nextFloat() / PARTICLE_HORIZONTAL_SPEED_DIVISOR * getRandomSign(random),
+                    random.nextFloat() / PARTICLE_VERTICAL_SPEED_DIVISOR,
+                    random.nextFloat() / PARTICLE_HORIZONTAL_SPEED_DIVISOR * getRandomSign(random)
             );
         }
     }

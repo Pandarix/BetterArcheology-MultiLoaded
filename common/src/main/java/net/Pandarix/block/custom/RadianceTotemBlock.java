@@ -39,11 +39,22 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.stream.IntStream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RadianceTotemBlock extends BaseEntityBlock
 {
+    // Glow particles: count when retuned, and placement/speed (higher divisor = smaller jitter).
+    private static final int RETUNE_GLOW_COUNT = 11;
+    private static final double GLOW_HEIGHT_BELOW_CENTRE = 0.25;
+    private static final int GLOW_HORIZONTAL_JITTER_DIVISOR = 3;
+    private static final int GLOW_VERTICAL_JITTER_DIVISOR = 5;
+    private static final double GLOW_FALL_SPEED = -4;
+    private static final float RETUNE_SOUND_VOLUME = 0.5f;
+    private static final float RETUNE_SOUND_PITCH = 0.5f;
+
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty SELECTOR = IntegerProperty.create("selector", 0, 3);
@@ -83,10 +94,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
         super.animateTick(pState, pLevel, pPos, pRandom);
         if (pRandom.nextBoolean() && pLevel.isClientSide())
         {
-            pLevel.addParticle(ParticleTypes.GLOW,
-                    Vec3.atCenterOf(pPos).x() + randomDirectionModifier(pRandom, 3),
-                    Vec3.atCenterOf(pPos).y() - 0.25 + randomDirectionModifier(pRandom, 5),
-                    Vec3.atCenterOf(pPos).z() + randomDirectionModifier(pRandom, 3), 0, -4, 0);
+            spawnGlow(pLevel, pPos, pRandom);
         }
     }
 
@@ -111,15 +119,9 @@ public class RadianceTotemBlock extends BaseEntityBlock
         if (pLevel.isClientSide())
         {
             pPlayer.sendOverlayMessage(Component.translatable("block.betterarcheology.radiance_totem_message_" + newState.getValue(SELECTOR)).withStyle(ChatFormatting.GREEN));
-            pLevel.playLocalSound(pPos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.5f, 0.5f, false);
+            pLevel.playLocalSound(pPos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, RETUNE_SOUND_VOLUME, RETUNE_SOUND_PITCH, false);
             RandomSource random = pLevel.getRandom();
-            for (int i = 0; i <= 10; i++)
-            {
-                pLevel.addParticle(ParticleTypes.GLOW,
-                        Vec3.atCenterOf(pPos).x() + randomDirectionModifier(random, 3),
-                        Vec3.atCenterOf(pPos).y() - 0.25 + randomDirectionModifier(random, 5),
-                        Vec3.atCenterOf(pPos).z() + randomDirectionModifier(random, 3), 0, -4, 0);
-            }
+            IntStream.range(0, RETUNE_GLOW_COUNT).forEach(i -> spawnGlow(pLevel, pPos, random));
 
         }
         return InteractionResult.SUCCESS_SERVER;
@@ -141,6 +143,17 @@ public class RadianceTotemBlock extends BaseEntityBlock
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom)
     {
         super.randomTick(pState, pLevel, pPos, pRandom);
+    }
+
+    /** A glow particle falling from just below the centre, with a small random horizontal/vertical jitter. */
+    private static void spawnGlow(Level level, BlockPos pos, RandomSource random)
+    {
+        Vec3 centre = Vec3.atCenterOf(pos);
+        level.addParticle(ParticleTypes.GLOW,
+                centre.x() + randomDirectionModifier(random, GLOW_HORIZONTAL_JITTER_DIVISOR),
+                centre.y() - GLOW_HEIGHT_BELOW_CENTRE + randomDirectionModifier(random, GLOW_VERTICAL_JITTER_DIVISOR),
+                centre.z() + randomDirectionModifier(random, GLOW_HORIZONTAL_JITTER_DIVISOR),
+                0, GLOW_FALL_SPEED, 0);
     }
 
     private static float randomDirectionModifier(RandomSource pRandom, int pReduce)
@@ -176,6 +189,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
         return pState.getValue(HANGING) ? HANGING_AABB : AABB;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder)
     {
         pBuilder.add(HANGING, WATERLOGGED, SELECTOR);

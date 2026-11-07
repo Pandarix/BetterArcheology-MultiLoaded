@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.Pandarix.BACommon;
 import net.Pandarix.recipe.IdentifyingRecipe;
 import net.Pandarix.recipe.ModRecipes;
-import net.Pandarix.util.ModTags;
+import net.Pandarix.tag.ModTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;

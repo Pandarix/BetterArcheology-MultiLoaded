@@ -2,7 +2,7 @@ package net.Pandarix.mixin;
 
 import net.Pandarix.block.entity.FleeFromBlockEntity;
 import net.Pandarix.config.BAConfig;
-import net.Pandarix.util.FleeBlockGoal;
+import net.Pandarix.block.entity.FleeBlockGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.monster.Creeper;

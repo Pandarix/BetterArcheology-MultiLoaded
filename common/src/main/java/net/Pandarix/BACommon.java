@@ -16,7 +16,7 @@ import net.Pandarix.item.ModItems;
 import net.Pandarix.recipe.ModRecipes;
 import net.Pandarix.screen.ModMenuTypes;
 import net.Pandarix.sound.ModSounds;
-import net.Pandarix.util.ModTags;
+import net.Pandarix.tag.ModTags;
 import net.Pandarix.villager.ModVillagers;
 import net.Pandarix.world.structure.ModStructures;
 import net.minecraft.core.Registry;

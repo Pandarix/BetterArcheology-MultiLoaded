@@ -3,7 +3,7 @@ package net.Pandarix.block.custom;
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.Pandarix.item.BetterBrushItem;
-import net.Pandarix.util.ServerPlayerHelper;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,8 +29,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.IntStream;
+
 public class ArchelogyTable extends BaseEntityBlock
 {
+    // Sand dust while brushing: particles per tick and their maximum outward speed.
+    private static final int MIN_DUST_PARTICLES = 1;
+    private static final int MAX_DUST_PARTICLES = 3;
+    private static final double DUST_SPEED = 3.0;
+
     //indicates if the table is currently "crafting" the identified artifact
     //triggers particle creation
     public static final BooleanProperty DUSTING = BooleanProperty.create("dusting");
@@ -71,7 +78,8 @@ public class ArchelogyTable extends BaseEntityBlock
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if (entity instanceof ArcheologyTableBlockEntity)
             {
-                ServerPlayerHelper.tryOpenScreen(pPlayer, (ArcheologyTableBlockEntity) entity);
+                if (pPlayer instanceof ServerPlayer serverPlayer)
+                    serverPlayer.openMenu((ArcheologyTableBlockEntity) entity);
             } else
             {
                 throw new IllegalStateException("Container Provider Missing!");
@@ -109,22 +117,19 @@ public class ArchelogyTable extends BaseEntityBlock
         if (entity == null) return;
 
         ItemStack brush = entity.getItems().getFirst();
-        int brushSpeed = brush.getItem() instanceof BetterBrushItem brushItem ? brushItem.getBrushingSpeed() : 10;
+        int brushSpeed = BetterBrushItem.tickRateOf(brush);
 
-        //play sound every Xth tick
+        //play sound once per brush stroke
         if (entity.getProgress() % brushSpeed == 0)
-            pLevel.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 0.25f, 1f);
+            pLevel.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, ArcheologyTableBlockEntity.BRUSH_SOUND_VOLUME, ArcheologyTableBlockEntity.BRUSH_SOUND_PITCH);
 
-        int i = random.nextIntBetweenInclusive(1, 3); //number of particles to be created
-        BlockParticleOption blockStateParticleEffect = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SAND.defaultBlockState());
-        for (int j = 0; j < i; ++j)
-        {
-            pLevel.addParticle(blockStateParticleEffect,
-                    pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
-                    3.0 * random.nextDouble() * (random.nextBoolean() ? 1 : -1),
-                    0.0,
-                    3.0 * random.nextDouble() * (random.nextBoolean() ? 1 : -1));
-        }
+        int particleCount = random.nextIntBetweenInclusive(MIN_DUST_PARTICLES, MAX_DUST_PARTICLES);
+        BlockParticleOption sandDust = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SAND.defaultBlockState());
+        IntStream.range(0, particleCount).forEach(i -> pLevel.addParticle(sandDust,
+                pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
+                DUST_SPEED * random.nextDouble() * (random.nextBoolean() ? 1 : -1),
+                0.0,
+                DUST_SPEED * random.nextDouble() * (random.nextBoolean() ? 1 : -1)));
     }
 }
 

@@ -2,24 +2,17 @@ package net.Pandarix.fabric;
 
 import com.google.common.collect.ImmutableSet;
 import net.Pandarix.BACommon;
-import net.Pandarix.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PoiHelper;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This class implements methods that are defined in the common {@link net.Pandarix.Platform} class for specifically for Fabric.
@@ -42,39 +35,10 @@ public class PlatformImpl {
         return () -> poi;
     }
 
-    public static boolean hasSoaringWinds(Player player) {
-        if (player == null) {
-            return false;
-        }
-
-        try {
-            Holder.Reference<Enchantment> soaringWinds = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ModEnchantments.SOARING_WINDS_KEY);
-
-            //  VANILLA - any equipment slot with a usable glider, mirroring LivingEntity#canGlide
-            for (EquipmentSlot slot : EquipmentSlot.VALUES) {
-                ItemStack stack = player.getItemBySlot(slot);
-                if (LivingEntity.canGlideUsing(stack, slot)
-                        && EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, stack) >= 1) {
-                    return true;
-                }
-            }
-
-            // ACCESSORIES - disabled for 1.21.11 until it updates
-//            if (FabricLoader.getInstance().isModLoaded("accessories"))
-//            {
-//                AccessoriesCapability capability = AccessoriesCapability.get(player);
-//
-//                if (capability != null &&
-//                        capability.isEquipped(itemStack -> itemStack.getComponents().has(DataComponents.GLIDER)) &&
-//                        EnchantmentHelper.getItemEnchantmentLevel(soaringWinds, player.getItemBySlot(EquipmentSlot.CHEST)) >= 1)
-//                {
-//                    return true;
-//                }
-//            }
-        } catch (Exception e) {
-            BACommon.LOGGER.error("Could not find enchantment in registries: " + ModEnchantments.SOARING_WINDS_KEY, e);
-        }
-
-        return false;
+    public static Stream<ItemStack> gliderAccessories(Player player)
+    {
+        // Accessories has no build for this MC line yet. When re-adding it, check its back slot
+        // for a GLIDER stack; the old disabled copy wrongly read the chest slot.
+        return Stream.empty();
     }
 }

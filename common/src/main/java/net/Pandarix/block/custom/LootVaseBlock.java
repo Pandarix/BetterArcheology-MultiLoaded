@@ -1,11 +1,9 @@
 package net.Pandarix.block.custom;
 
 import net.Pandarix.BACommon;
-import net.Pandarix.util.ServerPlayerHelper;
+import net.Pandarix.enchantment.ModEnchantments;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,8 +13,6 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,7 +26,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 
 public class LootVaseBlock extends Block
 {
@@ -48,8 +43,7 @@ public class LootVaseBlock extends Block
     {
         try
         {
-            Optional<Holder.Reference<Enchantment>> SILK_TOUCH = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.SILK_TOUCH);
-            boolean hasSilkTouch = SILK_TOUCH.isPresent() && EnchantmentHelper.getItemEnchantmentLevel(SILK_TOUCH.get(), player.getMainHandItem()) > 0;
+            boolean hasSilkTouch = ModEnchantments.getLevel(level.registryAccess(), Enchantments.SILK_TOUCH, player.getMainHandItem()) > 0;
 
             if (!level.isClientSide())
             {
@@ -69,8 +63,8 @@ public class LootVaseBlock extends Block
                     AdvancementHolder advancement = level.getServer().getAdvancements().get(ADVANCEMENT_ID);
                     if (advancement != null)
                     {
-                        ServerPlayerHelper.tryGetServerPlayer(player)
-                                .ifPresent(sp -> sp.getAdvancements().award(advancement, "criteria"));
+                        if (player instanceof ServerPlayer serverPlayer)
+                            serverPlayer.getAdvancements().award(advancement, "criteria");
                     }
                 }
             }

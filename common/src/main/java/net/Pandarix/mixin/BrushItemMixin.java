@@ -17,7 +17,7 @@ public class BrushItemMixin
     {
         if ((Object) this instanceof BetterBrushItem ba$betterBrushItem)
         {
-            if (pRemainingUseDuration % ba$betterBrushItem.getBrushingSpeed() == 0)
+            if (pRemainingUseDuration % ba$betterBrushItem.getTickRate() == 0)
             {
                 return 4 + pRemainingUseDuration;
             }

@@ -2,12 +2,13 @@ package net.Pandarix.events;
 
 import dev.architectury.event.events.common.BlockEvent;
 import net.Pandarix.BACommon;
+import net.Pandarix.enchantment.TunnelingEffect;
 
 public class ModEvents
 {
     static
     {
-        BlockEvent.BREAK.register(TunnelingEventHandler::handleTunneling);
+        BlockEvent.BREAK.register(TunnelingEffect::onBlockBreak);
     }
 
     // LOAD ────────────────────────────────────────────────────────────────────────────

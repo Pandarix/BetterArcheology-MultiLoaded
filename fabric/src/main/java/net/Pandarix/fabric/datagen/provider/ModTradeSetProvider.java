@@ -1,55 +1,54 @@
 package net.Pandarix.fabric.datagen.provider;
 
-import com.google.gson.JsonObject;
 import net.Pandarix.BACommon;
+import net.Pandarix.fabric.datagen.ArcheologistTrades;
+import net.Pandarix.fabric.datagen.ModDataGenerators;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderOwner;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.trading.TradeSet;
+import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 
-public class ModTradeSetProvider implements DataProvider
+/**
+ * Archeologist trade sets, one per profession level, each drawing from that level's trade tag.
+ */
+public class ModTradeSetProvider extends FabricDynamicRegistryProvider
 {
-    private final FabricPackOutput output;
+    private static final boolean ALLOW_DUPLICATES = false;
 
-    public ModTradeSetProvider(FabricPackOutput output, CompletableFuture<?> registriesFuture)
+    public ModTradeSetProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
     {
-        this.output = output;
+        super(output, registriesFuture);
     }
 
     @Override
-    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache)
+    protected void configure(HolderLookup.Provider registries, Entries entries)
     {
-        List<CompletableFuture<?>> futures = new ArrayList<>();
-        futures.add(save(cache, tradeSet(3, "level_1")));
-        futures.add(save(cache, tradeSet(2, "level_2")));
-        futures.add(save(cache, tradeSet(2, "level_3")));
-        futures.add(save(cache, tradeSet(5, "level_4")));
-        futures.add(save(cache, tradeSet(3, "level_5")));
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
-    }
+        // The trade tags are our own data, not bound in the datagen lookup, so reference them by key.
+        HolderOwner<VillagerTrade> tradeOwner = ModDataGenerators.serializableOwner(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
 
-    private record TradeSetData(String level, JsonObject json) {}
+        IntStream.rangeClosed(1, ArcheologistTrades.BY_LEVEL.size()).forEach(level ->
+        {
+            ResourceKey<TradeSet> key = BACommon.createRKey(Registries.TRADE_SET, "archeologist/level_" + level);
+            HolderSet<VillagerTrade> trades = HolderSet.emptyNamed(tradeOwner, ArcheologistTrades.levelTag(level));
+            // Offer every trade of the level.
+            int amount = ArcheologistTrades.tradesAt(level).size();
+            // Same random sequence vanilla's TradeSets.register derives from the key.
+            Optional<Identifier> randomSequence = Optional.of(key.identifier().withPrefix("trade_set/"));
 
-    private static TradeSetData tradeSet(int amount, String level)
-    {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("amount", (double) amount);
-        obj.addProperty("random_sequence", "betterarcheology:trade_set/archeologist/" + level);
-        obj.addProperty("trades", "#betterarcheology:archeologist/" + level);
-        return new TradeSetData(level, obj);
-    }
-
-    private CompletableFuture<?> save(CachedOutput cache, TradeSetData data)
-    {
-        Path out = output.getOutputFolder(PackOutput.Target.DATA_PACK)
-                .resolve("betterarcheology/trade_set/archeologist/" + data.level() + ".json");
-        return DataProvider.saveStable(cache, data.json(), out);
+            entries.add(key, new TradeSet(trades, ContextIntProviders.exactly(amount), ALLOW_DUPLICATES, randomSequence));
+        });
     }
 
     @Override
