@@ -5,33 +5,20 @@ import net.Pandarix.block.entity.GuardianFossilBlockEntity;
 import net.Pandarix.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements SimpleWaterloggedBlock
+public class GuardianFossilBlock extends FossilEntityBlock
 {
-    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
     //Map of hitboxes for every direction the model can be facing
     private static final Map<Direction, VoxelShape> SHAPES_FOR_DIRECTION = ImmutableMap.of(
             Direction.NORTH, Shapes.or(
@@ -53,20 +40,7 @@ public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements Si
 
     public GuardianFossilBlock(Properties settings)
     {
-        super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(FACING, Direction.NORTH));
-    }
-
-    public BlockState getStateForPlacement(BlockPlaceContext pContext)
-    {
-        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
-        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.isSourceOfType(Fluids.WATER)).setValue(FACING, pContext.getHorizontalDirection().getOpposite());
-    }
-
-    @NotNull
-    public FluidState getFluidState(BlockState pState)
-    {
-        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+        super(settings, SHAPES_FOR_DIRECTION);
     }
 
     @Nullable
@@ -76,13 +50,6 @@ public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements Si
         return createTickerHelper(type, ModBlockEntities.GUARDIAN_FOSSIL.get(), GuardianFossilBlockEntity::tick);
     }
 
-    @NotNull
-    @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext)
-    {
-        return SHAPES_FOR_DIRECTION.get(blockState.getValue(FACING));
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state)
@@ -90,15 +57,4 @@ public class GuardianFossilBlock extends FossilBaseWithEntityBlock implements Si
         return new GuardianFossilBlockEntity(pos, state);
     }
 
-    @Override
-    @NotNull
-    public RenderShape getRenderShape(BlockState pState)
-    {
-        return RenderShape.MODEL;
-    }
-
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder)
-    {
-        pBuilder.add(WATERLOGGED, FACING);
-    }
 }

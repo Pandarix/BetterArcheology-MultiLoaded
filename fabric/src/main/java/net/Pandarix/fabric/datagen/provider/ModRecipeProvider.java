@@ -118,63 +118,16 @@ public class ModRecipeProvider extends FabricRecipeProvider
                 smeltingResultFromBase(ModBlocks.CRACKED_MUD_BRICKS.get(), Blocks.MUD_BRICKS);
             }
 
+            /** Head + body assemble into the full fossil, for every fossil animal. */
             private void buildFossilRecipes()
             {
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.CHICKEN_FOSSIL.get())
+                ModBlocks.fossilSets().forEach(set -> this.shapeless(RecipeCategory.DECORATIONS, set.full().get())
                         .group("ba_fossils")
-                        .requires(ModBlocks.CHICKEN_FOSSIL_BODY.get())
-                        .requires(ModBlocks.CHICKEN_FOSSIL_HEAD.get())
-                        .unlockedBy(getHasName(ModBlocks.CHICKEN_FOSSIL_BODY.get()), has(ModBlocks.CHICKEN_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.CHICKEN_FOSSIL_HEAD.get()), has(ModBlocks.CHICKEN_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.CREEPER_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.CREEPER_FOSSIL_BODY.get())
-                        .requires(ModBlocks.CREEPER_FOSSIL_HEAD.get())
-                        .unlockedBy(getHasName(ModBlocks.CREEPER_FOSSIL_BODY.get()), has(ModBlocks.CREEPER_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.CREEPER_FOSSIL_HEAD.get()), has(ModBlocks.CREEPER_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.GUARDIAN_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.GUARDIAN_FOSSIL_HEAD.get())
-                        .requires(ModBlocks.GUARDIAN_FOSSIL_BODY.get())
-                        .unlockedBy(getHasName(ModBlocks.GUARDIAN_FOSSIL_BODY.get()), has(ModBlocks.GUARDIAN_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.GUARDIAN_FOSSIL_HEAD.get()), has(ModBlocks.GUARDIAN_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.OCELOT_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.OCELOT_FOSSIL_HEAD.get())
-                        .requires(ModBlocks.OCELOT_FOSSIL_BODY.get())
-                        .unlockedBy(getHasName(ModBlocks.OCELOT_FOSSIL_BODY.get()), has(ModBlocks.OCELOT_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.OCELOT_FOSSIL_HEAD.get()), has(ModBlocks.OCELOT_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.SHEEP_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.SHEEP_FOSSIL_HEAD.get())
-                        .requires(ModBlocks.SHEEP_FOSSIL_BODY.get())
-                        .unlockedBy(getHasName(ModBlocks.SHEEP_FOSSIL_BODY.get()), has(ModBlocks.SHEEP_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.SHEEP_FOSSIL_HEAD.get()), has(ModBlocks.SHEEP_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.VILLAGER_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.VILLAGER_FOSSIL_HEAD.get())
-                        .requires(ModBlocks.VILLAGER_FOSSIL_BODY.get())
-                        .unlockedBy(getHasName(ModBlocks.VILLAGER_FOSSIL_BODY.get()), has(ModBlocks.VILLAGER_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.VILLAGER_FOSSIL_HEAD.get()), has(ModBlocks.VILLAGER_FOSSIL_HEAD.get()))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.DECORATIONS, ModBlocks.WOLF_FOSSIL.get())
-                        .group("ba_fossils")
-                        .requires(ModBlocks.WOLF_FOSSIL_HEAD.get())
-                        .requires(ModBlocks.WOLF_FOSSIL_BODY.get())
-                        .unlockedBy(getHasName(ModBlocks.WOLF_FOSSIL_BODY.get()), has(ModBlocks.WOLF_FOSSIL_BODY.get()))
-                        .unlockedBy(getHasName(ModBlocks.WOLF_FOSSIL_HEAD.get()), has(ModBlocks.WOLF_FOSSIL_HEAD.get()))
-                        .save(this.output);
+                        .requires(set.body().get())
+                        .requires(set.head().get())
+                        .unlockedBy(getHasName(set.body().get()), has(set.body().get()))
+                        .unlockedBy(getHasName(set.head().get()), has(set.head().get()))
+                        .save(this.output));
             }
         };
     }

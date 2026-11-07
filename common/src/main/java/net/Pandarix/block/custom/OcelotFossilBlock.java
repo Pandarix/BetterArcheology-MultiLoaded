@@ -4,21 +4,17 @@ import com.google.common.collect.ImmutableMap;
 import net.Pandarix.block.entity.FleeFromBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class OcelotFossilBlock extends FossilBaseWithEntityBlock
+public class OcelotFossilBlock extends FossilEntityBlock
 {
     //Map of hitboxes for every direction the model can be facing
     private static final Map<Direction, VoxelShape> OCELOT_SHAPES_FOR_DIRECTION = ImmutableMap.of(
@@ -37,7 +33,7 @@ public class OcelotFossilBlock extends FossilBaseWithEntityBlock
 
     public OcelotFossilBlock(BlockBehaviour.Properties settings)
     {
-        super(settings);
+        super(settings, OCELOT_SHAPES_FOR_DIRECTION);
     }
 
     @Override
@@ -46,17 +42,4 @@ public class OcelotFossilBlock extends FossilBaseWithEntityBlock
         return new FleeFromBlockEntity(pos, state);
     }
 
-    @Override
-    @NotNull
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext)
-    {
-        return OCELOT_SHAPES_FOR_DIRECTION.get(pState.getValue(FACING));
-    }
-
-    @Override
-    @NotNull
-    public RenderShape getRenderShape(BlockState pState)
-    {
-        return RenderShape.MODEL;
-    }
 }

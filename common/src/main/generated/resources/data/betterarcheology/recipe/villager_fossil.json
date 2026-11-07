@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "group": "ba_fossils",
   "ingredients": [
-    "betterarcheology:villager_fossil_head",
-    "betterarcheology:villager_fossil_body"
+    "betterarcheology:villager_fossil_body",
+    "betterarcheology:villager_fossil_head"
   ],
   "result": {
     "id": "betterarcheology:villager_fossil"

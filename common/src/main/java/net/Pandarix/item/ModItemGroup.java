@@ -38,27 +38,9 @@ public class ModItemGroup
                                 //BLOCKS
                                 output.accept(ModBlocks.ARCHEOLOGY_TABLE.get());
                                 //fossils
-                                output.accept(ModBlocks.CREEPER_FOSSIL.get());
-                                output.accept(ModBlocks.CREEPER_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.CREEPER_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.VILLAGER_FOSSIL.get());
-                                output.accept(ModBlocks.VILLAGER_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.VILLAGER_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.CHICKEN_FOSSIL.get());
-                                output.accept(ModBlocks.CHICKEN_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.CHICKEN_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.OCELOT_FOSSIL.get());
-                                output.accept(ModBlocks.OCELOT_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.OCELOT_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.WOLF_FOSSIL.get());
-                                output.accept(ModBlocks.WOLF_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.WOLF_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.SHEEP_FOSSIL.get());
-                                output.accept(ModBlocks.SHEEP_FOSSIL_BODY.get());
-                                output.accept(ModBlocks.SHEEP_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.GUARDIAN_FOSSIL.get());
-                                output.accept(ModBlocks.GUARDIAN_FOSSIL_HEAD.get());
-                                output.accept(ModBlocks.GUARDIAN_FOSSIL_BODY.get());
+                                ModBlocks.fossilSets().stream()
+                                        .flatMap(ModBlocks.FossilSet::blocks)
+                                        .forEach(block -> output.accept(block.get()));
                                 //blocks
                                 output.accept(ModBlocks.SUSPICIOUS_RED_SAND.get());
                                 output.accept(ModBlocks.SUSPICIOUS_DIRT.get());

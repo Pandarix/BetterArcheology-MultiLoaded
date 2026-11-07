@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "group": "ba_fossils",
   "ingredients": [
-    "betterarcheology:guardian_fossil_head",
-    "betterarcheology:guardian_fossil_body"
+    "betterarcheology:guardian_fossil_body",
+    "betterarcheology:guardian_fossil_head"
   ],
   "result": {
     "id": "betterarcheology:guardian_fossil"

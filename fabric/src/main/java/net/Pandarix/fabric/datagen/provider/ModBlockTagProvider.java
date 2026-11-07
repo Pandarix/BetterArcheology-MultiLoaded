@@ -23,32 +23,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider
         this.builder(ModTags.Blocks.ROTTEN_LOGS)
                 .add(ModBlocks.ROTTEN_LOG.getKey());
 
-        this.builder(BlockTags.MINEABLE_WITH_PICKAXE)
+        var pickaxeMineable = this.builder(BlockTags.MINEABLE_WITH_PICKAXE);
+        ModBlocks.fossilSets().stream()
+                .flatMap(ModBlocks.FossilSet::blocks)
+                .forEach(block -> pickaxeMineable.add(block.getKey()));
+        pickaxeMineable
                 .add(
                         ModBlocks.CRACKED_MUD_BRICKS.getKey(),
                         ModBlocks.CRACKED_MUD_BRICK_SLAB.getKey(),
                         ModBlocks.CRACKED_MUD_BRICK_STAIRS.getKey(),
-                        ModBlocks.VILLAGER_FOSSIL.getKey(),
-                        ModBlocks.VILLAGER_FOSSIL_BODY.getKey(),
-                        ModBlocks.VILLAGER_FOSSIL_HEAD.getKey(),
-                        ModBlocks.OCELOT_FOSSIL.getKey(),
-                        ModBlocks.OCELOT_FOSSIL_BODY.getKey(),
-                        ModBlocks.OCELOT_FOSSIL_HEAD.getKey(),
-                        ModBlocks.SHEEP_FOSSIL.getKey(),
-                        ModBlocks.SHEEP_FOSSIL_BODY.getKey(),
-                        ModBlocks.SHEEP_FOSSIL_HEAD.getKey(),
-                        ModBlocks.CHICKEN_FOSSIL.getKey(),
-                        ModBlocks.CHICKEN_FOSSIL_BODY.getKey(),
-                        ModBlocks.CHICKEN_FOSSIL_HEAD.getKey(),
-                        ModBlocks.CREEPER_FOSSIL.getKey(),
-                        ModBlocks.CREEPER_FOSSIL_BODY.getKey(),
-                        ModBlocks.CREEPER_FOSSIL_HEAD.getKey(),
-                        ModBlocks.WOLF_FOSSIL.getKey(),
-                        ModBlocks.WOLF_FOSSIL_BODY.getKey(),
-                        ModBlocks.WOLF_FOSSIL_HEAD.getKey(),
-                        ModBlocks.GUARDIAN_FOSSIL.getKey(),
-                        ModBlocks.GUARDIAN_FOSSIL_BODY.getKey(),
-                        ModBlocks.GUARDIAN_FOSSIL_HEAD.getKey(),
                         ModBlocks.EVOKER_TRAP.getKey(),
                         ModBlocks.CHISELED_BONE_BLOCK.getKey(),
                         ModBlocks.RADIANCE_TOTEM.getKey()

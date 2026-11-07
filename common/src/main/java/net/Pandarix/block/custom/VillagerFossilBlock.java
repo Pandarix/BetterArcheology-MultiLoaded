@@ -7,20 +7,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -28,9 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class VillagerFossilBlock extends FossilBaseWithEntityBlock
+public class VillagerFossilBlock extends FossilEntityBlock
 {
-    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty INVENTORY_LUMINANCE = IntegerProperty.create("inventory_luminance", 0, 15); //used to store the amount of light that the item in its inventory would emit and to emit that luminance itself
 
     //Map of hitboxes for every direction the model can be facing
@@ -54,15 +47,8 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
 
     public VillagerFossilBlock(BlockBehaviour.Properties settings)
     {
-        super(settings);
-        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(INVENTORY_LUMINANCE, 0));
-    }
-
-    @Override
-    @NotNull
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext)
-    {
-        return VILLAGER_SHAPES_FOR_DIRECTION.get(pState.getValue(FACING));
+        super(settings, VILLAGER_SHAPES_FOR_DIRECTION);
+        this.registerDefaultState(this.defaultBlockState().setValue(INVENTORY_LUMINANCE, 0));
     }
 
     @Override
@@ -77,13 +63,6 @@ public class VillagerFossilBlock extends FossilBaseWithEntityBlock
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state)
     {
         return new VillagerFossilBlockEntity(pos, state);
-    }
-
-    @Override
-    @NotNull
-    public RenderShape getRenderShape(BlockState pState)
-    {
-        return RenderShape.MODEL;
     }
 
     @Override

@@ -149,6 +149,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
     }
 
     @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext)
     {
         FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
@@ -169,6 +170,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
     }
 
     @NotNull
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext)
     {
         return pState.getValue(HANGING) ? HANGING_AABB : AABB;
@@ -179,6 +181,7 @@ public class RadianceTotemBlock extends BaseEntityBlock
         pBuilder.add(HANGING, WATERLOGGED, SELECTOR);
     }
 
+    @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos)
     {
         Direction direction = getConnectedDirection(pState).getOpposite();
