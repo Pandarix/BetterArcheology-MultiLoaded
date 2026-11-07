@@ -6,6 +6,7 @@ and everything until the next one) is uploaded.
 
 ## Better Archeology 1.4.0
 
+- Added a Brazilian Portuguese translation, by Leirbag
 - Added Warding, a chestplate enchantment found by identifying artifacts. Each level gives a 12.5% chance to ward off an attack a shield could block, with a wall of enchanting glyphs between you and the attacker, at the cost of 1 durability on the chestplate. It does nothing while you hold a shield
 - All fossils, heads and bodies can now be waterlogged, so they can be placed underwater and generate filled with water instead of carving out an air pocket
 - Chicken, guardian, ocelot, villager and wolf fossils now turn with the rest of a structure that is rotated or mirrored, instead of always keeping their saved facing
