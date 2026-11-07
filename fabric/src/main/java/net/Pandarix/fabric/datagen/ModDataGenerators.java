@@ -32,6 +32,7 @@ public class ModDataGenerators implements DataGeneratorEntrypoint
         pack.addProvider(ModEnchantmentProvider::new);
         pack.addProvider(ModVillagerTradeProvider::new);
         pack.addProvider(ModTradeSetProvider::new);
+        pack.addProvider(ModStructureSetProvider::new);
     }
 
     //datagen wraps each registry lookup (EmptyTagLookupWrapper) and the serialization owner check only accepts holders

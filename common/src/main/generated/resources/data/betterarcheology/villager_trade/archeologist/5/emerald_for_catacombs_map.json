@@ -6,6 +6,7 @@
     {
       "type": "minecraft:exploration_map",
       "destination": "#betterarcheology:on_catacombs_explorer_map",
+      "search_radius": 100,
       "skip_existing_chunks": false
     },
     {

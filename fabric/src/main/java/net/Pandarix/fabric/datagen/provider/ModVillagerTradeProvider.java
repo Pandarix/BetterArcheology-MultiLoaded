@@ -29,6 +29,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModVillagerTradeProvider extends FabricDynamicRegistryProvider
 {
+    // Chunks searched for catacombs, as vanilla's mansion map; must exceed the catacombs set's spacing.
+    private static final int CATACOMBS_MAP_SEARCH_RADIUS = 100;
+
     public ModVillagerTradeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
     {
         super(output, registriesFuture);
@@ -96,7 +99,7 @@ public class ModVillagerTradeProvider extends FabricDynamicRegistryProvider
                 .addModifier(ExplorationMapFunction.makeExplorationMap(destination)
                         .setMapDecoration(MapDecorationTypes.WOODLAND_MANSION)
                         .setZoom((byte) 2)
-                        .setSearchRadius(50)
+                        .setSearchRadius(CATACOMBS_MAP_SEARCH_RADIUS)
                         .setSkipKnownStructures(false))
                 .addModifier(SetNameFunction.setName(
                         Component.translatable("filled_map.catacombs"),
