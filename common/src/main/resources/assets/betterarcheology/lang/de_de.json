@@ -143,6 +143,8 @@
   "config.betterarcheology.torrentTotemBoost": "'Totem der Strömungen' Schubstärke",
   "config.betterarcheology.torrentTotemUpwardsBoost": "'Totem der Strömungen' Aufwärtsschub",
   "config.betterarcheology.soulTotemEnabled": "'Totem der Seelen' Effekt",
+  "config.betterarcheology.soulTotemDamage": "'Totem der Seelen' Schadenwert",
+  "config.betterarcheology.soulTotemHealPercentage": "'Totem der Seelen' Heilung (% des verursachten Schadens)",
   "config.betterarcheology.growthTotemEnabled": "'Totem des Wachstums' Effekt",
   "config.betterarcheology.growthTotemGrowRadius": "'Totem des Wachstums' Radius",
   "config.betterarcheology.growthTotemGrowChance": "'Totem des Wachstums' Wachstumschance",

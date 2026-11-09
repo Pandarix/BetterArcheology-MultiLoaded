@@ -156,6 +156,8 @@
   "config.betterarcheology.torrentTotemBoost": "'Totem of Torrents' Boost Strength",
   "config.betterarcheology.torrentTotemUpwardsBoost": "'Totem of Torrents' Upwards Boosting",
   "config.betterarcheology.soulTotemEnabled": "'Totem of Souls' Effects",
+  "config.betterarcheology.soulTotemDamage": "'Totem of Souls' Damage",
+  "config.betterarcheology.soulTotemHealPercentage": "'Totem of Souls' Healing (% of Damage Dealt)",
   "config.betterarcheology.growthTotemEnabled": "'Totem of Growth' Effects",
   "config.betterarcheology.growthTotemGrowRadius": "'Totem of Growth' Radius",
   "config.betterarcheology.growthTotemGrowChance": "'Totem of Growth' Grow Chance",

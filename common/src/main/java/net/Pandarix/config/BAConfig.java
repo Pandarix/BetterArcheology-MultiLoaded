@@ -132,6 +132,17 @@ public final class BAConfig
     @ConfigEntry(id = "soulTotemEnabled", translation = "config.betterarcheology.soulTotemEnabled")
     public static boolean soulTotemEnabled = true;
 
+    @ConfigEntry(id = "soulTotemDamage", translation = "config.betterarcheology.soulTotemDamage")
+    @ConfigOption.Range(min = 1, max = 20)
+    @Comment("Sets the magic damage in 1/2 hearts that the Totem of Souls deals to its target. Armor does not reduce it.")
+    public static int soulTotemDamage = 4;
+
+    @ConfigEntry(id = "soulTotemHealPercentage", translation = "config.betterarcheology.soulTotemHealPercentage")
+    @ConfigOption.Slider
+    @ConfigOption.Range(min = 0, max = 100)
+    @Comment("Sets how much of the damage actually dealt is healed back, in %. Damage the target resists, for example through Resistance or a witch's magic resistance, is not healed.")
+    public static int soulTotemHealPercentage = 100;
+
     // ──────── GROWTH ─────────────────────────────────────────────────────────────────
     @ConfigEntry(id = "growthTotemEnabled", translation = "config.betterarcheology.growthTotemEnabled")
     public static boolean growthTotemEnabled = true;

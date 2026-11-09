@@ -17,6 +17,8 @@ and everything until the next one) is uploaded.
 - Tunneling no longer breaks unbreakable blocks such as bedrock, or command and structure blocks, below the mined block. This could happen when the "effective tool only" option was turned off
 - Improved Archeology Table performance, especially for tables that sit idle (#66)
 - The Archeology Table keeps its brushing progress when the world is saved and reloaded
+- The Totem of Souls now deals magic damage, which armor no longer reduces. Its damage and how much of the damage dealt it heals back can be set in the config (#59). It only heals for damage that actually lands, so invulnerable targets and resisted damage no longer heal you
+- The Totem of Souls reaches 1.5 blocks further and drains instantly, holding up the totem only when it hits instead of flickering a shield pose while right-click is held. Its soul trail only appears when the drain lands, and nearby players see it too. It no longer drains boats, minecarts, item frames or end crystals, and it wears down the totem in the hand it is used from
 - Structures no longer skip spots where the ground is above y=150, so they also generate on high terrain, such as in worlds with Tectonic (#60). Already generated chunks are not affected
 
 ## Better Archeology 1.3.9
