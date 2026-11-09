@@ -17,6 +17,7 @@ and everything until the next one) is uploaded.
 - Tunneling no longer breaks unbreakable blocks such as bedrock, or command and structure blocks, below the mined block. This could happen when the "effective tool only" option was turned off
 - Improved Archeology Table performance, especially for tables that sit idle (#66)
 - The Archeology Table keeps its brushing progress when the world is saved and reloaded
+- Structures no longer skip spots where the ground is above y=150, so they also generate on high terrain, such as in worlds with Tectonic (#60). Already generated chunks are not affected
 
 ## Better Archeology 1.3.9
 
