@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
@@ -31,8 +32,10 @@ import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
@@ -66,9 +69,15 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
     protected final ContainerData data;
     // Progress needed to identify an artifact; each tick adds more the faster the brush in the table is.
     private static final int MAX_PROGRESS = 72;
-    public static final float BRUSH_SOUND_VOLUME = 0.25f;
-    public static final float BRUSH_SOUND_PITCH = 1f;
+    private static final float BRUSH_SOUND_VOLUME = 0.25f;
+    private static final float BRUSH_SOUND_PITCH = 1f;
     private int progress = 0;
+
+    // The recipe lookup scans every recipe on the server, so the match is kept until the input changes,
+    // a craft finishes or /reload replaces the RecipeManager. A null recipe caches "nothing matches".
+    private record CachedRecipe(RecipeManager recipeManager, ItemStack input, @Nullable RecipeHolder<IdentifyingRecipe> recipe, ItemStack result) {}
+    @Nullable
+    private CachedRecipe cachedRecipe;
 
     public ArcheologyTableBlockEntity(BlockPos pos, BlockState state)
     {
@@ -113,17 +122,6 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return new IdentifyingMenu(id, inventory, this, this.data);
     }
 
-    private void resetProgress()
-    {
-        this.progress = 0;
-    }
-
-    public int getProgress()
-    {
-        return progress;
-    }
-
-
     private static Optional<RecipeHolder<IdentifyingRecipe>> getRecipeOrRandomMatching(SingleRecipeInput singleRecipeInput, ServerLevel serverLevel)
     {
         @SuppressWarnings("unchecked")
@@ -142,55 +140,59 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         };
     }
 
-    public static void tick(Level world, BlockPos blockPos, BlockState blockState, ArcheologyTableBlockEntity entity)
+    private CachedRecipe findRecipe(ServerLevel serverLevel, ItemStack input)
     {
-        if (world.isClientSide()) return;
+        RecipeManager recipeManager = serverLevel.getServer().getRecipeManager();
+        if (this.cachedRecipe != null && this.cachedRecipe.recipeManager() == recipeManager && ItemStack.isSameItemSameComponents(input, this.cachedRecipe.input()))
+            return this.cachedRecipe;
 
-        ItemStack brushSlotContent = entity.items.getFirst();
-        boolean hasBrush = brushSlotContent.getItem() instanceof BrushItem;
-        ItemStack inputSlotContent = entity.items.get(1);
-
-        if (hasBrush && !inputSlotContent.isEmpty())
-        {
-            ServerLevel serverLevel = (ServerLevel) world;
-            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(inputSlotContent);
-            Optional<RecipeHolder<IdentifyingRecipe>> recipeHolder = getRecipeOrRandomMatching(singleRecipeInput, serverLevel);
-
-            // Reset and cancel
-            if (recipeHolder.isEmpty() || !canBrush(recipeHolder.get(), singleRecipeInput, entity.items, entity.getMaxStackSize()))
-            {
-                setBlockBrushing(world, blockPos, blockState, false);
-                entity.resetProgress();
-                return;
-            }
-
-            int brushSpeed = BetterBrushItem.tickRateOf(brushSlotContent);
-
-            //play sound once per brush stroke
-            if (entity.progress % brushSpeed == 0)
-                world.playSound(null, entity.worldPosition, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, BRUSH_SOUND_VOLUME, BRUSH_SOUND_PITCH);
-
-            //if the recipe is inside, set state to dusting
-            int progressStep = (int) Math.ceil((float) BrushItem.ANIMATION_DURATION / brushSpeed);
-            entity.progress += progressStep; //increase progress
-            setBlockBrushing(world, blockPos, blockState, true);
-            setChanged(world, blockPos, blockState);
-
-            //if crafting progress is bigger or as big as the maxProgress, then craft the Item, else reset the timer
-            if (entity.progress >= MAX_PROGRESS)
-                entity.craftItem(serverLevel, recipeHolder.get(), singleRecipeInput, entity.items);
-        } else
-        {
-            entity.resetProgress(); //resets crafting progress
-            setBlockBrushing(world, blockPos, blockState, false);
-            entity.setChanged();
-        }
+        SingleRecipeInput recipeInput = new SingleRecipeInput(input);
+        RecipeHolder<IdentifyingRecipe> recipe = getRecipeOrRandomMatching(recipeInput, serverLevel).orElse(null);
+        ItemStack result = recipe == null ? ItemStack.EMPTY : recipe.value().assemble(recipeInput);
+        this.cachedRecipe = new CachedRecipe(recipeManager, input.copyWithCount(1), recipe, result);
+        return this.cachedRecipe;
     }
 
-    private static void setBlockBrushing(Level world, BlockPos blockPos, BlockState blockState, boolean brushing)
+    public static void tick(Level level, BlockPos pos, BlockState state, ArcheologyTableBlockEntity table)
     {
-        world.setBlock(blockPos, blockState.setValue(ArchelogyTable.DUSTING, brushing), 3);
-        setChanged(world, blockPos, blockState);
+        if (!(level instanceof ServerLevel serverLevel)) return;
+
+        ItemStack brush = table.items.getFirst();
+        CachedRecipe match = table.findRecipe(serverLevel, table.items.get(1));
+        if (!(brush.getItem() instanceof BrushItem) || match.recipe() == null || !table.fitsInOutput(match.result()))
+        {
+            table.stopBrushing(level, pos, state);
+            return;
+        }
+
+        int brushSpeed = BetterBrushItem.tickRateOf(brush);
+        //play sound once per brush stroke
+        if (table.progress % brushSpeed == 0)
+            level.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, BRUSH_SOUND_VOLUME, BRUSH_SOUND_PITCH);
+
+        table.progress += Mth.positiveCeilDiv(BrushItem.ANIMATION_DURATION, brushSpeed);
+        setDusting(level, pos, state, true);
+        // Only marks the chunk for saving: the open screen gets progress through ContainerData, so no block update is sent.
+        level.blockEntityChanged(pos);
+
+        if (table.progress >= MAX_PROGRESS)
+            table.craftItem(serverLevel, match);
+    }
+
+    // Runs every tick on an idle table, so it only writes when something actually changes.
+    private void stopBrushing(Level level, BlockPos pos, BlockState state)
+    {
+        setDusting(level, pos, state, false);
+        if (this.progress == 0) return;
+
+        this.progress = 0;
+        level.blockEntityChanged(pos);
+    }
+
+    private static void setDusting(Level level, BlockPos pos, BlockState state, boolean dusting)
+    {
+        if (state.getValue(ArchelogyTable.DUSTING) != dusting)
+            level.setBlock(pos, state.setValue(ArchelogyTable.DUSTING, dusting), Block.UPDATE_ALL);
     }
 
     @Override
@@ -210,59 +212,32 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         return null;
     }
 
-    private void craftItem(ServerLevel serverLevel, RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> contents)
+    private void craftItem(ServerLevel serverLevel, CachedRecipe match)
     {
-        if (recipeHolder == null || !canBrush(recipeHolder, singleRecipeInput, contents, this.getMaxStackSize()))
-            return;
-
-        //remove input from slot
-        ItemStack stack = this.items.get(1);
-        stack.shrink(1);
-        this.items.set(1, stack);
-
-        ItemStack brush = this.items.getFirst();
-        brush.hurtAndBreak(1, serverLevel, null, item -> serverLevel.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.25f, 1f));
-
-        //play sound after crafting
+        this.items.get(1).shrink(1);
+        this.items.getFirst().hurtAndBreak(1, serverLevel, null, item -> serverLevel.playSound(null, this.worldPosition, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.25f, 1f));
         serverLevel.playSound(null, this.worldPosition, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 0.5f, 1f);
-        this.setRecipeUsed(recipeHolder);
+        this.setRecipeUsed(match.recipe());
 
-        ItemStack resultStack = recipeHolder.value().assemble(singleRecipeInput);
-        ItemStack stackInOutput = contents.get(2).copy();
+        ItemStack output = this.items.get(2);
+        if (output.isEmpty())
+            this.items.set(2, match.result().copy());
+        else
+            output.grow(match.result().getCount());
 
-        if (stackInOutput.isEmpty())
-        {
-            this.items.set(2, resultStack.copy());
-        } else if (ItemStack.isSameItemSameComponents(stackInOutput, resultStack))
-        {
-            stackInOutput.grow(resultStack.getCount());
-            this.items.set(2, stackInOutput);
-        }
-
-        this.resetProgress(); //resets crafting progress
+        this.progress = 0;
+        // Re-roll the recipe for the next craft, in case several recipes match this input.
+        this.cachedRecipe = null;
         this.setChanged();
     }
 
-    private static boolean canBrush(@Nullable RecipeHolder<IdentifyingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int maxStackSize)
+    private boolean fitsInOutput(ItemStack result)
     {
-        if (nonNullList.getFirst().isEmpty() || recipeHolder == null)
-            return false;
+        ItemStack output = this.items.get(2);
+        if (result.isEmpty()) return false;
+        if (output.isEmpty()) return true;
 
-        ItemStack potResult = recipeHolder.value().assemble(singleRecipeInput);
-        if (potResult.isEmpty())
-            return false;
-
-        ItemStack stackInOutput = nonNullList.get(2);
-        if (stackInOutput.isEmpty())
-            return true;
-
-        if (!ItemStack.isSameItemSameComponents(potResult, stackInOutput))
-            return false;
-
-        if (potResult.getCount() < maxStackSize && stackInOutput.getCount() < stackInOutput.getMaxStackSize())
-            return true;
-
-        return stackInOutput.getCount() < potResult.getMaxStackSize();
+        return ItemStack.isSameItemSameComponents(result, output) && output.getCount() + result.getCount() <= output.getMaxStackSize();
     }
 
     // INVENTORY HANDLING ──────────────────────────────────────────────────────────────────────────
@@ -384,12 +359,10 @@ public class ArcheologyTableBlockEntity extends BaseContainerBlockEntity impleme
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(valueInput, this.items);
 
-        this.progress = valueInput.getShortOr("archeology_table", (short) 0);
+        this.progress = valueInput.getShortOr("archeology_table.progress", (short) 0);
 
         this.recipesUsed.clear();
         this.recipesUsed.putAll(valueInput.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
-
-        this.setChanged();
     }
 
     // MISC ──────────────────────────────────────────────────────────────────────────

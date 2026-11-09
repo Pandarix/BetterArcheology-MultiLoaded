@@ -15,6 +15,8 @@ and everything until the next one) is uploaded.
 - The Archeologist's catacombs explorer map now finds catacombs. Catacombs generate in their own structure set with the same placement as woodland mansions: about as often as before, but evenly spread. The map searches as far as a woodland mansion map. Already generated chunks keep their structures
 - Removed Better Archeology's outdated Cristel Lib config files, which current Cristel Lib versions never read and which only logged an "old path" warning (#61). Cristel Lib generates the structure configs for Better Archeology automatically, including the new catacombs structure set
 - Tunneling no longer breaks unbreakable blocks such as bedrock, or command and structure blocks, below the mined block. This could happen when the "effective tool only" option was turned off
+- Improved Archeology Table performance, especially for tables that sit idle (#66)
+- The Archeology Table keeps its brushing progress when the world is saved and reloaded
 
 ## Better Archeology 1.3.9
 

@@ -2,17 +2,13 @@ package net.Pandarix.block.custom;
 
 import net.Pandarix.block.entity.ArcheologyTableBlockEntity;
 import net.Pandarix.block.entity.ModBlockEntities;
-import net.Pandarix.item.BetterBrushItem;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -111,18 +107,8 @@ public class ArchelogyTable extends BaseEntityBlock
         super.animateTick(pState, pLevel, pPos, pRandom);
     }
 
-    public void addDustParticles(Level pLevel, BlockPos pos, RandomSource random)
+    private void addDustParticles(Level pLevel, BlockPos pos, RandomSource random)
     {
-        ArcheologyTableBlockEntity entity = (ArcheologyTableBlockEntity) pLevel.getBlockEntity(pos);
-        if (entity == null) return;
-
-        ItemStack brush = entity.getItems().getFirst();
-        int brushSpeed = BetterBrushItem.tickRateOf(brush);
-
-        //play sound once per brush stroke
-        if (entity.getProgress() % brushSpeed == 0)
-            pLevel.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, ArcheologyTableBlockEntity.BRUSH_SOUND_VOLUME, ArcheologyTableBlockEntity.BRUSH_SOUND_PITCH);
-
         int particleCount = random.nextIntBetweenInclusive(MIN_DUST_PARTICLES, MAX_DUST_PARTICLES);
         BlockParticleOption sandDust = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SAND.defaultBlockState());
         IntStream.range(0, particleCount).forEach(i -> pLevel.addParticle(sandDust,
